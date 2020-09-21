@@ -725,8 +725,6 @@ b {
     margin-left: 269px;
 }
 
-
-
 .community_icon {
     margin-top: 34px;
     margin-left: 127px;
@@ -753,7 +751,7 @@ b {
     color: #4e4e4e;
     text-align: center;
     line-height: 20px;
-    margin-top: 12px;
+    margin-top: 10px;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -814,7 +812,7 @@ b {
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #373737;
-    margin-bottom: 21px;
+    margin-bottom: 20px;
 }
 
 .implement_text_content_blocK {
@@ -826,7 +824,7 @@ b {
     font-size: 14px;
     line-height: 145%;
     color: #4E4E4E;
-    margin-bottom: 29px;
+    margin-bottom: 30px;
 }
 
 .implement_tbn_get_started {
@@ -1045,7 +1043,7 @@ b {
 }
 
 .footer_item:last-child {
-    margin-left: 448px;
+    margin-left: 447px;
 }
 
 .footer_link {
