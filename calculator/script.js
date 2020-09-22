@@ -42,26 +42,39 @@ function pressNumber(number) {
 }
 
 function pressOperation(oper) {
+
     let localOperationMemory = display.value;
 
-    if (MemoryNewNumber && MemoryPendingOperation !== '=') {
+    if (MemoryNewNumber && MemoryPendingOperation !== '=' && MemoryPendingOperation !== String.fromCharCode(8730)) {
         display.value = MemoryCurrentNumber;
     } else {
         MemoryNewNumber = true;
-        if (MemoryPendingOperation === '+') {
-            MemoryCurrentNumber += +localOperationMemory;
-        } else if (MemoryPendingOperation === '-') {
-            MemoryCurrentNumber -= +localOperationMemory;
-        } else if (MemoryPendingOperation === '*') {
-            MemoryCurrentNumber *= +localOperationMemory;
-        } else if (MemoryPendingOperation === '/') {
-            MemoryCurrentNumber /= +localOperationMemory;
-        } else {
-            MemoryCurrentNumber = +localOperationMemory;
+        switch (MemoryPendingOperation) {
+            case '+':
+                MemoryCurrentNumber += +localOperationMemory;
+                break;
+            case '-':
+                MemoryCurrentNumber -= +localOperationMemory;
+                break;
+            case '*':
+                MemoryCurrentNumber *= +localOperationMemory;
+                break;
+            case '/':
+                MemoryCurrentNumber /= +localOperationMemory;
+                break;
+            case String.fromCharCode(94):
+                MemoryCurrentNumber =  Math.pow(MemoryCurrentNumber, +localOperationMemory);
+                break;
+            default:
+                MemoryCurrentNumber = +localOperationMemory;
+                break;
         }
-        display.value = MemoryCurrentNumber;
-        MemoryPendingOperation = oper;
+        if (oper === String.fromCharCode(8730)) {
+            MemoryCurrentNumber = Math.sqrt(MemoryCurrentNumber);
+        }
     }
+    display.value = MemoryCurrentNumber;
+    MemoryPendingOperation = oper;
 }
 
 function pressDecimal() {
