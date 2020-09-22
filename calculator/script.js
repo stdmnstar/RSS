@@ -7,6 +7,7 @@ const result = document.getElementById('result');
 let MemoryCurrentNumber = 0;
 let MemoryNewNumber = false;
 let MemoryPendingOperation = '';
+let EndOperation = true;
 
 for (var i = 0; i < numbers.length; i++) {
     numbers[i].addEventListener('click', function (e) {
@@ -29,6 +30,7 @@ for (var i = 0; i < clearBtns.length; i++) {
 decimalBtn.addEventListener('click', pressDecimal);
 
 function pressNumber(number) {
+    EndOperation = false;
     if (MemoryNewNumber) {
         display.value = number;
         MemoryNewNumber = false;
@@ -39,16 +41,31 @@ function pressNumber(number) {
             display.value += number;
         }
     }
-}
+} 
 
-function pressOperation(oper) {
-
+function pressOperation(oper) {  
+    
     let localOperationMemory = display.value;
 
+    if ( oper === '-' && EndOperation) {
+        display.value = '-';
+        EndOperation = false;
+        MemoryNewNumber = false;     
+        return;        
+    }
+    if (localOperationMemory === '-') {
+        if (oper === '-') {
+            display.value = '0';
+            EndOperation = true;
+        }
+        return;
+    }
+
+    EndOperation = true;
     if (MemoryNewNumber && MemoryPendingOperation !== '=' && MemoryPendingOperation !== String.fromCharCode(8730)) {
-        display.value = MemoryCurrentNumber;
+        display.value = MemoryCurrentNumber;        
     } else {
-        MemoryNewNumber = true;
+        MemoryNewNumber = true;        
         switch (MemoryPendingOperation) {
             case '+':
                 MemoryCurrentNumber += +localOperationMemory;
@@ -69,11 +86,15 @@ function pressOperation(oper) {
                 MemoryCurrentNumber = +localOperationMemory;
                 break;
         }
+        
         if (oper === String.fromCharCode(8730)) {
             MemoryCurrentNumber = Math.sqrt(MemoryCurrentNumber);
-        }
+            if (isNaN(MemoryCurrentNumber)) {
+                MemoryCurrentNumber = 'Error';
+              }
+        }       
     }
-    display.value = MemoryCurrentNumber;
+    display.value = MemoryCurrentNumber;    
     MemoryPendingOperation = oper;
 }
 
@@ -91,7 +112,7 @@ function pressDecimal() {
     display.value = localDecimalMemory;
 }
 
-function clear(typeClear) {
+function clear(typeClear) {    
     if (typeClear === 'ce') {
         display.value = '0';
         MemoryNewNumber = true;
