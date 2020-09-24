@@ -41,17 +41,17 @@ function pressNumber(number) {
             display.value += number;
         }
     }
-} 
+}
 
-function pressOperation(oper) {  
-    
+function pressOperation(oper) {
+
     let localOperationMemory = display.value;
 
-    if ( oper === '-' && EndOperation) {
+    if (oper === '-' && EndOperation) {
         display.value = '-';
         EndOperation = false;
-        MemoryNewNumber = false;     
-        return;        
+        MemoryNewNumber = false;
+        return;
     }
     if (localOperationMemory === '-') {
         if (oper === '-') {
@@ -63,9 +63,9 @@ function pressOperation(oper) {
 
     EndOperation = true;
     if (MemoryNewNumber && MemoryPendingOperation !== '=' && MemoryPendingOperation !== String.fromCharCode(8730)) {
-        display.value = MemoryCurrentNumber;        
+        display.value = MemoryCurrentNumber;
     } else {
-        MemoryNewNumber = true;        
+        MemoryNewNumber = true;
         switch (MemoryPendingOperation) {
             case '+':
                 MemoryCurrentNumber += +localOperationMemory;
@@ -79,22 +79,24 @@ function pressOperation(oper) {
             case '/':
                 MemoryCurrentNumber /= +localOperationMemory;
                 break;
-            case String.fromCharCode(94):
-                MemoryCurrentNumber =  Math.pow(MemoryCurrentNumber, +localOperationMemory);
+            case 'xy':
+                MemoryCurrentNumber = Math.pow(MemoryCurrentNumber, +localOperationMemory);
                 break;
             default:
                 MemoryCurrentNumber = +localOperationMemory;
                 break;
         }
-        
+
         if (oper === String.fromCharCode(8730)) {
             MemoryCurrentNumber = Math.sqrt(MemoryCurrentNumber);
-            if (isNaN(MemoryCurrentNumber)) {
-                MemoryCurrentNumber = 'Error';
-              }
-        }       
+        } else {
+           MemoryCurrentNumber = +MemoryCurrentNumber.toFixed(15);
+        }
     }
-    display.value = MemoryCurrentNumber;    
+    if (isNaN(MemoryCurrentNumber) || MemoryCurrentNumber === Infinity || MemoryCurrentNumber === -Infinity) {
+        MemoryCurrentNumber = 'Error';
+    }
+    display.value = MemoryCurrentNumber;
     MemoryPendingOperation = oper;
 }
 
@@ -112,7 +114,7 @@ function pressDecimal() {
     display.value = localDecimalMemory;
 }
 
-function clear(typeClear) {    
+function clear(typeClear) {
     if (typeClear === 'ce') {
         display.value = '0';
         MemoryNewNumber = true;

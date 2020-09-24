@@ -8,11 +8,14 @@ body {
 }
 .text{
   color: #1464a1;
-  width: 250px;
+  width: 350px;
   margin-left: 30px;
-  margin-top: 200px;
+  margin-top: 100px;
   font-size: 16px;
-  text-align: center;
+  
+}
+.eng {
+  margin-bottom: 100px;
 }
 .calc {
   background-color: #1c93ee;
@@ -62,12 +65,7 @@ body {
 .btn:active {
   transform: translateY(-1px);
 }
-/*.btn-long {
-  width: 183px;
-}
-.btn-equal {
-  height: 145px;
-}*/
+
 input,
 button {
   padding: 5px 15px;
@@ -103,8 +101,8 @@ button {
   .btn {
     width: 64px;
   }
-  .btn-long {
-    width: 140px;
+  .text {
+    display: none;
   }
 }
 @media screen and (max-width: 400px) {
@@ -117,7 +115,4 @@ button {
   .btn {
     width: 60px;
   }
-  .btn-long {
-    width: 132px;
-  }
-}
+  
