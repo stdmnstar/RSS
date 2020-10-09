@@ -1,0 +1,434 @@
+@import "normalize";
+
+@import "constants";
+@import "mixins";
+
+@import "base";
+@import "stylesheet";
+
+
+
+.wrapper {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    max-width: 120rem;
+    flex: 1;
+}
+
+.header {
+    position: absolute;
+    top: 6.1rem;
+    width: 100vw;
+    max-width: 100%;
+
+    .logo {
+        display: flex;
+        flex-direction: column;
+
+        &__title {
+            margin: 0;
+            @include font-logo_title;
+            color: $color-primary;
+        }
+
+        &__subtitle {
+            margin-top: 0.9rem;
+            @include font-logo_subtitle;
+            color: $color-light-xl;
+            text-align: center;
+        }
+    }
+
+    .menu {
+        width: 44.3rem;
+        display: flex;
+
+        .list {
+            width: 100%;
+            display: flex;
+            margin-top: -0.3rem;
+            justify-content: space-between;
+            list-style-type: none;
+
+            &__item {
+                display: flex;
+                align-items: center;
+            }
+
+            &__link {
+                @include font-paragraph-l;
+                color: $color-light-xl;
+
+                &:hover {
+                    color: $color-light-s;
+                }
+
+                &_active {
+                    border-bottom: solid 0.3rem $color-primary;
+                }
+
+                &_disable {
+                    color: $color-dark-s;
+                }
+            }
+
+        }
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.not-only {
+    display: flex;
+    background: url('/shelter/assets/images/noise_transparent@2x.png'), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+    padding-top: 18rem;
+
+    &__content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .content-section {
+            padding-bottom: 8rem;
+            max-width: 48.6rem; //
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            &__title {
+                max-width: 31rem;
+                @include font-h2;
+                color: $color-light-xl;
+            }
+
+            &__subtitle {
+                margin-top: 4.2rem;
+                max-width: 46rem;
+                @include font-paragraph-l;
+                color: $color-dark-s;
+            }
+
+            &__button {
+                @include button-primary;
+                transition-duration: 0s;
+                margin-top: 4rem;
+            }
+        }
+    }
+
+    &__image-wrapper {
+        display: flex;
+    }
+
+    &__image {
+        width: 100%;
+        max-width: 69.8rem;
+        max-height: 72.8rem;
+    }
+}
+
+.about {
+    display: flex;
+
+    &__wrapper {
+        padding: 8rem 17.5rem 10rem 17.5rem;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    &__image-wrapper {
+        display: flex;
+
+        .about__image {
+            width: 100%;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 43rem;
+        //  padding-bottom: 0.1rem;
+    }
+
+    &__title {
+        max-width: 37rem;
+        @include font-h3;
+        color: $color-dark-l;
+    }
+
+    &__description {
+        margin-top: 2.4rem; //залан для p
+
+        @include font-paragraph-l;
+        color: $color-dark-xl;
+
+        p:nth-child(2) {
+            margin-top: 2.5rem;
+        }
+    }
+}
+
+
+
+.our-friends {
+    padding-top: 8.1rem;
+    padding-bottom: 10rem;
+    background: #F6F6F6;
+
+    &__wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title {
+        max-width: 40rem;
+        @include font-h3;
+        color: $color-dark-l;
+        text-align: center;
+    }
+
+    &__content {
+        //  width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &-cards {
+        display: flex;
+        padding: 5.9rem 0.8rem;
+
+        .our-friends-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.9rem;
+            margin: 0 4.5rem;
+            background: #FAFAFA;
+
+            &:hover {
+                box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+            }
+
+            &__image {
+                width: 100%;
+                border-radius: 9px 9px 0px 0px;
+
+            }
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 3.1rem;
+            }
+
+            &__title {
+                margin: 3rem 0;
+                @include font-h4;
+                text-align: center;
+
+            }
+
+            &__button {
+                @include button-secondary;
+                letter-spacing: 0.095rem;
+            }
+        }
+
+    }
+
+    &__button {
+        @include button-primary;
+        letter-spacing: 0.0996rem;
+    }
+}
+
+.slider-button {
+    @include slider-button;
+
+    &_reverted {
+        transform: rotate(180deg);
+    }
+}
+
+.help {
+    padding-top: 8.1rem;
+    padding-bottom: 10.1rem;
+
+    &__wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__heading {
+        max-width: 31rem;
+        @include font-h3;
+        color: $color-dark-l;
+        text-align: center;
+    }
+
+    &-content {
+        width: 100%;
+        padding-top: 0.3rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    &-card {
+        margin: 5.6rem 6rem 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__text {
+            padding-top: 2.9rem;
+            @include font-h4;
+            color: $color-dark-l;
+            text-align: center;
+        }
+    }
+}
+
+
+
+.addition {
+    display: flex;
+    background: #F6F6F6;
+
+
+    &__wrapper {
+        padding: 8.2rem 14.3rem 10.1rem 14.2rem;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    &__image-wrapper {
+        padding-top: 1rem;
+        // display: flex;
+    }
+
+    .addition_image {
+        width: 100%;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // padding-left: 3rem;
+        //   max-width: 43rem;
+    }
+
+    &__title {
+        //  max-width: 37rem;
+        @include font-h3;
+        color: $color-dark-l;
+    }
+
+    &__content-bank {
+        margin-top: 2rem;
+        @include font-h5;
+        color: $color-dark-l;
+    }
+
+    .credit-card {
+        max-width: 34.9rem;
+        display: flex;
+        align-items: center;
+
+        margin-top: 2rem;
+        @include font-h4;
+        color: $color-dark-l;
+
+        background: #F1CDB3;
+        border-radius: 9px;
+
+        &__image {
+            padding-left: 1.5rem;
+            padding-top: 0.5rem;
+        }
+
+        &__number {
+            padding: 1rem 0 1rem 1.5rem;
+            @include font-h4;
+            color: $color-dark-l;
+        }
+    }
+
+    &__content-text {
+        max-width: 38rem;
+        margin-top: 2rem;
+        @include font-donation-description;
+        color: $color-dark-m;
+    }
+}
+
+
+
+.footer {
+    display: flex;
+    background: url('/shelter/assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+
+    &__wrapper {
+        padding-top: 4rem;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 60px;
+        padding-top: 17px;
+    }
+
+    .second_column {
+        margin-left: -8px;
+    }
+
+    &__title {
+        @include font-h3;
+        color: $color-light-xl;
+    }
+
+    &__contact {
+        text-decoration: none;
+        @include font-h4;
+        color: $color-primary;
+        padding-left: 20px;
+    }
+
+    &__adress {
+        display: flex;
+        align-items: center;
+    }
+
+    &__email {
+        display: flex;
+        align-items: center;
+    }
+
+    &__phone {
+        display: flex;
+        align-items: center;
+    }
+
+    &__image {
+        margin-right: -1px;
+    }
+}
