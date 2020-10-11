@@ -1,0 +1,152 @@
+@mixin font-h2 {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 4.4rem;
+    line-height: 130%;
+}
+
+@mixin font-h3 {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 3.5rem;
+    line-height: 130%;
+    letter-spacing: 0.21rem;
+}
+
+@mixin font-h3-mobile {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2, 5rem;
+    line-height: 130%;
+    letter-spacing: 0.15rem;
+}
+
+@mixin font-h4 {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+    line-height: 115%;
+    letter-spacing: 0.12rem;
+}
+
+@mixin font-h5 {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+    line-height: 110%;
+    letter-spacing: 0.09rem;
+}
+
+@mixin font-paragraph-l {
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+    line-height: 160%;
+}
+
+@mixin font-paragraph-s {
+    font-family: Arial;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 150%;
+}
+
+@mixin font-logo_title {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 3.2rem;
+    line-height: 110%;
+    letter-spacing: 0.192rem;
+}
+
+@mixin font-logo_subtitle {
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.13rem;
+}
+
+@mixin font-donation-description {
+    font-family: Arial;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+@mixin button {
+    padding: 1.5rem 4.5rem;
+    border-radius: 10rem;
+    border: none;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.7rem;
+    line-height: 130%;
+    cursor: pointer;
+    outline: none;
+    transition-duration: 0.5s;
+    letter-spacing: 0.102rem;
+}
+
+@mixin button-primary {
+    @include button;
+    background-color: $color-primary;
+
+    &:hover {
+        background-color: $color-primary-light;
+    }
+}
+
+@mixin button-secondary {
+    @include button;
+    background: none;
+    box-shadow: inset 0 0 0 2px $color-primary;
+
+
+    &:hover {
+        box-shadow: none;
+        background-color: $color-primary-light;
+    }
+}
+
+@mixin slider-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5.2rem;
+    height: 5.2rem;
+    box-shadow: inset 0 0 0 0.2rem $color-primary;
+    border: none;
+    outline: none;
+    border-radius: 100%;
+    background: none;
+    transition-duration: 0.5s;
+
+    &_inactive {
+        box-shadow: inset 0 0 0 0.2rem $color-dark-s;
+    }
+
+    &_active {
+        box-shadow: none;
+        background-color: $color-primary;
+    }
+
+    &_normal:hover,
+    &_active:hover {
+        box-shadow: none;
+        background-color: $color-primary-light;
+        cursor: pointer;
+    }
+
+}

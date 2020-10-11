@@ -6,8 +6,6 @@
 @import "base";
 @import "stylesheet";
 
-
-
 .wrapper {
     margin: 0 auto;
     display: flex;
@@ -19,7 +17,7 @@
 .header {
     position: absolute;
     top: 6.1rem;
-    width: 100vw;
+    width: 100%;
     max-width: 100%;
 
     .logo {
@@ -68,11 +66,10 @@
                     border-bottom: solid 0.3rem $color-primary;
                 }
 
-                &_disable {
+                &_normal {
                     color: $color-dark-s;
                 }
             }
-
         }
     }
 }
@@ -84,7 +81,7 @@
 
 .not-only {
     display: flex;
-    background: url('/shelter/assets/images/noise_transparent@2x.png'), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+    background: url('../../assets/images/noise_transparent@2x.png'), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
     padding-top: 18rem;
 
     &__content {
@@ -154,6 +151,7 @@
         flex-direction: column;
         justify-content: center;
         max-width: 43rem;
+        padding-left: 0.1rem;
         //  padding-bottom: 0.1rem;
     }
 
@@ -175,8 +173,6 @@
     }
 }
 
-
-
 .our-friends {
     padding-top: 8.1rem;
     padding-bottom: 10rem;
@@ -190,14 +186,14 @@
     }
 
     &__title {
-        max-width: 40rem;
+        max-width: 40.3rem;
         @include font-h3;
         color: $color-dark-l;
         text-align: center;
+        padding-left: 0.3rem;
     }
 
     &__content {
-        //  width: 100%;
         display: flex;
         align-items: center;
     }
@@ -220,7 +216,6 @@
             &__image {
                 width: 100%;
                 border-radius: 9px 9px 0px 0px;
-
             }
 
             &__content {
@@ -234,20 +229,21 @@
                 margin: 3rem 0;
                 @include font-h4;
                 text-align: center;
-
+                padding-left: 3px;
             }
 
             &__button {
                 @include button-secondary;
+                margin-left: 1px;
                 letter-spacing: 0.095rem;
             }
         }
-
     }
 
     &__button {
         @include button-primary;
         letter-spacing: 0.0996rem;
+        margin-left: 2px;
     }
 }
 
@@ -275,6 +271,7 @@
         @include font-h3;
         color: $color-dark-l;
         text-align: center;
+        margin-left: 3px;
     }
 
     &-content {
@@ -301,12 +298,9 @@
     }
 }
 
-
-
 .addition {
     display: flex;
     background: #F6F6F6;
-
 
     &__wrapper {
         padding: 8.2rem 14.3rem 10.1rem 14.2rem;
@@ -316,8 +310,7 @@
     }
 
     &__image-wrapper {
-        padding-top: 1rem;
-        // display: flex;
+        padding-top: 1rem;       
     }
 
     .addition_image {
@@ -327,13 +320,10 @@
     &__content {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        // padding-left: 3rem;
-        //   max-width: 43rem;
+        justify-content: center;       
     }
 
-    &__title {
-        //  max-width: 37rem;
+    &__title {       
         @include font-h3;
         color: $color-dark-l;
     }
@@ -348,11 +338,9 @@
         max-width: 34.9rem;
         display: flex;
         align-items: center;
-
         margin-top: 2rem;
         @include font-h4;
         color: $color-dark-l;
-
         background: #F1CDB3;
         border-radius: 9px;
 
@@ -376,11 +364,9 @@
     }
 }
 
-
-
 .footer {
     display: flex;
-    background: url('/shelter/assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+    background: url('../../assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 
     &__wrapper {
         padding-top: 4rem;
@@ -403,6 +389,7 @@
 
     &__title {
         @include font-h3;
+        padding-left: 0.1rem;
         color: $color-light-xl;
     }
 
@@ -410,7 +397,7 @@
         text-decoration: none;
         @include font-h4;
         color: $color-primary;
-        padding-left: 20px;
+        padding-left: 2.1rem;
     }
 
     &__adress {
