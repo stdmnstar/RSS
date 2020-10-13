@@ -101,7 +101,7 @@
         @include font-h3;
         color: $color-dark-l;
         text-align: center;
-        padding-left: 0.3rem;
+        padding-left: 0.2rem;
     }
 
     &__content {
@@ -144,12 +144,12 @@
                 margin: 3rem 0;
                 @include font-h4;
                 text-align: center;
-                padding-left: 2px;
+                padding-left: 1px;
             }
 
             &__button {
                 @include button-secondary;
-                margin-left: 1px;
+              //  margin-left: 1px;
                 letter-spacing: 0.095rem;
             }
         }
@@ -200,7 +200,7 @@
     }
 
     .second_column {
-        margin-left: -0.8rem;
+        margin-left: -0.7rem;
     }
 
     &__title {
@@ -208,9 +208,6 @@
         color: $color-light-xl;
     }
 
-    .foter-span {
-        padding-left: 1px;
-    }
 
     &__contact {
         text-decoration: none;
@@ -234,7 +231,57 @@
         align-items: center;
     }
 
-    &__image {
-        margin-right: -1px;
+}
+
+.footer {
+    display: flex;
+    background: url('../../assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+
+    &__wrapper {
+        padding-top: 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 6rem;
+        padding-top: 1.7rem;
+    }
+
+    .second_column {
+        margin-left: -0.8rem;
+    }
+
+    &__title {
+        @include font-h3;
+        padding-left: 0.1rem;
+        color: $color-light-xl;
+    }
+
+    &__contact {
+        text-decoration: none;
+        @include font-h4;
+        color: $color-primary;
+        padding-left: 2.1rem;
+    }
+
+    &__adress {
+        display: flex;
+        align-items: center;
+    }
+
+    &__email {
+        display: flex;
+        align-items: center;
+    }
+
+    &__phone {
+        display: flex;
+        align-items: center;
     }
 }

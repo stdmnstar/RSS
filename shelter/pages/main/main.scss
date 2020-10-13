@@ -12,6 +12,10 @@
     justify-content: space-between;
     max-width: 120rem;
     flex: 1;
+
+    @include media-laptop {
+        max-width: 70.8rem;
+    }
 }
 
 .header {
@@ -19,6 +23,12 @@
     top: 6.1rem;
     width: 100%;
     max-width: 100%;
+
+    @include media-laptop {
+        top: 3.1rem;
+    }
+
+
 
     .logo {
         display: flex;
@@ -84,10 +94,26 @@
     background: url('../../assets/images/noise_transparent@2x.png'), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
     padding-top: 18rem;
 
+    @include media-laptop {
+        padding-top: 15.1rem;
+    }
+
+
+
     &__content {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
+
+        @include media-laptop {
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+
+
 
         .content-section {
             padding-bottom: 8rem;
@@ -107,13 +133,35 @@
                 max-width: 46rem;
                 @include font-paragraph-l;
                 color: $color-dark-s;
+
+
+                @include media-laptop {
+                    margin-top: 4.1rem;
+                }
             }
 
-            &__button {
-                @include button-primary;
-                transition-duration: 0s;
-                margin-top: 4rem;
+            &__button-wrapper {
+                .content-section__button {
+                    @include button-primary;
+                    transition-duration: 0s;
+                    margin-top: 4rem;
+
+                    @include media-laptop {
+                        margin-top: 4.2rem;
+                    }
+
+
+                }
+
+                @include media-laptop {
+                    align-self: center;
+                }
+
+
+
             }
+
+
         }
     }
 
@@ -125,6 +173,16 @@
         width: 100%;
         max-width: 69.8rem;
         max-height: 72.8rem;
+
+        @include media-laptop {
+            max-width: 56.9rem;
+            max-height: 59.3rem;
+            margin: 2rem 0 0 13.8rem;
+
+        }
+
+
+
     }
 }
 
@@ -136,10 +194,23 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+
+        @include media-laptop {
+            padding: 8.1rem 13.9rem 10rem 13.9rem;
+            flex-direction: column;
+            align-items: center;
+
+        }
     }
 
     &__image-wrapper {
         display: flex;
+
+        @include media-laptop {
+            order: 2;
+            width: 300px;
+            margin-top: 8rem;
+        }
 
         .about__image {
             width: 100%;
@@ -151,7 +222,7 @@
         flex-direction: column;
         justify-content: center;
         max-width: 43rem;
-        padding-left: 0.1rem;
+        //  padding-left: 0.1rem;
         //  padding-bottom: 0.1rem;
     }
 
@@ -162,7 +233,7 @@
     }
 
     &__description {
-        margin-top: 2.4rem; //залан для p
+        margin-top: 2.4rem;
 
         @include font-paragraph-l;
         color: $color-dark-xl;
@@ -172,6 +243,7 @@
         }
     }
 }
+
 
 .our-friends {
     padding-top: 8.1rem;
@@ -190,7 +262,7 @@
         @include font-h3;
         color: $color-dark-l;
         text-align: center;
-        padding-left: 0.3rem;
+        padding-left: 0.2rem;
     }
 
     &__content {
@@ -209,6 +281,17 @@
             margin: 0 4.5rem;
             background: #FAFAFA;
 
+            @include media-laptop {
+                margin: 0 2rem;
+
+                &:last-child {
+                    display: none;
+                }
+            }
+
+
+
+
             &:hover {
                 box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
             }
@@ -216,6 +299,10 @@
             &__image {
                 width: 100%;
                 border-radius: 9px 9px 0px 0px;
+
+                @include media-laptop {
+                    width: 27rem
+                }
             }
 
             &__content {
@@ -229,12 +316,12 @@
                 margin: 3rem 0;
                 @include font-h4;
                 text-align: center;
-                padding-left: 3px;
+                padding-left: 2px;
             }
 
             &__button {
                 @include button-secondary;
-                margin-left: 1px;
+                //  margin-left: 1px;
                 letter-spacing: 0.095rem;
             }
         }
@@ -243,7 +330,7 @@
     &__button {
         @include button-primary;
         letter-spacing: 0.0996rem;
-        margin-left: 2px;
+        // margin-left: 2px;
     }
 }
 
@@ -253,7 +340,15 @@
     &_reverted {
         transform: rotate(180deg);
     }
+
+    @include media-laptop {
+        margin: 0 -16px
+    }
 }
+
+
+
+
 
 .help {
     padding-top: 8.1rem;
@@ -271,7 +366,7 @@
         @include font-h3;
         color: $color-dark-l;
         text-align: center;
-        margin-left: 3px;
+        margin-left: 2px;
     }
 
     &-content {
@@ -284,16 +379,24 @@
     }
 
     &-card {
-        margin: 5.6rem 6rem 0;
+        margin: 5.6rem 6rem -0.1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
 
+        @include media-laptop {
+            margin: 5.6rem 3rem -0.1rem;
+        }
+
         &__text {
-            padding-top: 2.9rem;
+            padding-top: 3rem;
             @include font-h4;
             color: $color-dark-l;
             text-align: center;
+
+            @include media-laptop {
+                width: 17rem;
+            }
         }
     }
 }
@@ -307,10 +410,22 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+
+        @include media-laptop {
+            flex-direction: column;
+            align-items: center;
+            padding: 8.1rem 10.2rem 9.8rem 10.1rem;
+        }
     }
 
     &__image-wrapper {
-        padding-top: 1rem;       
+        padding-top: 1rem;
+
+        @include media-laptop {
+            width: 50.5rem;
+            padding-top: 6rem;
+            order: 2;
+        }
     }
 
     .addition_image {
@@ -320,10 +435,10 @@
     &__content {
         display: flex;
         flex-direction: column;
-        justify-content: center;       
+        justify-content: center;
     }
 
-    &__title {       
+    &__title {
         @include font-h3;
         color: $color-dark-l;
     }
@@ -371,20 +486,31 @@
     &__wrapper {
         padding-top: 4rem;
         display: flex;
+        flex-wrap: wrap;
         width: 100%;
         justify-content: space-between;
+
+        @include media-laptop {
+            padding: 1.4rem 4.1rem 0 3.4rem;
+        }
     }
 
     &__column {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding-bottom: 60px;
-        padding-top: 17px;
+        padding-bottom: 6rem;
+        padding-top: 1.7rem;
+
+        @include media-laptop {
+            padding-bottom: 6.3rem;
+        }
+
+
     }
 
     .second_column {
-        margin-left: -8px;
+        margin-left: -0.8rem;
     }
 
     &__title {
@@ -408,14 +534,25 @@
     &__email {
         display: flex;
         align-items: center;
+
+        @include media-laptop {
+            margin-top: 3.9rem;
+        }
     }
 
     &__phone {
         display: flex;
         align-items: center;
+
+        @include media-laptop {
+            margin-top: 3.8rem;
+        }
     }
 
     &__image {
-        margin-right: -1px;
+
+        @include media-laptop {
+            margin-left: 17rem;
+        }
     }
 }
