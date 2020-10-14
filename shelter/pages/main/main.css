@@ -689,6 +689,7 @@ a {
 .our-friends-cards .our-friends-card:hover {
   -webkit-box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
           box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+  background: #FFFFFF;
 }
 
 .our-friends-cards .our-friends-card__image {

@@ -277,6 +277,12 @@ a {
           flex: 1;
 }
 
+@media screen and (max-width: 1279px) {
+  .wrapper {
+    max-width: 70.8rem;
+  }
+}
+
 .header {
   position: fixed;
   top: 0rem;
@@ -386,6 +392,12 @@ a {
   background: #F6F6F6;
 }
 
+@media screen and (max-width: 1279px) {
+  .our-friends {
+    padding-bottom: 7.6rem;
+  }
+}
+
 .our-friends__wrapper {
   width: 100%;
   display: -webkit-box;
@@ -436,6 +448,12 @@ a {
       flex-wrap: wrap;
 }
 
+@media screen and (max-width: 1279px) {
+  .our-friends-cards {
+    padding: 0 44px;
+  }
+}
+
 .our-friends-cards .our-friends-card {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -449,9 +467,19 @@ a {
   background: #FAFAFA;
 }
 
+@media screen and (max-width: 1279px) {
+  .our-friends-cards .our-friends-card {
+    margin: 2.9rem 2rem 0;
+  }
+  .our-friends-cards .our-friends-card:nth-last-child(-n+2) {
+    display: none;
+  }
+}
+
 .our-friends-cards .our-friends-card:hover {
   -webkit-box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
           box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+  background: #FFFFFF;
 }
 
 .our-friends-cards .our-friends-card__image {
@@ -540,6 +568,12 @@ a {
   display: -ms-flexbox;
   display: flex;
   margin-top: 2.9rem;
+}
+
+@media screen and (max-width: 1279px) {
+  .our-friends-slider {
+    margin-top: 3.9rem;
+  }
 }
 
 .our-friends-slider .slider-button {
@@ -700,6 +734,12 @@ a {
           justify-content: space-between;
 }
 
+@media screen and (max-width: 1279px) {
+  .footer__wrapper {
+    padding: 1.4rem 4.1rem 0 3.4rem;
+  }
+}
+
 .footer__column {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -713,6 +753,12 @@ a {
           justify-content: space-between;
   padding-bottom: 6rem;
   padding-top: 1.7rem;
+}
+
+@media screen and (max-width: 1279px) {
+  .footer__column {
+    padding-bottom: 6.3rem;
+  }
 }
 
 .footer .second_column {
@@ -760,6 +806,12 @@ a {
           align-items: center;
 }
 
+@media screen and (max-width: 1279px) {
+  .footer__email {
+    margin-top: 3.9rem;
+  }
+}
+
 .footer__phone {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -767,5 +819,17 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+@media screen and (max-width: 1279px) {
+  .footer__phone {
+    margin-top: 3.8rem;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .footer__image {
+    margin-left: 17rem;
+  }
 }
 /*# sourceMappingURL=pets.css.map */

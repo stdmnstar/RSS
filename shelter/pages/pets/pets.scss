@@ -12,6 +12,10 @@
     justify-content: space-between;
     max-width: 120rem;
     flex: 1;
+
+    @include media-laptop {
+        max-width: 70.8rem;
+    }
 }
 
 .header {
@@ -89,6 +93,10 @@
     padding-bottom: 10rem;
     background: #F6F6F6;
 
+    @include media-laptop {
+        padding-bottom: 7.6rem;
+    }
+
     &__wrapper {
         width: 100%;
         display: flex;
@@ -116,15 +124,30 @@
         padding: 3rem 0;
         flex-wrap: wrap;
 
+        @include media-laptop {
+            padding: 0 44px;
+        }
+
         .our-friends-card {
             display: flex;
             flex-direction: column;
             border-radius: 0.9rem;
             margin-top: 2.9rem;
-            background: #FAFAFA;
+            background: $color-light-s;
+
+            @include media-laptop {
+               margin: 2.9rem 2rem 0;
+               
+
+                &:nth-last-child(-n+2) {
+                    display: none;
+                }
+            }
+
 
             &:hover {
                 box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+                background: $color-light-xl;
             }
 
             &__image {
@@ -164,6 +187,9 @@
     &-slider {
         display: flex;
         margin-top: 2.9rem;
+        @include media-laptop {
+            margin-top: 3.9rem;
+        }
 
         .slider-button {
             margin: 0 1rem;
@@ -243,6 +269,10 @@
         flex-wrap: wrap;
         width: 100%;
         justify-content: space-between;
+
+        @include media-laptop {
+            padding: 1.4rem 4.1rem 0 3.4rem;
+        }
     }
 
     &__column {
@@ -251,6 +281,12 @@
         justify-content: space-between;
         padding-bottom: 6rem;
         padding-top: 1.7rem;
+
+        @include media-laptop {
+            padding-bottom: 6.3rem;
+        }
+
+
     }
 
     .second_column {
@@ -278,10 +314,25 @@
     &__email {
         display: flex;
         align-items: center;
+
+        @include media-laptop {
+            margin-top: 3.9rem;
+        }
     }
 
     &__phone {
         display: flex;
         align-items: center;
+
+        @include media-laptop {
+            margin-top: 3.8rem;
+        }
+    }
+
+    &__image {
+
+        @include media-laptop {
+            margin-left: 17rem;
+        }
     }
 }
