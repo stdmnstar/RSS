@@ -87,10 +87,10 @@ function pressOperation(oper) {
                 break;
         }
 
-        if (oper === String.fromCharCode(8730)) {
-            MemoryCurrentNumber = Math.sqrt(MemoryCurrentNumber);
+       if (oper === String.fromCharCode(8730)) {
+            MemoryCurrentNumber = +Math.sqrt(MemoryCurrentNumber).toFixed(13);
         } else {
-           MemoryCurrentNumber = +MemoryCurrentNumber.toFixed(15);
+           MemoryCurrentNumber = +MemoryCurrentNumber.toFixed(13);
         }
     }
     if (isNaN(MemoryCurrentNumber) || MemoryCurrentNumber === Infinity || MemoryCurrentNumber === -Infinity) {
