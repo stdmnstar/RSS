@@ -16,6 +16,10 @@
     @include media-laptop {
         max-width: 70.8rem;
     }
+
+    @include media-tablet {
+        max-width: 30rem;
+    }
 }
 
 .header {
@@ -48,6 +52,10 @@
     .menu {
         width: 44.3rem;
         display: flex;
+
+        @include media-tablet {
+            display: none;
+        }
 
         .list {
             width: 100%;
@@ -96,6 +104,10 @@
         padding-bottom: 7.6rem;
     }
 
+    @include media-tablet {
+        padding: 4.2rem 0;
+    }
+
     &__wrapper {
         width: 100%;
         display: flex;
@@ -109,6 +121,10 @@
         color: $color-dark-l;
         text-align: center;
         padding-left: 0.2rem;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+        }
     }
 
     &__content {
@@ -130,6 +146,10 @@
             column-gap: 4rem;
         }
 
+        @include media-tablet {
+            padding: 4.2rem 0 0;
+        }
+
         .our-friends-card {
             display: flex;
             flex-direction: column;
@@ -138,6 +158,12 @@
 
             @include media-laptop {
                 &:nth-last-child(-n+2) {
+                    display: none;
+                }
+            }
+
+            @include media-tablet {
+                &:nth-last-child(-n+5) {
                     display: none;
                 }
             }
@@ -179,6 +205,7 @@
         @include button-primary;
         letter-spacing: 0.0996rem;
         margin-left: 2px;
+        
     }
 
     &-slider {
@@ -189,11 +216,19 @@
             margin-top: 3.9rem;
         }
 
+        @include media-tablet {
+            margin-top: 4.1rem;
+        }
+
         .slider-button {
             margin: 0 1rem;
             @include slider-button;
             @include font-h4;
             color: $color-dark-3xl;
+
+            @include media-tablet {
+                margin: 0 0.5rem;
+            }
 
             &_inactive {
                 color: $color-dark-s;
@@ -216,6 +251,10 @@
         @include media-laptop {
             padding: 1.4rem 4.1rem 0 3.4rem;
         }
+
+        @include media-tablet {
+            padding: 1.4rem 0 0 0;
+        }
     }
 
     &__column {
@@ -228,16 +267,49 @@
         @include media-laptop {
             padding-bottom: 6.3rem;
         }
+
+        @include media-tablet {
+            padding-bottom: 2.1rem;
+            align-items: center;
+            padding-top: 1.6rem;
+        }
+
+        .inline {
+
+            @include media-tablet {
+                display: inline;
+
+            }
+        }
     }
 
     .second_column {
         margin-left: -0.8rem;
+
+        @include media-tablet {
+            margin-left: 0;
+            align-items: start;
+        }
     }
+
+    .second_column>.footer__title {
+        @include media-tablet {
+            width: 27rem;
+            text-align: center;
+            padding-left: 3rem;
+        }
+    }
+
 
     &__title {
         @include font-h3;
         padding-left: 0.1rem;
         color: $color-light-xl;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+            text-align: center;
+        }
     }
 
     &__contact {
@@ -250,6 +322,10 @@
     &__adress {
         display: flex;
         align-items: center;
+
+        @include media-tablet {
+            margin-top: 4rem;
+        }
     }
 
     &__email {
@@ -258,6 +334,10 @@
 
         @include media-laptop {
             margin-top: 3.9rem;
+        }
+
+        @include media-tablet {
+            margin-top: 4rem;
         }
     }
 
@@ -270,9 +350,21 @@
         }
     }
 
-    &__image {
+    &__image-wrapper {
+
+
         @include media-laptop {
             margin-left: 17rem;
         }
+
+        @include media-tablet {
+            width: 26rem;
+            //   height: 26.9rem;
+            margin: 1.8rem 0rem 0rem 2rem;
+        }
+    }
+
+    .footer_image {
+        width: 100%;
     }
 }
