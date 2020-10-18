@@ -16,6 +16,10 @@
     @include media-laptop {
         max-width: 70.8rem;
     }
+
+    @include media-tablet {
+        max-width: 30rem;
+    }
 }
 
 .header {
@@ -27,8 +31,6 @@
     @include media-laptop {
         top: 3.1rem;
     }
-
-
 
     .logo {
         display: flex;
@@ -51,6 +53,10 @@
     .menu {
         width: 44.3rem;
         display: flex;
+
+        @include media-tablet {
+            display: none;
+        }
 
         .list {
             width: 100%;
@@ -98,7 +104,9 @@
         padding-top: 15.1rem;
     }
 
-
+    @include media-tablet {
+        padding-top: 15rem;
+    }
 
     &__content {
         width: 100%;
@@ -111,10 +119,6 @@
             align-items: center;
         }
 
-
-
-
-
         .content-section {
             padding-bottom: 8rem;
             max-width: 48.6rem; //
@@ -126,6 +130,11 @@
                 max-width: 31rem;
                 @include font-h2;
                 color: $color-light-xl;
+
+                @include media-tablet {
+                    @include font-h3-mobile;
+                    text-align: center;
+                }
             }
 
             &__subtitle {
@@ -134,9 +143,13 @@
                 @include font-paragraph-l;
                 color: $color-dark-s;
 
-
                 @include media-laptop {
                     margin-top: 4.1rem;
+                }
+
+                @include media-tablet {
+                    text-align: center;
+                    margin-top: 4.2rem;
                 }
             }
 
@@ -149,19 +162,12 @@
                     @include media-laptop {
                         margin-top: 4.2rem;
                     }
-
-
                 }
 
                 @include media-laptop {
                     align-self: center;
                 }
-
-
-
             }
-
-
         }
     }
 
@@ -178,11 +184,12 @@
             max-width: 56.9rem;
             max-height: 59.3rem;
             margin: 2rem 0 0 13.8rem;
-
         }
 
-
-
+        @include media-tablet {
+            max-width: 26.1rem;
+            margin: 2.5rem 0 0 4rem;
+        }
     }
 }
 
@@ -199,7 +206,10 @@
             padding: 8.1rem 13.9rem 10rem 13.9rem;
             flex-direction: column;
             align-items: center;
+        }
 
+        @include media-tablet {
+            padding: 4.2rem 0rem 4.2rem 0rem;
         }
     }
 
@@ -208,8 +218,13 @@
 
         @include media-laptop {
             order: 2;
-            width: 300px;
+            width: 30rem;
             margin-top: 8rem;
+        }
+
+        @include media-tablet {
+            width: 26rem;
+            margin-top: 4.1rem;
         }
 
         .about__image {
@@ -222,14 +237,20 @@
         flex-direction: column;
         justify-content: center;
         max-width: 43rem;
-        //  padding-left: 0.1rem;
-        //  padding-bottom: 0.1rem;
     }
 
     &__title {
         max-width: 37rem;
         @include font-h3;
         color: $color-dark-l;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+        }
+
+        @include media-tablet {
+            text-align: center;
+        }
     }
 
     &__description {
@@ -240,15 +261,28 @@
 
         p:nth-child(2) {
             margin-top: 2.5rem;
+
+            @include media-tablet {
+                margin-top: 2.2rem;
+            }
+        }
+
+        @include media-tablet {
+            width: 27rem;
+            margin-top: 2.5rem;
+            text-align: justify;
         }
     }
 }
-
 
 .our-friends {
     padding-top: 8.1rem;
     padding-bottom: 10rem;
     background: #F6F6F6;
+
+    @include media-tablet {
+        padding: 4.2rem 0;
+    }
 
     &__wrapper {
         width: 100%;
@@ -263,16 +297,30 @@
         color: $color-dark-l;
         text-align: center;
         padding-left: 0.2rem;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+        }
     }
 
     &__content {
         display: flex;
         align-items: center;
+
+        @include media-tablet {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
     }
 
     &-cards {
         display: flex;
         padding: 5.9rem 0.8rem;
+
+        @include media-tablet {
+            order: -1;
+            padding: 4.2rem 0.8rem 1.9rem;
+        }
 
         .our-friends-card {
             display: flex;
@@ -289,8 +337,13 @@
                 }
             }
 
-
-
+            @include media-tablet {
+                @include media-laptop {
+                    &:nth-last-child(-n+2) {
+                        display: none;
+                    }
+                }
+            }
 
             &:hover {
                 box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
@@ -322,7 +375,6 @@
 
             &__button {
                 @include button-secondary;
-                //  margin-left: 1px;
                 letter-spacing: 0.095rem;
             }
         }
@@ -331,7 +383,6 @@
     &__button {
         @include button-primary;
         letter-spacing: 0.0996rem;
-        // margin-left: 2px;
     }
 }
 
@@ -345,15 +396,19 @@
     @include media-laptop {
         margin: 0 -16px
     }
+
+    @include media-tablet {
+        margin: 0 4rem 4.2rem;
+    }
 }
-
-
-
-
 
 .help {
     padding-top: 8.1rem;
-    padding-bottom: 10.1rem;
+    padding-bottom: 10rem;
+
+    @include media-tablet {
+        padding: 4.2rem 0;
+    }
 
     &__wrapper {
         width: 100%;
@@ -368,26 +423,40 @@
         color: $color-dark-l;
         text-align: center;
         margin-left: 2px;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+        }
     }
 
     &-content {
         width: 100%;
-        padding-top: 0.3rem;
+        padding-top: 5.9rem;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         justify-content: center;
+        column-gap: 12rem;
+        row-gap: 5.5rem;
+
+        @include media-laptop {
+            column-gap: 6rem;
+        }
+
+        @include media-tablet {
+            padding-top: 4.2rem;
+            column-gap: 3rem;
+            row-gap: 3rem;
+            justify-content: start;
+            margin-left: 1rem;
+
+        }
     }
 
     &-card {
-        margin: 5.6rem 6rem -0.1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-
-        @include media-laptop {
-            margin: 5.6rem 3rem -0.1rem;
-        }
 
         &__text {
             padding-top: 3rem;
@@ -398,6 +467,20 @@
             @include media-laptop {
                 width: 17rem;
             }
+
+            @include media-tablet {
+                @include font-h5;
+                width: 13rem;
+                padding-top: 2.1rem;
+            }
+        }
+
+        &__image {
+            @include media-tablet {
+                max-width: 50px;
+                max-height: 50px;
+            }
+
         }
     }
 }
@@ -417,6 +500,10 @@
             align-items: center;
             padding: 8.1rem 10.2rem 9.8rem 10.1rem;
         }
+
+        @include media-tablet {
+            padding: 4.2rem 0rem 4rem 0rem;
+        }
     }
 
     &__image-wrapper {
@@ -426,6 +513,11 @@
             width: 50.5rem;
             padding-top: 6rem;
             order: 2;
+        }
+
+        @include media-tablet {
+            width: 26rem;
+            padding-top: 4.3rem;
         }
     }
 
@@ -442,12 +534,23 @@
     &__title {
         @include font-h3;
         color: $color-dark-l;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+            text-align: center;
+        }
     }
 
     &__content-bank {
         margin-top: 2rem;
         @include font-h5;
         color: $color-dark-l;
+
+        @include media-tablet {
+            @include font-paragraph-l;
+            letter-spacing: 0;
+            text-align: center;
+        }
     }
 
     .credit-card {
@@ -460,6 +563,12 @@
         background: #F1CDB3;
         border-radius: 9px;
 
+        @include media-tablet {
+            margin-top: 2rem;
+            margin-left: -0.1rem;
+            max-width: 28.1rem;
+        }
+
         &__image {
             padding-left: 1.5rem;
             padding-top: 0.5rem;
@@ -469,6 +578,13 @@
             padding: 1rem 0 1rem 1.5rem;
             @include font-h4;
             color: $color-dark-l;
+
+            @include media-tablet {
+                padding: 1.4rem 0 1.3rem 1.5rem;
+                @include font-h5;
+                //  letter-spacing: 0;
+                text-align: center;
+            }
         }
     }
 
@@ -477,6 +593,11 @@
         margin-top: 2rem;
         @include font-donation-description;
         color: $color-dark-m;
+
+        @include media-tablet {
+            max-width: 28rem;
+            text-align: justify;
+        }
     }
 }
 
@@ -494,6 +615,10 @@
         @include media-laptop {
             padding: 1.4rem 4.1rem 0 3.4rem;
         }
+
+        @include media-tablet {
+            padding: 1.4rem 0 0 0;
+        }
     }
 
     &__column {
@@ -507,17 +632,50 @@
             padding-bottom: 6.3rem;
         }
 
+        @include media-tablet {
+            padding-bottom: 2.1rem;
+            align-items: center;
+            padding-top: 1.6rem;
+        }
 
+        .inline {
+
+            @include media-tablet {
+                display: inline;
+
+            }
+        }
     }
 
     .second_column {
         margin-left: -0.8rem;
+
+        @include media-tablet {
+            margin-left: 0;
+            align-items: start;
+        }
     }
+
+    .second_column>.footer__title {
+        @include media-tablet {
+            width: 27rem;
+            text-align: center;
+            padding-left: 3rem;
+        }
+
+
+    }
+
 
     &__title {
         @include font-h3;
         padding-left: 0.1rem;
         color: $color-light-xl;
+
+        @include media-tablet {
+            @include font-h3-mobile;
+            text-align: center;
+        }
     }
 
     &__contact {
@@ -530,6 +688,10 @@
     &__adress {
         display: flex;
         align-items: center;
+
+        @include media-tablet {
+            margin-top: 4rem;
+        }
     }
 
     &__email {
@@ -538,6 +700,10 @@
 
         @include media-laptop {
             margin-top: 3.9rem;
+        }
+
+        @include media-tablet {
+            margin-top: 4rem;
         }
     }
 
@@ -550,10 +716,21 @@
         }
     }
 
-    &__image {
+    &__image-wrapper {
+
 
         @include media-laptop {
             margin-left: 17rem;
         }
+
+        @include media-tablet {
+            width: 26rem;
+            //   height: 26.9rem;
+            margin: 1.8rem 0rem 0rem 2rem;
+        }
+    }
+
+    .footer_image {
+        width: 100%;
     }
 }

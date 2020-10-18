@@ -77,7 +77,6 @@
                     color: $color-dark-l;
                 }
             }
-
         }
     }
 }
@@ -121,24 +120,23 @@
         display: flex;
         justify-content: space-between;
         align-content: space-between;
-        padding: 3rem 0;
+        padding: 5.9rem 0 3rem;
         flex-wrap: wrap;
+        row-gap: 2.9rem;
 
         @include media-laptop {
-            padding: 0 44px;
+            padding: 2.9rem 0 0;
+            justify-content: center;
+            column-gap: 4rem;
         }
 
         .our-friends-card {
             display: flex;
             flex-direction: column;
             border-radius: 0.9rem;
-            margin-top: 2.9rem;
             background: $color-light-s;
 
             @include media-laptop {
-               margin: 2.9rem 2rem 0;
-               
-
                 &:nth-last-child(-n+2) {
                     display: none;
                 }
@@ -172,7 +170,6 @@
 
             &__button {
                 @include button-secondary;
-              //  margin-left: 1px;
                 letter-spacing: 0.095rem;
             }
         }
@@ -187,6 +184,7 @@
     &-slider {
         display: flex;
         margin-top: 2.9rem;
+
         @include media-laptop {
             margin-top: 3.9rem;
         }
@@ -200,63 +198,8 @@
             &_inactive {
                 color: $color-dark-s;
             }
-
         }
-
     }
-}
-
-.footer {
-    display: flex;
-    background: url('../../assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
-
-    &__wrapper {
-        padding-top: 4rem;
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    &__column {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-bottom: 6rem;
-        padding-top: 1.7rem;
-    }
-
-    .second_column {
-        margin-left: -0.7rem;
-    }
-
-    &__title {
-        @include font-h3;
-        color: $color-light-xl;
-    }
-
-
-    &__contact {
-        text-decoration: none;
-        @include font-h4;
-        color: $color-primary;
-        padding-left: 2rem;
-    }
-
-    &__adress {
-        display: flex;
-        align-items: center;
-    }
-
-    &__email {
-        display: flex;
-        align-items: center;
-    }
-
-    &__phone {
-        display: flex;
-        align-items: center;
-    }
-
 }
 
 .footer {
@@ -285,8 +228,6 @@
         @include media-laptop {
             padding-bottom: 6.3rem;
         }
-
-
     }
 
     .second_column {
@@ -330,7 +271,6 @@
     }
 
     &__image {
-
         @include media-laptop {
             margin-left: 17rem;
         }
