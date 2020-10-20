@@ -4,18 +4,42 @@ const date = document.querySelector('.date');
 const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
 const focus = document.querySelector('.focus');
+const btnChangeBackground = document.querySelector('.change-background');
+//const btnHour = document.querySelector('.hour');
 
+name.addEventListener('keypress', setName);
+name.addEventListener('blur', setName);
+name.addEventListener('click', nameClick);
+
+focus.addEventListener('keypress', setFocus);
+focus.addEventListener('blur', setFocus);
+focus.addEventListener('click', focusClick);
+
+btnChangeBackground.addEventListener('click', viewBgImage);
+
+//const gradient = 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5))';
 let nameOld = '';
 let focusOld = '';
+let hourLastChangeBackground = -1;
+let hourForViewBgImage = -1;
+const images = [];
+
+// Run
+showTime();
+initBgGreet();
+setBgGreet();
+getName();
+getFocus();
 
 // Show Time
 function showTime() {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-    'October', 'November', 'December'
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  //const today = new Date(2020, 09, 20, 5, 10, 10);
-    const today = new Date();
+  //const today = new Date(2020, 09, 20, 11, 10, 10);
+  const today = new Date();
 
   const hour = today.getHours();
   const min = today.getMinutes();
@@ -32,6 +56,10 @@ function showTime() {
   // Output Date
   date.innerHTML = `${daysOfWeek[day]}<span>,</span> ${dateOfMonth} ${months[month]} ${year}`;
 
+  if (hourLastChangeBackground !== hour) {
+    setBgGreet();
+  }
+
   setTimeout(showTime, 1000);
 }
 
@@ -40,37 +68,65 @@ function addZero(n) {
   return (parseInt(n, 10) < 10 ? '0' : '') + n;
 }
 
+function initBgGreet() {
+  const base = [
+    './assets/images/night/',
+    './assets/images/morning/',
+    './assets/images/day/',
+    './assets/images/evening/'
+  ];
+
+  const imagesNight = [
+    '01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg',
+    '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg',
+    '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg',
+    '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'
+  ];
+  const imagesMorningt = [...imagesNight];
+  const imagesAfternoon = [...imagesNight];
+  const imagesEvening = [...imagesNight];
+
+  shuffle(imagesNight);
+  shuffle(imagesMorningt);
+  shuffle(imagesAfternoon);
+  shuffle(imagesEvening);
+
+  for (let i = 0; i < 6; i++) {
+    images[i] = base[0] + imagesNight[i];
+    images[i + 6] = base[1] + imagesMorningt[i];
+    images[i + 12] = base[2] + imagesAfternoon[i];
+    images[i + 18] = base[3] + imagesEvening[i];
+  }
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 // Set Background and Greeting
 function setBgGreet() {
-  //const today = new Date(2020, 09, 20, 5, 10, 10);
+
+  //const today = new Date(2020, 09, 20, 11, 10, 10);
   const today = new Date();
   const hour = today.getHours();
 
+  document.body.style.backgroundImage = `url(${images[hour]})`;
+
   if (hour < 6) {
-    // Night
-    document.body.style.backgroundImage =
-      "url('./assets/images/night/19.jpg ')";
     greeting.textContent = 'Good Night, ';
-    document.body.style.color = 'white';
   } else if (hour < 12) {
-    // Morning
-    document.body.style.backgroundImage =
-      "url('./assets/images/morning/03.jpg ')";
     greeting.textContent = 'Good Morning, ';
-    document.body.style.color = 'white';
   } else if (hour < 18) {
-    // Afternoon
-    document.body.style.backgroundImage =
-      "url('./assets/images/day/20.jpg')";
     greeting.textContent = 'Good Afternoon, ';
-    document.body.style.color = 'white';
   } else {
-    // Evening
-    document.body.style.backgroundImage =
-      "url('./assets/images/evening/20.jpg')";
     greeting.textContent = 'Good Evening, ';
-    document.body.style.color = 'white';
   }
+
+  hourLastChangeBackground = hour;
+  hourForViewBgImage = hour;
 }
 
 // Get Name
@@ -134,22 +190,23 @@ function setFocus(e) {
   }
 }
 
-
 function focusClick(e) {
   focusOld = e.target.innerText;
   e.target.innerText = '';
 }
 
-name.addEventListener('keypress', setName);
-name.addEventListener('blur', setName);
-name.addEventListener('click', nameClick);
 
-focus.addEventListener('keypress', setFocus);
-focus.addEventListener('blur', setFocus);
-focus.addEventListener('click', focusClick);
+function viewBgImage(e) {
+  hourForViewBgImage++;
+ 
+  if (hourForViewBgImage > 23) {
+    hourForViewBgImage = 0;
+  }
+  const img = document.createElement('img');
+  img.src = `${images[hourForViewBgImage]}`;
+  img.onload = () => {
+    document.body.style.backgroundImage = `url(${images[hourForViewBgImage]})`;
+  };
 
-// Run
-showTime();
-setBgGreet();
-getName();
-getFocus();
+  e.target.innerText = `Background image for ${addZero(hourForViewBgImage)} h`;
+}
