@@ -5,6 +5,9 @@ const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
 const focus = document.querySelector('.focus');
 const btnChangeBackground = document.querySelector('.change-background');
+const blockquote = document.querySelector('.blockquote');
+const figcaption = document.querySelector('.figcaption');
+const changeQuote = document.querySelector('.change-quote');
 //const btnHour = document.querySelector('.hour');
 
 name.addEventListener('keypress', setName);
@@ -14,6 +17,9 @@ name.addEventListener('click', nameClick);
 focus.addEventListener('keypress', setFocus);
 focus.addEventListener('blur', setFocus);
 focus.addEventListener('click', focusClick);
+
+document.addEventListener('DOMContentLoaded', getQuote);
+changeQuote.addEventListener('click', getQuote);
 
 btnChangeBackground.addEventListener('click', viewBgImage);
 
@@ -198,7 +204,7 @@ function focusClick(e) {
 
 function viewBgImage(e) {
   hourForViewBgImage++;
- 
+
   if (hourForViewBgImage > 23) {
     hourForViewBgImage = 0;
   }
@@ -209,4 +215,21 @@ function viewBgImage(e) {
   };
 
   e.target.innerText = `Background image for ${addZero(hourForViewBgImage)} h`;
+}
+
+async function getQuote() {
+  const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.quoteAuthor !== '') {
+      figcaption.textContent = `${data.quoteAuthor}:`;
+    }
+    blockquote.textContent = `"${data.quoteText}"`;
+  } catch (error) {
+    blockquote.textContent = 'Unable to get quotes. Try it later.';
+    figcaption.textContent = 'API error:';
+  }
+
 }

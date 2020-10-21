@@ -27,28 +27,40 @@ body:before {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, .5);
   z-index: -1;
 }
 
 .btn {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  width:217px;
-  height: 30px;
-  padding-top: 7px;
+ 
   border: 0;
   background: url("./assets/icon/Update-Button-PNG-Image.png");
   background-size: contain;
   background-repeat: no-repeat;
-  filter: grayscale(1);
-  text-align: right;
+  filter: grayscale(0.8);
+  padding-top: 7px;
   font-size: 14px;
+  text-align: right;
+}
+
+.change-background {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  width:217px;
+  height: 30px;
+}
+
+.change-quote {
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  width:130px;
+  height: 30px;
 }
 
 .btn:hover {
-  filter: grayscale(.8);
+  filter: grayscale(.2);
 }
 
 .btn:active,
@@ -61,12 +73,13 @@ body:before {
 }
 
 .time {
-  font-size: 8rem;
+  font-size: 126px;
+  margin-top: 30px;
 }
 
 .date {
   font-size: 1.7rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem;
 }
 
 h1 {
@@ -85,6 +98,26 @@ span {
 h2 {
   margin-bottom: 0.5rem;
   opacity: 0.8;
+}
+
+.quote { 
+  margin:10px 34px 0;
+  font-size: 18px;
+  
+}
+
+.quote .figcaption {
+  text-align: left;
+}
+
+.blockquote {
+  height: 70px;
+  text-align: center;
+  font-style: italic;
+}
+
+.figcaption {
+  height: 25px;
 }
 
 @media (max-width: 700px) {
