@@ -4,11 +4,16 @@ const date = document.querySelector('.date');
 const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
 const focus = document.querySelector('.focus');
+
 const btnChangeBackground = document.querySelector('.change-background');
 const blockquote = document.querySelector('.blockquote');
 const figcaption = document.querySelector('.figcaption');
 const changeQuote = document.querySelector('.change-quote');
-//const btnHour = document.querySelector('.hour');
+
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
 
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
@@ -18,14 +23,18 @@ focus.addEventListener('keypress', setFocus);
 focus.addEventListener('blur', setFocus);
 focus.addEventListener('click', focusClick);
 
+document.addEventListener('DOMContentLoaded', getWeather);
 document.addEventListener('DOMContentLoaded', getQuote);
+
 changeQuote.addEventListener('click', getQuote);
 
 btnChangeBackground.addEventListener('click', viewBgImage);
 
-//const gradient = 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5))';
-let nameOld = '';
-let focusOld = '';
+city.addEventListener('keypress', setCity);
+city.addEventListener('blur', setCity);
+city.addEventListener('click', cityClick);
+
+
 let hourLastChangeBackground = -1;
 let hourForViewBgImage = -1;
 const images = [];
@@ -36,6 +45,7 @@ initBgGreet();
 setBgGreet();
 getName();
 getFocus();
+getCity();
 
 // Show Time
 function showTime() {
@@ -118,7 +128,6 @@ function setBgGreet() {
   //const today = new Date(2020, 09, 20, 11, 10, 10);
   const today = new Date();
   const hour = today.getHours();
-
   document.body.style.backgroundImage = `url(${images[hour]})`;
 
   if (hour < 6) {
@@ -138,10 +147,9 @@ function setBgGreet() {
 // Get Name
 function getName() {
   if (localStorage.getItem('name') === null) {
-    name.textContent = '[Enter Name]';
-  } else {
-    name.textContent = localStorage.getItem('name');
+    localStorage.setItem('name', '[Enter Name]');
   }
+  name.textContent = localStorage.getItem('name');
 }
 
 // Set Name
@@ -149,32 +157,27 @@ function setName(e) {
   if (e.type === 'keypress') {
     // Make sure enter is pressed    
     if (e.which == 13 || e.keyCode == 13) {
-      if ((e.target.innerText).trim() === '') {
-        e.target.innerText = nameOld;
+      if (e.target.innerText === '') {
+        getName();
       }
       localStorage.setItem('name', e.target.innerText);
       name.blur();
     }
   } else {
-    if ((e.target.innerText).trim() === '') {
-      e.target.innerText = nameOld;
-    }
-    localStorage.setItem('name', e.target.innerText);
+    getName();
   }
 }
 
 function nameClick(e) {
-  nameOld = e.target.innerText;
   e.target.innerText = '';
 }
 
 // Get Focus
 function getFocus() {
   if (localStorage.getItem('focus') === null) {
-    focus.textContent = '[Enter Focus]';
-  } else {
-    focus.textContent = localStorage.getItem('focus');
+    localStorage.setItem('focus', '[Enter Focus]');
   }
+  focus.textContent = localStorage.getItem('focus');
 }
 
 // Set Focus
@@ -183,21 +186,17 @@ function setFocus(e) {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
       if ((e.target.innerText).trim() === '') {
-        e.target.innerText = focusOld;
+        getFocus();
       }
       localStorage.setItem('focus', e.target.innerText);
       focus.blur();
     }
   } else {
-    if ((e.target.innerText).trim() === '') {
-      e.target.innerText = focusOld;
-    }
-    localStorage.setItem('focus', e.target.innerText);
+    getFocus()
   }
 }
 
 function focusClick(e) {
-  focusOld = e.target.innerText;
   e.target.innerText = '';
 }
 
@@ -214,7 +213,7 @@ function viewBgImage(e) {
     document.body.style.backgroundImage = `url(${images[hourForViewBgImage]})`;
   };
 
-  e.target.innerText = `Background image for ${addZero(hourForViewBgImage)} h`;
+  e.target.innerText = `Image for ${addZero(hourForViewBgImage)} h`;
 }
 
 async function getQuote() {
@@ -231,5 +230,56 @@ async function getQuote() {
     blockquote.textContent = 'Unable to get quotes. Try it later.';
     figcaption.textContent = 'API error:';
   }
+}
 
+async function getWeather() {
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=en&appid=bd0304550dcd2b56e363d6f9765cacee&units=metric`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+  
+    if (data.cod == 404) {
+      temperature.textContent = '- -';
+      weatherDescription.textContent = 'City not found';
+    } else {
+      weatherIcon.className = 'weather-icon owf';
+      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+      temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+      weatherDescription.textContent = data.weather[0].description;
+    }     
+
+  } catch (error) {
+    console.log(error.name, error.message);
+    temperature.textContent = '- -';
+    weatherDescription.textContent = 'API error';
+  }
+
+}
+
+function getCity() {
+  if (localStorage.getItem('city') === null) {
+    localStorage.setItem('city', '[Enter city]');
+  }
+  city.textContent = localStorage.getItem('city');
+}
+
+function setCity(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed    
+    if (e.which == 13 || e.keyCode == 13) {
+      if (e.target.innerText === '') {
+        getCity();
+      }
+      localStorage.setItem('city', e.target.innerText);
+      getWeather();
+      city.blur();
+    }
+  } else {
+    getCity();
+  }
+}
+
+function cityClick(e) {
+  e.target.innerText = '';
 }

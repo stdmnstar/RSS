@@ -5,26 +5,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <title>momentum</title>
+  <link rel="stylesheet" href="css/owfont-regular.css">
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Momentum</title>
 </head>
 
 <body>
-  <time class="time"></time>
-  <date class="date"></date>
-  <h1>
-    <span class="greeting"></span>
-    <span class="name" contenteditable="true"></span>
-  </h1>
-  <h2>What Is Your Focus For Today?</h2>
-  <h2 class="focus" contenteditable="true"></h2>
-  <figure class="quote">
-    <figcaption class="figcaption"></figcaption>
-    <blockquote class="blockquote"></blockquote>
-  </figure>
 
-  <div class="btn change-background">Change background image</div>
-  <div class="btn change-quote">Change quote</div>
+  <div class="weather-wrapper">
+    <h2 class="city" contenteditable="true"></h2>
+    <i class="weather-icon owf"></i>
+    <div class="temperature"></div>
+    <div class="weather-description"></div>
+  </div>
+  
+    <time class="time"></time>
+    <date class="date"></date>
+    <h1>
+      <span class="greeting"></span>
+      <span class="name" contenteditable="true"></span>
+    </h1>
+    <h2>What Is Your Focus For Today?</h2>
+    <h2 class="focus" contenteditable="true"></h2>
+    <figure class="quote">
+      <figcaption class="figcaption"></figcaption>
+      <div class="blockquote"></div>
+    </figure>
+  <div class="btn change-background">Change image</div>
+  <div class="btn change-quote">Quote</div>
 
   <script src="script.js"></script>
 </body>
