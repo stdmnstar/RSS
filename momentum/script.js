@@ -11,9 +11,11 @@ const figcaption = document.querySelector('.figcaption');
 const changeQuote = document.querySelector('.change-quote');
 
 const weatherIcon = document.querySelector('.weather-icon');
-const temperature = document.querySelector('.temperature');
-const weatherDescription = document.querySelector('.weather-description');
-const city = document.querySelector('.city');
+const temperature = document.querySelector('.weather__temperature');
+const humidity = document.querySelector('.weather__humidity');
+const windSpeed = document.querySelector('.weather__wind-speed');
+const weatherDescription = document.querySelector('.weather__description');
+const city = document.querySelector('.weather__city');
 
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
@@ -54,7 +56,7 @@ function showTime() {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  //const today = new Date(2020, 09, 20, 11, 10, 10);
+  
   const today = new Date();
 
   const hour = today.getHours();
@@ -66,8 +68,8 @@ function showTime() {
   const dateOfMonth = today.getDate();
   const year = today.getFullYear();
 
-  // Output Time
-  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`;
+  // Output Time  
+    time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`; 
 
   // Output Date
   date.innerHTML = `${daysOfWeek[day]}<span>,</span> ${dateOfMonth} ${months[month]} ${year}`;
@@ -192,7 +194,7 @@ function setFocus(e) {
       focus.blur();
     }
   } else {
-    getFocus()
+    getFocus();
   }
 }
 
@@ -238,21 +240,26 @@ async function getWeather() {
   try {
     const res = await fetch(url);
     const data = await res.json();
-  
+
     if (data.cod == 404) {
-      temperature.textContent = '- -';
-      weatherDescription.textContent = 'City not found';
+      temperature.textContent = '';
+      weatherDescription.textContent = '';
+      humidity.textContent = 'City not found';
+      windSpeed.textContent = '';
     } else {
       weatherIcon.className = 'weather-icon owf';
       weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-      temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+      temperature.textContent = `${data.main.temp.toFixed(0)}°C `;
+      humidity.textContent = `humidity: ${data.main.humidity.toFixed(0)}%`;
+      windSpeed.textContent = `wind speed: ${data.wind.speed.toFixed(0)}m/s`;
       weatherDescription.textContent = data.weather[0].description;
-    }     
+    }
 
   } catch (error) {
-    console.log(error.name, error.message);
-    temperature.textContent = '- -';
+    temperature.textContent = '-';
     weatherDescription.textContent = 'API error';
+    humidity.textContent = '';
+    windSpeed.textContent = '';
   }
 
 }

@@ -32,38 +32,37 @@ body:before {
 
 }
 
-.weather-wrapper {
-  width: 170px;
-   border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
+.weather {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.city {
-  display: inline-block;
-  width: 100%;
-  font-size: 14px;
-  padding: 6px 0;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 10px 10px 0 0;
+.weather__city {
+  min-width: 1rem;
+  font-size: 24px;
+  color: #FFFFFF;
+  transition-duration: 0.5s;
 }
 
-.temperature {
-  font-size: 25px;
-  margin-bottom: 10px;
+.wheather__temperature-block {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
-.weather-description {
-  width: 100%;
-  font-size: 14px;
-  padding-bottom: 6px;
-  color: #ffffff;
-  border-radius: 0 0 10px 10px;
+.weather__temperature {
+  font-size: 16px;
+}
+
+.weather__description {
+  font-size: 16px;
 }
 
 .weather-icon {
-  font-size: 60px;
-  height: 58px;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 30px;
+  color: rgba(255, 255, 255, 1);
 }
 
 .weather-icon:hover {
@@ -96,8 +95,16 @@ body:before {
   }
 }
 
-.btn {
+.btn-wrapper {
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  column-gap: 150px;
+}
 
+.btn {
   border: 0;
   background: url("../assets/icon/Update-Button-PNG-Image.png");
   background-size: contain;
@@ -106,26 +113,23 @@ body:before {
   padding-top: 7px;
   font-size: 14px;
   text-align: right;
+  transition-duration: 0.5s;
 }
 
 .change-background {
-  position: absolute;
-  bottom: 10px;
-  left: 20px;
   width: 131px;
   height: 30px;
 }
 
 .change-quote {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  width: 75px;
+  width: 125px;
   height: 30px;
 }
 
 .btn:hover {
   filter: grayscale(.2);
+  cursor: pointer;
+  color: rgb(73, 109, 224);
 }
 
 .btn:active,
@@ -138,11 +142,12 @@ body:before {
 }
 
 .time {
+  font-family: Tahoma, Geneva, sans-serif;
   font-size: 126px;
 }
 
 .date {
-  font-size: 1.7rem;
+  font-size: 24px;
   margin-bottom: 1.5rem;
 }
 
@@ -153,14 +158,24 @@ h1 {
 .name,
 .focus {
   min-width: 1rem;
+  transition-duration: 0.5s;
 }
+
+.weather__city:hover,
+.weather__city:focus,
+.name:hover,
+.name:focus,
+.focus:hover,
+.focus:focus {
+  color: rgb(73, 109, 224);
+}
+
 
 span {
   display: inline-block;
 }
 
 h2 {
-
   opacity: 0.8;
 }
 
@@ -184,7 +199,74 @@ h2 {
 }
 
 @media (max-width: 700px) {
+  .weather__city {
+    font-size: 20px;
+  }
+
+  .weather-icon {
+    font-size: 26px;
+  }
+
   .time {
-    font-size: 6rem;
+    font-size: 96px;
+  }
+
+  .date {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  .quote {
+    font-size: 16px;
+    margin-top: 0;
+  }
+
+  .btn-wrapper {
+    column-gap: 10px;
+  }
+}
+
+@media (max-width: 470px) {
+
+  .weather__city {
+    font-size: 18px;
+  }
+
+  .weather-icon {
+    font-size: 26px;
+  }
+
+  .time {
+    font-size: 64px;
+  }
+
+  .date {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.4em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .quote {
+    font-size: 14px;
+    margin-top: 0;
+  }
+
+  .btn-wrapper {
+    bottom: 10px;
   }
 }
