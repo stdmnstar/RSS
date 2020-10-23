@@ -97,8 +97,6 @@ body:before {
 
 .btn-wrapper {
   display: flex;
-  position: absolute;
-  bottom: 20px;
   justify-content: center;
   align-items: center;
   column-gap: 150px;
@@ -180,7 +178,7 @@ h2 {
 }
 
 .quote {
-  margin: 10px 34px 0;
+  margin: 10px 10px 0;
   font-size: 18px;
 }
 
@@ -208,7 +206,7 @@ h2 {
   }
 
   .time {
-    font-size: 96px;
+    font-size: 86px;
   }
 
   .date {
@@ -226,7 +224,7 @@ h2 {
 
   .quote {
     font-size: 16px;
-    margin-top: 0;
+    
   }
 
   .btn-wrapper {
@@ -263,7 +261,11 @@ h2 {
 
   .quote {
     font-size: 14px;
-    margin-top: 0;
+    
+  }
+
+  .blockquote {
+    height: 135px;
   }
 
   .btn-wrapper {
