@@ -241,26 +241,30 @@ a {
 
 @font-face {
   font-family: 'Georgia';
-  src: url("../../shelter/assets/fonts/Georgia.eot");
-  src: local("Georgia"), url("../../assets/fonts/Georgia.eot?#iefix") format("embedded-opentype"), url("../../shelter/assets/fonts/Georgia.woff2") format("woff2"), url("../../shelter/assets/fonts/Georgia.woff") format("woff"), url("../../shelter/assets/fonts/Georgia.ttf") format("truetype");
+  src: url("../../../assets/fonts/Georgia.eot");
+  src: local("Georgia"), url("../../../assets/fonts/Georgia.eot?#iefix") format("embedded-opentype"), url("../../../shelter/assets/fonts/Georgia.woff2") format("woff2"), url("../../../shelter/assets/fonts/Georgia.woff") format("woff"), url("../../../shelter/assets/fonts/Georgia.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Arial';
-  src: url("../../shelter/assets/fonts/Arial-ItalicMT.eot");
-  src: local("Arial Italic"), local("Arial-ItalicMT"), url("../../shelter/assets/fonts/Arial-ItalicMT.eot?#iefix") format("embedded-opentype"), url("../../shelter/assets/fonts/Arial-ItalicMT.woff2") format("woff2"), url("../../shelter/assets/fonts/Arial-ItalicMT.woff") format("woff"), url("../../shelter/assets/fonts/Arial-ItalicMT.ttf") format("truetype");
+  src: url("../../../shelter/assets/fonts/Arial-ItalicMT.eot");
+  src: local("Arial Italic"), local("Arial-ItalicMT"), url("../../../shelter/assets/fonts/Arial-ItalicMT.eot?#iefix") format("embedded-opentype"), url("../../../shelter/assets/fonts/Arial-ItalicMT.woff2") format("woff2"), url("../../../shelter/assets/fonts/Arial-ItalicMT.woff") format("woff"), url("../../../shelter/assets/fonts/Arial-ItalicMT.ttf") format("truetype");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Arial';
-  src: url("../../shelter/assets/fonts/ArialMT.eot");
-  src: local("Arial"), local("ArialMT"), url("../../shelter/assets/fonts/ArialMT.eot?#iefix") format("embedded-opentype"), url("../../shelter/assets/fonts/ArialMT.woff2") format("woff2"), url("../../shelter/assets/fonts/ArialMT.woff") format("woff"), url("../../shelter//assets/fonts/ArialMT.ttf") format("truetype");
+  src: url("../../../shelter/assets/fonts/ArialMT.eot");
+  src: local("Arial"), local("ArialMT"), url("../../../shelter/assets/fonts/ArialMT.eot?#iefix") format("embedded-opentype"), url("../../../shelter/assets/fonts/ArialMT.woff2") format("woff2"), url("../../../shelter/assets/fonts/ArialMT.woff") format("woff"), url("../../../shelter//assets/fonts/ArialMT.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+body.lock {
+  overflow: hidden;
 }
 
 .wrapper {
@@ -332,7 +336,15 @@ a {
   text-align: center;
 }
 
-.header .menu {
+.header .logo:hover {
+  cursor: pointer;
+}
+
+.header .logo-hidden {
+  visibility: hidden;
+}
+
+.menu {
   width: 44.3rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -340,12 +352,12 @@ a {
 }
 
 @media screen and (max-width: 767px) {
-  .header .menu {
+  .menu {
     display: none;
   }
 }
 
-.header .menu .list {
+.list {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -357,7 +369,7 @@ a {
   list-style-type: none;
 }
 
-.header .menu .list__item {
+.list__item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -366,7 +378,7 @@ a {
           align-items: center;
 }
 
-.header .menu .list__link {
+.list__link {
   font-family: Arial;
   font-style: normal;
   font-weight: normal;
@@ -375,16 +387,196 @@ a {
   color: #292929;
 }
 
-.header .menu .list__link:hover {
-  color: #292929;
-}
-
-.header .menu .list__link_active {
+.list__link_active {
   border-bottom: solid 0.3rem #F1CDB3;
 }
 
-.header .menu .list__link_normal {
+.list__link_normal {
   color: #545454;
+}
+
+.list__link_inactive {
+  pointer-events: none;
+  cursor: default;
+  color: #545454;
+}
+
+.list__link_normal:hover, .list__link_active:hover {
+  color: #292929;
+}
+
+.burger-menu__button {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .burger-menu__button {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    top: 49px;
+    right: 53px;
+    z-index: 30;
+    -webkit-transition: all 0.8s;
+    transition: all 0.8s;
+  }
+}
+
+.burger-menu__button_lines, .burger-menu__button_lines::after, .burger-menu__button_lines::before {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #F1CDB3;
+}
+
+.burger-menu__button_lines {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.burger-menu__button_lines::after {
+  content: "";
+  top: 12px;
+}
+
+.burger-menu__button_lines::before {
+  content: "";
+  top: -12px;
+}
+
+.burger-menu__button_active {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.burger-menu {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #292929;
+}
+
+@media screen and (max-width: 767px) {
+  .burger-menu {
+    width: 320px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -320px;
+    display: block;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-transition: right 0.8s;
+    transition: right 0.8s;
+    z-index: 20;
+  }
+}
+
+.burger-menu_active {
+  right: 0;
+}
+
+.burger-menu__logo {
+  z-index: 30;
+  position: absolute;
+  margin-top: 31px;
+  margin-left: 10px;
+}
+
+.burger-menu__logo-title {
+  margin: 0;
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 3.2rem;
+  line-height: 110%;
+  letter-spacing: 0.192rem;
+  color: #F1CDB3;
+}
+
+.burger-menu__logo-subtitle {
+  margin-top: 0.9rem;
+  font-family: Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.13rem;
+  color: #FFFFFF;
+  text-align: left;
+  margin-left: 4px;
+}
+
+.burger-menu__logo:hover {
+  cursor: pointer;
+}
+
+.burger-menu__nav {
+  z-index: 20;
+  text-align: center;
+  padding-top: 250px;
+  position: relative;
+  height: 100%;
+}
+
+.burger-menu__item {
+  list-style: none;
+  margin-bottom: 41px;
+}
+
+.burger-menu__link {
+  font-family: Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 160%;
+  color: #FFFFFF;
+}
+
+.burger-menu__link_active {
+  border-bottom: solid 0.3rem #F1CDB3;
+  padding-bottom: 6px;
+}
+
+.burger-menu__link_normal {
+  color: #CDCDCD;
+}
+
+.burger-menu__link_inactive {
+  pointer-events: none;
+  cursor: default;
+  color: #CDCDCD;
+}
+
+.burger-menu__link_normal:hover, .burger-menu__link_active:hover {
+  color: #FAFAFA;
+}
+
+.burger-menu__overlay {
+  position: fixed;
+  opacity: 0;
+  -webkit-transition: 0.8s ease-in-out;
+  transition: 0.8s ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(41, 41, 41, 0.6);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.burger-menu_active .burger-menu__overlay {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .main {
@@ -687,7 +879,7 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background: url("../../assets/images/noise_transparent@2x.png"), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+  background: url("../../../assets/images/noise_transparent@2x.png"), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 
 .footer__wrapper {

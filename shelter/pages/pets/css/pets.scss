@@ -6,6 +6,10 @@
 @import "base";
 @import "stylesheet";
 
+body.lock {
+    overflow: hidden;
+}
+
 .wrapper {
     margin: 0 auto;
     display: flex;
@@ -47,6 +51,17 @@
             color: $color-dark-3xl;
             text-align: center;
         }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &-hidden {
+            visibility: hidden;
+        }
+    }
+ 
+
     }
 
     .menu {
@@ -56,38 +71,201 @@
         @include media-tablet {
             display: none;
         }
+    }
 
-        .list {
-            width: 100%;
+    .list {
+        width: 100%;
+        display: flex;
+        margin-top: -0.3rem;
+        justify-content: space-between;
+        list-style-type: none;
+
+        &__item {
             display: flex;
-            margin-top: -0.3rem;
-            justify-content: space-between;
-            list-style-type: none;
+            align-items: center;
+        }
 
-            &__item {
-                display: flex;
-                align-items: center;
+        &__link {
+            @include font-paragraph-l;
+            color: $color-dark-3xl;
+
+            &_active {
+                border-bottom: solid 0.3rem $color-primary;
             }
 
-            &__link {
-                @include font-paragraph-l;
+            &_normal {
+                color: $color-dark-l;
+            }
+
+            &_inactive {
+                pointer-events: none;
+                cursor: default;
+                color: $color-dark-l;
+            }
+
+            &_normal:hover,
+            &_active:hover {
                 color: $color-dark-3xl;
-
-                &:hover {
-                    color: $color-dark-3xl;
-                }
-
-                &_active {
-                    border-bottom: solid 0.3rem $color-primary;
-                }
-
-                &_normal {
-                    color: $color-dark-l;
-                }
             }
         }
     }
-}
+
+    .burger-menu__button {
+
+        display: none;
+
+        @include media-tablet {
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            top: 49px;
+            right: 53px;
+            z-index: 30;
+            transition: all 0.8s;
+        }
+
+        &_lines,
+        &_lines::after,
+        &_lines::before {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #F1CDB3;
+        }
+
+        &_lines {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &_lines::after {
+            content: "";
+            top: 12px;
+        }
+
+        &_lines::before {
+            content: "";
+            top: -12px;
+        }
+    }
+
+    .burger-menu__button_active {
+        transform: rotate(90deg);
+    }
+
+    .burger-menu {
+        display: none;
+        width: 100%;
+        height: 100%;
+        background: $color-dark-3xl;
+
+        @include media-tablet {
+            width: 320px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: -320px;
+            display: block;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.8s;
+            z-index: 20;
+        }
+
+        &_active {
+            right: 0;
+        }
+
+        &__logo {
+
+            z-index: 30;
+            position: absolute;
+            margin-top: 31px;
+            margin-left: 10px;
+
+            &-title {
+                margin: 0;
+                @include font-logo_title;
+                color: $color-primary;
+            }
+
+            &-subtitle {
+                margin-top: 0.9rem;
+                @include font-logo_subtitle;
+                color: $color-light-xl;
+                
+                text-align: left;
+                margin-left: 4px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &__nav {
+            z-index: 20;
+            text-align: center;
+            padding-top: 250px;
+            position: relative;
+            height: 100%;
+        }
+
+        &__item {
+            list-style: none;
+            margin-bottom: 41px;
+        }
+
+        &__link {
+            @include font-parafraph-mobile-menu;
+            color: $color-light-xl;
+            
+            &_active {
+                border-bottom: solid 0.3rem $color-primary;
+                padding-bottom: 6px;
+            }
+          
+            &_normal {
+                color: $color-dark-s;              
+            }
+
+            &_inactive {
+                pointer-events: none;
+                cursor: default;
+                color: $color-dark-s;
+            }
+
+            &_normal:hover,
+            &_active:hover {
+                color: $color-light-s;                
+            }
+        }
+
+        &__overlay {
+            position: fixed;
+            opacity: 0;
+            transition: 0.8s ease-in-out;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(41, 41, 41, 0.6);
+            pointer-events: none;
+            z-index: 10;
+        }
+    }
+
+    
+    .burger-menu_active .burger-menu__overlay {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+
+
 
 .main {
     display: flex;
@@ -205,7 +383,7 @@
         @include button-primary;
         letter-spacing: 0.0996rem;
         margin-left: 2px;
-        
+
     }
 
     &-slider {
@@ -239,7 +417,7 @@
 
 .footer {
     display: flex;
-    background: url('../../assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+    background: url('../../../assets/images/noise_transparent@2x.png'), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 
     &__wrapper {
         padding-top: 4rem;

@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shelter</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 
 <body>
     <heder class="header">
         <div class="wrapper">
-            <div class="logo">
+            <div class="logo" id="main-logo">
                 <h1 class="logo__title">
                     Cozy House
                 </h1>
@@ -22,20 +22,53 @@
             <nav class="menu">
                 <ul class="list">
                     <li class="list__item">
-                        <a href="" class="list__link list__link_active">About the shelter</a>
+                        <a href="#" class="list__link list__link_active">About the shelter</a>
                     </li>
                     <li class="list__item">
-                        <a href="" class="list__link list__link_normal">Our pets</a>
+                        <a href="../pets/pets.html" class="list__link list__link_normal">Our pets</a>
                     </li>
                     <li class="list__item">
-                        <a href="" class="list__link list__link_normal">Help the shelter</a>
+                        <a href="" class="list__link list__link_inactive">Help the shelter</a>
                     </li>
                     <li class="list__item">
-                        <a href="" class="list__link list__link_normal">Contacts</a>
+                        <a href="" class="list__link list__link_inactive">Contacts</a>
                     </li>
                 </ul>
             </nav>
+            <div class="burger-menu__button">
+                <div class="burger-menu__button_lines"></div>
+            </div>
+
+            <nav class="burger-menu">
+                <div class="logo burger-menu__logo">
+                    <h1 class="burger-menu__logo-title">
+                        Cozy House
+                    </h1>
+                    <div class="burger-menu__logo-subtitle">
+                        Shelter for pets in Boston
+                    </div>
+                </div>
+               
+
+                <ul class="burger-menu__nav">
+                    
+                    <li class="burger-menu__item">
+                        <a href="./index.html" class="burger-menu__link burger-menu__link_active">About the shelter</a>
+                    </li>
+                    <li class="burger-menu__item">
+                        <a href="../pets/pets.html" class="burger-menu__link burger-menu__link_normal">Our pets</a>
+                    </li>
+                    <li class="burger-menu__item">
+                        <a href="" class="burger-menu__link burger-menu__link_inactive">Help the shelter</a>
+                    </li>
+                    <li class="burger-menu__item">
+                        <a href="" class="burger-menu__link burger-menu__link_inactive">Contacts</a>
+                    </li>
+                </ul>
+                <div class="burger-menu__overlay"></div>
+            </nav>
         </div>
+
     </heder>
     <main class="main">
         <div class="not-only">
@@ -72,8 +105,8 @@
                     </div>
                     <div class="about__content">
                         <h3 class="about__title">
-                           <p>About the shelter</p> 
-                           <p>“Cozy House”</p>
+                            <p>About the shelter</p>
+                            <p>“Cozy House”</p>
                         </h3>
                         <div class="about__description">
                             <p>
@@ -323,6 +356,7 @@
                 </div>
             </div>
     </main>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

@@ -70,6 +70,14 @@
     line-height: 150%;
 }
 
+@mixin font-parafraph-mobile-menu {
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 160%;
+}
+
 @mixin font-logo_title {
     font-family: Georgia;
     font-style: normal;
