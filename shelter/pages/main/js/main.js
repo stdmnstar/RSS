@@ -5,14 +5,11 @@ document.querySelector('.our-friends__button').addEventListener('click', () => {
   location.href = "../pets/pets.html";
 });
 
-
 const menuIcon = document.querySelector(".burger-menu__button");
 const navbar = document.querySelector(".burger-menu");
 const overlay = document.querySelector(".burger-menu__overlay");
 const body = document.querySelector("body");
 const logo = document.querySelector(".logo");
-
-
 
 menuIcon.addEventListener("click", () => {
   navbar.classList.toggle("burger-menu_active");
@@ -59,7 +56,7 @@ let pets = [{
     "img": "../../assets/images/pets/pets-woody.png",
     "type": "Dog",
     "breed": "Golden Retriever",
-    "description": "Woody is a handsome 3 1/2 year old boy. Woody does know basic commands and is a smart pup. Since he is on the stronger side, he will learn a lot from your training. Woody will be happier when he finds a new family that can spend a lot of time with him.",
+    "description": "Woody is a handsome 3 1/2 year old boy. Woody does know basic commands and is a smart pup. Since he is on the stronger side.",
     "age": "3 years 6 months",
     "inoculations": ["adenovirus", "distemper"],
     "diseases": ["right back leg mobility reduced"],
@@ -70,9 +67,9 @@ let pets = [{
     "img": "../../assets/images/pets/pets-scarlet.png",
     "type": "Dog",
     "breed": "Jack Russell Terrier",
-    "description": "Scarlett is a happy, playful girl who will make you laugh and smile. She forms a bond quickly and will make a loyal companion and a wonderful family dog or a good companion for a single individual too since she likes to hang out and be with her human.",
+    "description": "Scarlett is a happy, playful girl. She forms a bond quickly and will make a loyal companion and a wonderful family dog or a good companion for a single individual too since she likes to hang out and be with her human.",
     "age": "3 months",
-    "inoculations": ["parainfluenza"],
+    "inoculations": ["none"],
     "diseases": ["none"],
     "parasites": ["none"]
   },
@@ -81,7 +78,7 @@ let pets = [{
     "img": "../../assets/images/pets/pets-katrine.png",
     "type": "Cat",
     "breed": "British Shorthair",
-    "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection. She loves cuddles and to stretch into your hands for a deeper relaxations.",
+    "description": "Katrine is a beautiful girl. She is as soft as the finest velvet with a thick lush fur. Will love you until the last breath she takes as long as you are the one. She is picky about her affection.",
     "age": "6 months",
     "inoculations": ["panleukopenia"],
     "diseases": ["none"],
@@ -92,9 +89,9 @@ let pets = [{
     "img": "../../assets/images/pets/pets-timmy.png",
     "type": "Cat",
     "breed": "British Shorthair",
-    "description": "Timmy is an adorable grey british shorthair male. He loves to play and snuggle. He is neutered and up to date on age appropriate vaccinations. He can be chatty and enjoys being held. Timmy has a lot to say and wants a person to share his thoughts with.",
+    "description": "Timmy is an adorable grey british shorthair male. He is neutered and up to date on age appropriate vaccinations. He can be chatty and enjoys being held.",
     "age": "2 years 3 months",
-    "inoculations": ["calicivirus", "viral rhinotracheitis"],
+    "inoculations": ["calicivirus"],
     "diseases": ["kidney stones"],
     "parasites": ["none"]
   },
@@ -103,7 +100,7 @@ let pets = [{
     "img": "../../assets/images/pets/pets-freddie.png",
     "type": "Cat",
     "breed": "British Shorthair",
-    "description": "Freddie is a little shy at first, but very sweet when he warms up. He likes playing with shoe strings and bottle caps. He is quick to learn the rhythms of his human’s daily life. Freddie has bounced around a lot in his life, and is looking to find his forever home.",
+    "description": "Freddie is a little shy at first, but very sweet when he warms up. He likes playing with shoe strings and bottle caps. He is quick to learn the rhythms of his human’s daily life. Freddie has bounced around a lot in his life.",
     "age": "2 months",
     "inoculations": ["rabies"],
     "diseases": ["none"],
@@ -114,9 +111,9 @@ let pets = [{
     "img": "../../assets/images/pets/pets-charly.png",
     "type": "Dog",
     "breed": "Jack Russell Terrier",
-    "description": "This cute boy, Charly, is three years old and he likes adults and kids. He isn’t fond of many other dogs, so he might do best in a single dog home. Charly has lots of energy, and loves to run and play. We think a fenced yard would make him very happy.",
+    "description": "This cute boy, Charly, is three years old and he likes adults and kids. He isn’t fond of many other dogs, so he might do best in a single dog home.",
     "age": "8 years",
-    "inoculations": ["bordetella bronchiseptica", "leptospirosis"],
+    "inoculations": ["leptospirosis"],
     "diseases": ["deafness", "blindness"],
     "parasites": ["lice", "fleas"]
   }
@@ -141,6 +138,7 @@ fullPetsList = (() => {
   return tempArr;
 })();
 
+
 const createPets = (petsList) => {
   const elem = document.querySelector("#pets");
   elem.innerHTML += createElements(petsList);
@@ -149,18 +147,16 @@ const createPets = (petsList) => {
 const createElements = (petsList) => {
   let str = '';
   for (let i = 0; i < petsList.length; i++) {
-    str += `<div class="swiper-slide our-friends-card">
-<img src="${ petsList[i].img }" alt=" "
-    class="our-friends-card__image">
+    str += `<div data-popup-target="#popup" class="swiper-slide our-friends-card">
+<img src="${ petsList[i].img }" alt=" " class="our-friends-card__image">
 <div class="our-friends-card__content">
-    <h4 class="our-friends-card__title">
-    ${ petsList[i].name }
-    </h4>
+    <h4 class="our-friends-card__title"> ${ petsList[i].name }</h4>
     <button class="our-friends-card__button">
         Learn more
     </button>
 </div>
 </div>`;
+
   }
   return str;
 };
@@ -186,7 +182,9 @@ const sort863 = (list) => {
     unique8List = [...unique8List, ...uniqueStepList];
   }
   list = unique8List;
+
   list = sort6recursively(list);
+
   return list;
 };
 
@@ -211,13 +209,12 @@ const sort6recursively = (list) => {
       }
     }
   }
-
   return list;
 };
 
 fullPetsList = sort863(fullPetsList);
-createPets(fullPetsList);
 
+createPets(fullPetsList);
 
 
 const slider = document.querySelector('.swiper-container');
@@ -225,14 +222,15 @@ const slider = document.querySelector('.swiper-container');
 let mySwiper = new Swiper(slider, {
 
   slidesPerView: 1,
+  //	spaceBetween: 97,
   loop: true,
+  //    slidesPerGroup: 3,
   breakpoints: {
     // when window width is >= 768px
     768: {
       slidesPerView: 2,
       spaceBetween: 40,
       slidesPerGroup: 2,
-
     },
     // when window width is >= 1280px
     1280: {
@@ -241,8 +239,83 @@ let mySwiper = new Swiper(slider, {
       slidesPerGroup: 3,
     }
   },
+
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
 });
+
+
+
+const openPopupButtons = document.querySelectorAll('[data-popup-target]');
+const closePopupButtons = document.querySelectorAll('[data-popup-close-button]');
+const popupOverlay = document.getElementById('popup__overlay');
+
+openPopupButtons.forEach(button => {
+  button.addEventListener('click', (e) => {
+    const popup = document.querySelector(button.dataset.popupTarget);
+    openPopup(popup);
+    const namePet = e.currentTarget.getElementsByClassName('our-friends-card__title')[0].innerText;
+    let petObj = {};
+    for (let i = 0; i < fullPetsList.length; i++) {
+      if (fullPetsList[i].name === namePet) {
+        petObj = fullPetsList[i];
+      }
+    }
+
+    document.querySelector('#popup').innerHTML = `<div class="popup__img-wrapper">
+             <img class="popup__img" src=${petObj.img} alt=" ">
+            </div>
+            <div class="popup__content">
+              <div class="popup__content_title">${petObj.name}</div>
+              <div class="popup__content_subtitle">${petObj.type} - ${petObj.breed}</div>
+              <div class="popup__content_subscribe">${petObj.description}</div>
+              <ul class="popup_content_ul">
+                 <li class="popup_content_li"><span><b>Age:</b> ${petObj.age}</span></li>
+                  <li class="popup_content_li"><span><b>Inoculations:</b> ${petObj.inoculations}</span></li>
+                  <li class="popup_content_li"><span><b>Diseases:</b> ${petObj.diseases}</span></li>
+                  <li class="popup_content_li"><span><b>Parasites:</b> ${petObj.parasites}</span></li>
+              </ul>
+              <div data-popup-close-button class="popup__close-btn"></div>
+            </div>`;
+  });
+});
+
+popupOverlay.addEventListener('click', () => {
+  const popups = document.querySelectorAll('.popup.active');
+  popups.forEach(popup => {
+    closePopup(popup);
+  });
+});
+
+closePopupButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const popup = button.closest('.popup');
+    closePopup(popup);
+  });
+});
+
+function openPopup(popup) {
+  if (popup == null) return
+  popup.classList.add('active');
+  popupOverlay.classList.add('active');
+  body.classList.add("lock");
+}
+
+function closePopup(popup) {
+  if (popup == null) return
+  popup.classList.remove('active');
+  popupOverlay.classList.remove('active');
+  body.classList.remove("lock");
+}
+
+const changeStyleCloseBtnPopup = function (event) {
+  if (event.target === popupOverlay) {
+    document.querySelector(".popup__close-btn").classList.add('popup_close-btn-hover');
+  } else {
+    document.querySelector(".popup__close-btn").classList.remove('popup_close-btn-hover');
+  }
+};
+
+popupOverlay.addEventListener("mouseover", changeStyleCloseBtnPopup);
