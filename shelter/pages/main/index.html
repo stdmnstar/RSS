@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shelter</title>
+    <link rel="stylesheet" href="../../assets/swiper/swiper.min.css">
     <link rel="stylesheet" href="./css/main.css">
 </head>
 
 <body>
+    <div id="popup__overlay">
+        <div class="popup" id="popup">
+        </div>
+    </div>
+
     <heder class="header">
         <div class="wrapper">
             <div class="logo" id="main-logo">
@@ -48,10 +54,8 @@
                         Shelter for pets in Boston
                     </div>
                 </div>
-               
 
                 <ul class="burger-menu__nav">
-                    
                     <li class="burger-menu__item">
                         <a href="./index.html" class="burger-menu__link burger-menu__link_active">About the shelter</a>
                     </li>
@@ -137,62 +141,24 @@
                         <span> Our friends who</span>
                         <span>are looking for a house</span>
                     </h3>
-                    <div class="our-friends__content">
-                        <button class="slider-button">
-                            <img src="../../assets/icons/arrow.svg" alt="Left arrow">
-                        </button>
-
-                        <div class="our-friends-cards">
-                            <div class="our-friends-card">
-
-                                <img src="../../assets/images/pets/pets-katrine.png" alt="Pets Katrine"
-                                    class="our-friends-card__image">
-
-
-                                <div class="our-friends-card__content">
-                                    <h4 class="our-friends-card__title">
-                                        Katrine
-                                    </h4>
-                                    <button class="our-friends-card__button">
-                                        Learn more
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="our-friends-card">
-                                <img src="../../assets/images/pets/pets-jennifer.png" alt="Pets Jennifer"
-                                    class="our-friends-card__image">
-                                <div class="our-friends-card__content">
-                                    <h4 class="our-friends-card__title">
-                                        Jennifer
-                                    </h4>
-                                    <button class="our-friends-card__button">
-                                        Learn more
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="our-friends-card">
-                                <img src="../../assets/images/pets/pets-woody.png" alt="Pets Woody"
-                                    class="our-friends-card__image">
-                                <div class="our-friends-card__content">
-                                    <h4 class="our-friends-card__title">
-                                        Woody
-                                    </h4>
-                                    <button class="our-friends-card__button">
-                                        Learn more
-                                    </button>
-                                </div>
+                    <div class="slider-container">
+                        <div class="slider-buttons">
+                            <button class="swiper-button-prev slider-button">
+                                <img src="../../assets/icons/arrow.svg" alt="Left arrow">
+                            </button>
+                            <button class="swiper-button-next slider-button slider-button_reverted">
+                                <img src="../../assets/icons/arrow.svg" alt="Right arrow">
+                            </button>
+                        </div>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper our-friends-cards" id="pets">
                             </div>
                         </div>
-                        <button class=" slider-button slider-button_reverted">
-                            <img src="../../assets/icons/arrow.svg" alt="Right arrow">
-                        </button>
+                        <button class="our-friends__button">Get to know the rest</button>
                     </div>
-                    <button class="our-friends__button">Get to know the rest</button>
-
                 </div>
             </div>
         </div>
-
         <div class="help">
             <div class="wrapper">
                 <div class="help__wrapper">
@@ -201,7 +167,6 @@
                         <span>our shelter</span>
                     </h3>
                     <div class="help-content">
-
                         <div class="help-card">
                             <img src="../../assets/icons/pet-food.svg" alt="Pet food" class="help-card__image">
                             <h4 class="help-card__text">
@@ -280,14 +245,13 @@
                             Name of the bank / Type of bank account
                         </p>
 
-                        <div class="credit-card">
+                        <div class="credit-card ">
                             <a href="">
                                 <img class="credit-card__image" src="../../assets/icons/credit-card.svg" alt="cards">
                             </a>
 
                             <a class="credit-card__number" href="">8380 2880 8028 8791 7435</a>
                         </div>
-
                         <p class="addition__content-text">
                             Legal information and
                             lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a
@@ -356,6 +320,7 @@
                 </div>
             </div>
     </main>
+    <script src="../../assets/swiper/swiper.min.js"></script>
     <script src="./js/main.js"></script>
 </body>
 
