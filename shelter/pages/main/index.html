@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shelter</title>
+    <link rel="stylesheet" href="../../assets/swiper/swiper.min.css">
     <link rel="stylesheet" href="./css/main.css">
 </head>
 
@@ -48,10 +49,10 @@
                         Shelter for pets in Boston
                     </div>
                 </div>
-               
+
 
                 <ul class="burger-menu__nav">
-                    
+
                     <li class="burger-menu__item">
                         <a href="./index.html" class="burger-menu__link burger-menu__link_active">About the shelter</a>
                     </li>
@@ -137,225 +138,190 @@
                         <span> Our friends who</span>
                         <span>are looking for a house</span>
                     </h3>
-                    <div class="our-friends__content">
-                        <button class="slider-button">
-                            <img src="../../assets/icons/arrow.svg" alt="Left arrow">
-                        </button>
+                    <div class="slider-container">
+                        <div class="slider-buttons">
+                            <button class="swiper-button-prev slider-button">
+                                <img src="../../assets/icons/arrow.svg" alt="Left arrow">
+                            </button>
+                            <button class="swiper-button-next slider-button slider-button_reverted">
+                                <img src="../../assets/icons/arrow.svg" alt="Right arrow">
+                            </button>
+                        </div>
 
-                        <div class="our-friends-cards">
-                            <div class="our-friends-card">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper our-friends-cards" id="pets"></div>
+                        </div>
+                        <button class="our-friends__button">Get to know the rest</button>
 
-                                <img src="../../assets/images/pets/pets-katrine.png" alt="Pets Katrine"
-                                    class="our-friends-card__image">
-
-
-                                <div class="our-friends-card__content">
-                                    <h4 class="our-friends-card__title">
-                                        Katrine
-                                    </h4>
-                                    <button class="our-friends-card__button">
-                                        Learn more
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="our-friends-card">
-                                <img src="../../assets/images/pets/pets-jennifer.png" alt="Pets Jennifer"
-                                    class="our-friends-card__image">
-                                <div class="our-friends-card__content">
-                                    <h4 class="our-friends-card__title">
-                                        Jennifer
-                                    </h4>
-                                    <button class="our-friends-card__button">
-                                        Learn more
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="our-friends-card">
-                                <img src="../../assets/images/pets/pets-woody.png" alt="Pets Woody"
-                                    class="our-friends-card__image">
-                                <div class="our-friends-card__content">
-                                    <h4 class="our-friends-card__title">
-                                        Woody
-                                    </h4>
-                                    <button class="our-friends-card__button">
-                                        Learn more
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class=" slider-button slider-button_reverted">
-                            <img src="../../assets/icons/arrow.svg" alt="Right arrow">
-                        </button>
-                    </div>
-                    <button class="our-friends__button">Get to know the rest</button>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="help">
-            <div class="wrapper">
-                <div class="help__wrapper">
-                    <h3 class="help__heading">
-                        <span>How you can help</span>
-                        <span>our shelter</span>
-                    </h3>
-                    <div class="help-content">
-
-                        <div class="help-card">
-                            <img src="../../assets/icons/pet-food.svg" alt="Pet food" class="help-card__image">
-                            <h4 class="help-card__text">
-                                Pet food
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/transportation.svg" alt="Transportation"
-                                class="help-card__image">
-                            <h4 class="help-card__text">
-                                Transportation
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/toys.svg" alt="Toys" class="help-card__image">
-                            <h4 class="help-card__text">
-                                Toys
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/bowls-and-cups.svg" alt="Bowls and cups"
-                                class="help-card__image">
-                            <h4 class="help-card__text">
-                                Bowls and cups
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/shampoos.svg" alt="Shampoos" class="help-card__image">
-                            <h4 class="help-card__text">
-                                Shampoos
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/vitamins.svg" alt="Vitamins" class="help-card__image">
-                            <h4 class="help-card__text">
-                                Vitamins
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/medicines.svg" alt="Medicines" class="help-card__image">
-                            <h4 class="help-card__text">
-                                Medicines
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/collars-leashes.svg" alt="Collars / leashes"
-                                class="help-card__image">
-                            <h4 class="help-card__text">
-                                Collars / leashes
-                            </h4>
-                        </div>
-                        <div class="help-card">
-                            <img src="../../assets/icons/sleeping-area.svg" alt="Sleeping areas"
-                                class="help-card__image">
-                            <h4 class="help-card__text">
-                                Sleeping areas
-                            </h4>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="addition">
-            <div class="wrapper">
-                <div class="addition__wrapper">
-                    <div class="addition__image-wrapper">
-                        <img class="addition_image" src="../../assets/images/donation-dog.png" alt="dog">
-                    </div>
-                    <div class="addition__content">
-                        <div class="addition__title">
-                            <span>You can also</span>
-                            <span>make a donation</span>
-                        </div>
-                        <p class="addition__content-bank">
-                            Name of the bank / Type of bank account
-                        </p>
-
-                        <div class="credit-card">
-                            <a href="">
-                                <img class="credit-card__image" src="../../assets/icons/credit-card.svg" alt="cards">
-                            </a>
-
-                            <a class="credit-card__number" href="">8380 2880 8028 8791 7435</a>
-                        </div>
-
-                        <p class="addition__content-text">
-                            Legal information and
-                            lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a
-                            ipsum at libero sagittis dignissim sed ac diam. Praesent ultrices
-                            maximus tortor et vulputate. Interdum et malesuada fames ac ante ipsum
-                            primis in faucibus.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="footer">
-            <div class="wrapper">
-                <div class="footer__wrapper">
-                    <div class="footer__column first_column">
-                        <h3 class="footer__title">
-                            <span class="inline">For questions</span>
-                            <span class="inline">and suggestions</span>
+            <div class="help">
+                <div class="wrapper">
+                    <div class="help__wrapper">
+                        <h3 class="help__heading">
+                            <span>How you can help</span>
+                            <span>our shelter</span>
                         </h3>
-                        <div class="footer__email">
-                            <a href="mailto:email@shelter.com">
-                                <img src="../../assets/icons/email.svg" alt="email">
-                            </a>
-                            <a class="footer__contact" href="mailto:email@shelter.com">email@shelter.com</a>
-                        </div>
-                        <div class="footer__phone">
-                            <a href="tel:+13 674 567 75 54">
-                                <img src="../../assets/icons/phone.svg" alt="icon">
-                            </a>
-                            <a class="footer__contact" href="tel:+13 674 567 75 54">+13 674 567 75 54</a>
-                        </div>
-                    </div>
-                    <div class="footer__column second_column">
-                        <h3 class="footer__title">
-                            <span class="inline">We are waiting</span>
-                            <span class="inline">for your visit</span>
-                        </h3>
+                        <div class="help-content">
 
-                        <div class="footer__adress">
-                            <a href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
-                                target="_blank">
-                                <img src="../../assets/icons/marker.svg" alt="icon">
-                            </a>
-                            <a class="footer__contact"
-                                href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
-                                target="_blank">
-                                <span>1 Central Street, Boston</span>
-                                <span>(entrance from the store)</span>
-                            </a>
+                            <div class="help-card">
+                                <img src="../../assets/icons/pet-food.svg" alt="Pet food" class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Pet food
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/transportation.svg" alt="Transportation"
+                                    class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Transportation
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/toys.svg" alt="Toys" class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Toys
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/bowls-and-cups.svg" alt="Bowls and cups"
+                                    class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Bowls and cups
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/shampoos.svg" alt="Shampoos" class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Shampoos
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/vitamins.svg" alt="Vitamins" class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Vitamins
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/medicines.svg" alt="Medicines" class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Medicines
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/collars-leashes.svg" alt="Collars / leashes"
+                                    class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Collars / leashes
+                                </h4>
+                            </div>
+                            <div class="help-card">
+                                <img src="../../assets/icons/sleeping-area.svg" alt="Sleeping areas"
+                                    class="help-card__image">
+                                <h4 class="help-card__text">
+                                    Sleeping areas
+                                </h4>
+                            </div>
                         </div>
-                        <div class="footer__adress">
-                            <a href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
-                                target="_blank">
-                                <img src="../../assets/icons/marker.svg" alt="icon">
-                            </a>
-                            <a class="footer__contact"
-                                href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
-                                target="_blank">18 South Park, London </a>
-                        </div>
-                    </div>
-
-                    <div class="footer__image-wrapper">
-                        <img class="footer_image" src="../../assets/images/footer-puppy.png" alt="puppy">
                     </div>
                 </div>
             </div>
+
+            <div class="addition">
+                <div class="wrapper">
+                    <div class="addition__wrapper">
+                        <div class="addition__image-wrapper">
+                            <img class="addition_image" src="../../assets/images/donation-dog.png" alt="dog">
+                        </div>
+                        <div class="addition__content">
+                            <div class="addition__title">
+                                <span>You can also</span>
+                                <span>make a donation</span>
+                            </div>
+                            <p class="addition__content-bank">
+                                Name of the bank / Type of bank account
+                            </p>
+
+                            <div class="credit-card">
+                                <a href="">
+                                    <img class="credit-card__image" src="../../assets/icons/credit-card.svg"
+                                        alt="cards">
+                                </a>
+
+                                <a class="credit-card__number" href="">8380 2880 8028 8791 7435</a>
+                            </div>
+
+                            <p class="addition__content-text">
+                                Legal information and
+                                lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a
+                                ipsum at libero sagittis dignissim sed ac diam. Praesent ultrices
+                                maximus tortor et vulputate. Interdum et malesuada fames ac ante ipsum
+                                primis in faucibus.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="wrapper">
+                    <div class="footer__wrapper">
+                        <div class="footer__column first_column">
+                            <h3 class="footer__title">
+                                <span class="inline">For questions</span>
+                                <span class="inline">and suggestions</span>
+                            </h3>
+                            <div class="footer__email">
+                                <a href="mailto:email@shelter.com">
+                                    <img src="../../assets/icons/email.svg" alt="email">
+                                </a>
+                                <a class="footer__contact" href="mailto:email@shelter.com">email@shelter.com</a>
+                            </div>
+                            <div class="footer__phone">
+                                <a href="tel:+13 674 567 75 54">
+                                    <img src="../../assets/icons/phone.svg" alt="icon">
+                                </a>
+                                <a class="footer__contact" href="tel:+13 674 567 75 54">+13 674 567 75 54</a>
+                            </div>
+                        </div>
+                        <div class="footer__column second_column">
+                            <h3 class="footer__title">
+                                <span class="inline">We are waiting</span>
+                                <span class="inline">for your visit</span>
+                            </h3>
+
+                            <div class="footer__adress">
+                                <a href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
+                                    target="_blank">
+                                    <img src="../../assets/icons/marker.svg" alt="icon">
+                                </a>
+                                <a class="footer__contact"
+                                    href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
+                                    target="_blank">
+                                    <span>1 Central Street, Boston</span>
+                                    <span>(entrance from the store)</span>
+                                </a>
+                            </div>
+                            <div class="footer__adress">
+                                <a href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
+                                    target="_blank">
+                                    <img src="../../assets/icons/marker.svg" alt="icon">
+                                </a>
+                                <a class="footer__contact"
+                                    href="https://www.google.com/maps/place/%D0%9C%D0%B8%D0%BD%D1%81%D0%BA/@53.9285205,27.5822337,17z/data=!4m5!3m4!1s0x46dbcfd35b1e6ad3:0xb61b853ddb570d9!8m2!3d53.9006011!4d27.558972?hl=ru-RU"
+                                    target="_blank">18 South Park, London </a>
+                            </div>
+                        </div>
+
+                        <div class="footer__image-wrapper">
+                            <img class="footer_image" src="../../assets/images/footer-puppy.png" alt="puppy">
+                        </div>
+                    </div>
+                </div>
     </main>
+    <script src="../../assets/swiper/swiper.min.js"></script>
     <script src="./js/main.js"></script>
 </body>
 

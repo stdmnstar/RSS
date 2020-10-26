@@ -889,13 +889,12 @@ body.lock {
 
 .our-friends {
   padding-top: 8.1rem;
-  padding-bottom: 10rem;
   background: #F6F6F6;
 }
 
 @media screen and (max-width: 767px) {
   .our-friends {
-    padding: 4.2rem 0;
+    padding-top: 4.2rem;
   }
 }
 
@@ -911,6 +910,13 @@ body.lock {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-bottom: 100px;
+}
+
+@media screen and (max-width: 767px) {
+  .our-friends__wrapper {
+    padding-bottom: 42px;
+  }
 }
 
 .our-friends__title {
@@ -937,23 +943,27 @@ body.lock {
   }
 }
 
-.our-friends__content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.slider-container {
+  width: 1020px;
+  position: relative;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1279px) {
+  .slider-container {
+    width: 580px;
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .our-friends__content {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+  .slider-container {
+    width: 270px;
   }
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
 }
 
 .our-friends-cards {
@@ -973,6 +983,7 @@ body.lock {
 }
 
 .our-friends-cards .our-friends-card {
+  width: 270px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -981,23 +992,7 @@ body.lock {
       -ms-flex-direction: column;
           flex-direction: column;
   border-radius: 0.9rem;
-  margin: 0 4.5rem;
   background: #FAFAFA;
-}
-
-@media screen and (max-width: 1279px) {
-  .our-friends-cards .our-friends-card {
-    margin: 0 2rem;
-  }
-  .our-friends-cards .our-friends-card:last-child {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 767px) and (max-width: 1279px) {
-  .our-friends-cards .our-friends-card:nth-last-child(-n+2) {
-    display: none;
-  }
 }
 
 .our-friends-cards .our-friends-card:hover {
@@ -1007,7 +1002,7 @@ body.lock {
 }
 
 .our-friends-cards .our-friends-card__image {
-  width: 100%;
+  width: 270px;
   border-radius: 9px 9px 0px 0px;
 }
 
@@ -1085,10 +1080,24 @@ body.lock {
   letter-spacing: 0.102rem;
   background-color: #F1CDB3;
   letter-spacing: 0.0996rem;
+  margin-left: 380px;
 }
 
 .our-friends__button:hover {
   background-color: #FDDCC4;
+}
+
+@media screen and (max-width: 1279px) {
+  .our-friends__button {
+    margin-left: 160px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .our-friends__button {
+    margin-left: 5px;
+    margin-top: 94px;
+  }
 }
 
 .slider-button {
@@ -1112,6 +1121,7 @@ body.lock {
   background: none;
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
+  margin: -52px -100px 0px -100px;
 }
 
 .slider-button:hover {
@@ -1127,13 +1137,13 @@ body.lock {
 
 @media screen and (max-width: 1279px) {
   .slider-button {
-    margin: 0 -16px;
+    margin: -52px -74px 0px -74px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .slider-button {
-    margin: 0 4rem 4.2rem;
+    margin: 176px 33px 0px 33px;
   }
 }
 

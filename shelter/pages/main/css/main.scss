@@ -40,7 +40,6 @@ body.lock {
         display: flex;
         flex-direction: column;
 
-
         &__title {
             margin: 0;
             @include font-logo_title;
@@ -191,7 +190,7 @@ body.lock {
                 margin-top: 0.9rem;
                 @include font-logo_subtitle;
                 color: $color-light-xl;
-                
+
                 text-align: left;
                 margin-left: 4px;
             }
@@ -213,14 +212,14 @@ body.lock {
         &__link {
             @include font-parafraph-mobile-menu;
             color: $color-light-xl;
-            
+
             &_active {
                 border-bottom: solid 0.3rem $color-primary;
-                padding-bottom: 6px;                
+                padding-bottom: 6px;
             }
-          
+
             &_normal {
-                color: $color-dark-s;              
+                color: $color-dark-s;
             }
 
             &_inactive {
@@ -231,7 +230,7 @@ body.lock {
 
             &_normal:hover,
             &_active:hover {
-                color: $color-light-s;                
+                color: $color-light-s;
             }
         }
 
@@ -249,7 +248,7 @@ body.lock {
         }
     }
 
-    
+
     .burger-menu_active .burger-menu__overlay {
         opacity: 1;
         pointer-events: all;
@@ -443,11 +442,10 @@ body.lock {
 
 .our-friends {
     padding-top: 8.1rem;
-    padding-bottom: 10rem;
-    background: #F6F6F6;
+      background: #F6F6F6;
 
     @include media-tablet {
-        padding: 4.2rem 0;
+        padding-top: 4.2rem;
     }
 
     &__wrapper {
@@ -455,6 +453,11 @@ body.lock {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 100px;
+
+        @include media-tablet {
+            padding-bottom: 42px;
+        }
     }
 
     &__title {
@@ -468,103 +471,109 @@ body.lock {
             @include font-h3-mobile;
         }
     }
+}
 
-    &__content {
-        display: flex;
-        align-items: center;
+.slider-container {
+    width: 1020px;
+    
+    position: relative;
+    margin: 0 auto;
 
-        @include media-tablet {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    @include media-laptop {
+        width: 580px;
     }
 
-    &-cards {
-        display: flex;
-        padding: 5.9rem 0.8rem;
+    @include media-tablet {
+        width: 270px;
+    }
 
-        @include media-tablet {
-            order: -1;
-            padding: 4.2rem 0.8rem 1.9rem;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none;
+}
+
+.our-friends-cards {
+    display: flex;
+    padding: 5.9rem 0.8rem;
+
+    @include media-tablet {
+        order: -1;
+       padding: 4.2rem 0.8rem 1.9rem;
+    }
+
+    .our-friends-card {
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0.9rem;
+        background: $color-light-s;
+
+        &:hover {
+            box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+            background: $color-light-xl;
         }
 
-        .our-friends-card {
-            display: flex;
-            flex-direction: column;
-            border-radius: 0.9rem;
-            margin: 0 4.5rem;
-            background: $color-light-s;
+        &__image {
+            width: 270px;
+            border-radius: 9px 9px 0px 0px;
 
             @include media-laptop {
-                margin: 0 2rem;
-
-                &:last-child {
-                    display: none;
-                }
-            }
-
-            @include media-tablet {
-                @include media-laptop {
-                    &:nth-last-child(-n+2) {
-                        display: none;
-                    }
-                }
-            }
-
-            &:hover {
-                box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
-                background: $color-light-xl;
-            }
-
-            &__image {
-                width: 100%;
-                border-radius: 9px 9px 0px 0px;
-
-                @include media-laptop {
-                    width: 27rem
-                }
-            }
-
-            &__content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding-bottom: 3.1rem;
-            }
-
-            &__title {
-                margin: 3rem 0;
-                @include font-h4;
-                text-align: center;
-                padding-left: 2px;
-            }
-
-            &__button {
-                @include button-secondary;
-                letter-spacing: 0.095rem;
+                width: 27rem
             }
         }
-    }
 
-    &__button {
-        @include button-primary;
-        letter-spacing: 0.0996rem;
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 3.1rem;
+        }
+
+        &__title {
+            margin: 3rem 0;
+            @include font-h4;
+            text-align: center;
+            padding-left: 2px;
+        }
+
+        &__button {
+            @include button-secondary;
+            letter-spacing: 0.095rem;
+        }
     }
 }
 
+.our-friends__button {
+    @include button-primary;
+    letter-spacing: 0.0996rem;
+    margin-left: 380px;
+
+    @include media-laptop {
+        margin-left: 160px;
+    }
+
+    @include media-tablet {
+           margin-left: 5px;
+    margin-top: 94px;
+    }
+}
+
+
 .slider-button {
     @include slider-button;
+    margin: -52px -100px 0px -100px;
 
     &_reverted {
         transform: rotate(180deg);
     }
 
     @include media-laptop {
-        margin: 0 -16px
+        margin: -52px -74px 0px -74px;
     }
 
     @include media-tablet {
-        margin: 0 4rem 4.2rem;
+        margin: 176px 33px 0px 33px;
     }
 }
 
@@ -623,6 +632,7 @@ body.lock {
         display: flex;
         flex-direction: column;
         align-items: center;
+        
 
         &__text {
             padding-top: 3rem;
