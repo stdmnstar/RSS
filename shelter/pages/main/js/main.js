@@ -249,7 +249,7 @@ let mySwiper = new Swiper(slider, {
 
 
 const openPopupButtons = document.querySelectorAll('[data-popup-target]');
-const closePopupButtons = document.querySelectorAll('[data-popup-close-button]');
+const closePopupButton = document.querySelector('[data-popup-close-button]');
 const popupOverlay = document.getElementById('popup__overlay');
 
 openPopupButtons.forEach(button => {
@@ -263,22 +263,14 @@ openPopupButtons.forEach(button => {
         petObj = fullPetsList[i];
       }
     }
-
-    document.querySelector('#popup').innerHTML = `<div class="popup__img-wrapper">
-             <img class="popup__img" src=${petObj.img} alt=" ">
-            </div>
-            <div class="popup__content">
-              <div class="popup__content_title">${petObj.name}</div>
-              <div class="popup__content_subtitle">${petObj.type} - ${petObj.breed}</div>
-              <div class="popup__content_subscribe">${petObj.description}</div>
-              <ul class="popup_content_ul">
-                 <li class="popup_content_li"><span><b>Age:</b> ${petObj.age}</span></li>
-                  <li class="popup_content_li"><span><b>Inoculations:</b> ${petObj.inoculations}</span></li>
-                  <li class="popup_content_li"><span><b>Diseases:</b> ${petObj.diseases}</span></li>
-                  <li class="popup_content_li"><span><b>Parasites:</b> ${petObj.parasites}</span></li>
-              </ul>
-              <div data-popup-close-button class="popup__close-btn"></div>
-            </div>`;
+    document.querySelector('.popup__img-wrapper').innerHTML =`<img class="popup__img" src=${petObj.img} alt=" ">`;
+    document.querySelector('.popup__content_title').innerText = ` ${petObj.name}`;
+    document.querySelector('.popup__content_subtitle').innerText = ` ${petObj.type} - ${petObj.breed}`;
+    document.querySelector('.popup__content_subscribe').innerText = ` ${petObj.description}`;
+    document.querySelector('.popup_content_ul').innerHTML = `<li class="popup_content_li"><span><b>Age:</b> ${petObj.age}</span></li>
+    <li class="popup_content_li"><span><b>Inoculations:</b> ${petObj.inoculations}</span></li>
+    <li class="popup_content_li"><span><b>Diseases:</b> ${petObj.diseases}</span></li>
+    <li class="popup_content_li"><span><b>Parasites:</b> ${petObj.parasites}</span></li>`;               
   });
 });
 
@@ -289,28 +281,26 @@ popupOverlay.addEventListener('click', () => {
   });
 });
 
-closePopupButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const popup = button.closest('.popup');
-    closePopup(popup);
+closePopupButton.addEventListener('click', () => {
+     closePopup();
   });
-});
+
 
 function openPopup(popup) {
   if (popup == null) return
   popup.classList.add('active');
   popupOverlay.classList.add('active');
-  body.classList.add("lock");
+  body.classList.add("lock");  
 }
 
-function closePopup(popup) {
-  if (popup == null) return
-  popup.classList.remove('active');
+function closePopup(event) {
+  document.querySelector(".popup").classList.remove('active');
   popupOverlay.classList.remove('active');
-  body.classList.remove("lock");
+  body.classList.remove("lock");  
 }
 
 const changeStyleCloseBtnPopup = function (event) {
+
   if (event.target === popupOverlay) {
     document.querySelector(".popup__close-btn").classList.add('popup_close-btn-hover');
   } else {
@@ -318,4 +308,5 @@ const changeStyleCloseBtnPopup = function (event) {
   }
 };
 
-popupOverlay.addEventListener("mouseover", changeStyleCloseBtnPopup);
+popupOverlay.addEventListener("mouseover", changeStyleCloseBtnPopup, false);
+document.querySelector(".popup").addEventListener('mouseover', changeStyleCloseBtnPopup)

@@ -963,6 +963,7 @@ body.lock {
     &__content {
         width: 352px;
         display: flex;
+        position: relative;
         flex-direction: column;
         margin: 50px 0px 0px 29px;
 
@@ -1035,9 +1036,9 @@ body.lock {
 .popup__close-btn {
     width: 52px;
     height: 52px;
-    position: relative;
-    top: -476px;
-    left: 361px;
+    position: absolute;
+    top: -97px;
+    left: 363px;
     background-image: url('../../../assets/icons/close.svg');
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -1045,13 +1046,13 @@ body.lock {
     border: 2px solid #F1CDB3;
 
     @include media-laptop {
-        top: -371px;
+        top: -60px;
         left: 260px;
     }
 
     @include media-tablet {
-        top: -389px;
-        left: 123px;
+        top: -55px;
+        left: 220px;
     }
 }
 
