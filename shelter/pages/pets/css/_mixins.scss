@@ -171,8 +171,7 @@
         background-color: $color-primary;
     }
 
-    &_normal:hover,
-    &_active:hover {
+    &_normal:hover{
         box-shadow: none;
         background-color: $color-primary-light;
         cursor: pointer;
