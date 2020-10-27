@@ -1749,6 +1749,7 @@ body.lock {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -1858,9 +1859,9 @@ body.lock {
 .popup__close-btn {
   width: 52px;
   height: 52px;
-  position: relative;
-  top: -476px;
-  left: 361px;
+  position: absolute;
+  top: -97px;
+  left: 363px;
   background-image: url("../../../assets/icons/close.svg");
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -1870,15 +1871,15 @@ body.lock {
 
 @media screen and (max-width: 1279px) {
   .popup__close-btn {
-    top: -371px;
+    top: -60px;
     left: 260px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .popup__close-btn {
-    top: -389px;
-    left: 123px;
+    top: -55px;
+    left: 220px;
   }
 }
 
