@@ -57,7 +57,9 @@ body.lock {
         }
 
         &-hidden {
-            visibility: hidden;
+            @include media-tablet {
+                visibility: hidden;
+            }
         }
     }
  
