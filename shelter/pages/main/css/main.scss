@@ -40,7 +40,7 @@ body.lock {
     .logo {
         display: flex;
         flex-direction: column;
-
+        
         &__title {
             margin: 0;
             @include font-logo_title;
@@ -55,7 +55,9 @@ body.lock {
         }
 
         &-hidden {
-            visibility: hidden;
+            @include media-tablet {
+                visibility: hidden;
+            }
         }
     }
 

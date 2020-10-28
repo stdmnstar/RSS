@@ -339,8 +339,10 @@ body.lock {
   text-align: center;
 }
 
-.header .logo-hidden {
-  visibility: hidden;
+@media screen and (max-width: 767px) {
+  .header .logo-hidden {
+    visibility: hidden;
+  }
 }
 
 .header .menu {
