@@ -8,7 +8,9 @@
 
 
 body.lock {
-    overflow: hidden;
+    @include media-tablet {
+        overflow: hidden;
+    }
 }
 
 .wrapper {
@@ -40,7 +42,7 @@ body.lock {
     .logo {
         display: flex;
         flex-direction: column;
-        
+
         &__title {
             margin: 0;
             @include font-logo_title;

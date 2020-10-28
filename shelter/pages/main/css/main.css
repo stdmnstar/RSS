@@ -263,8 +263,10 @@ a {
   font-style: normal;
 }
 
-body.lock {
-  overflow: hidden;
+@media screen and (max-width: 767px) {
+  body.lock {
+    overflow: hidden;
+  }
 }
 
 .wrapper {
