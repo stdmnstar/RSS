@@ -7,10 +7,8 @@
 @import "stylesheet";
 
 
-body.lock {
-    @include media-tablet {
-        overflow: hidden;
-    }
+body.lock {    
+        overflow: hidden;    
 }
 
 .wrapper {
