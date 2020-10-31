@@ -58,7 +58,7 @@ body {
 
 .keyboard__key:hover{
    
-    box-shadow: inset 0px 0px 10px 7px rgba(255, 255, 255, 0.9) ;
+    box-shadow: inset 0px 0px 1px 7px rgba(255, 255, 255, 0.5) ;
 }
 
 .keyboard__key_pressed{
@@ -113,7 +113,7 @@ textarea{
 }
 
 .keyboard__key-ON{
-    color:#08ff00;
+    background: #08ff00;
   
     text-shadow: 1px 1px 2px black, 0 0 1em #08ff00;
     box-shadow: inset 0px 0px 10px 7px rgba(8, 255, 0, 0.9) ;

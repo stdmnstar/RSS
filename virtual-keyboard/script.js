@@ -10,6 +10,7 @@ const arrowUpSimbol = "🎤";
 //const arrowDownSimbol = String.fromCharCode(8595);
 const arrowDownSimbol = '🔇';
 
+
 const Keyboard = {
     language: 'en',
     elements: {
@@ -44,10 +45,9 @@ const Keyboard = {
         'Space': 56,
         'ContextMenu': 57,
         'ArrowLeft': 58,
-        'ArrowDown': 59,
+        'SoundArrowDown': 59,
         'ArrowRight': 60,
     },
-
 
     keyArrayLayout: [
         ['Backquote', '`', '`', '~', '~', 'ё', 'Ё', 'Ё', 'ё'],
@@ -107,9 +107,9 @@ const Keyboard = {
         ['hideKeyboard', keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol],
         ['AltLeft', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt'],
         ['Space', spaceSimbol, spaceSimbol, spaceSimbol, spaceSimbol, spaceSimbol, spaceSimbol, spaceSimbol, spaceSimbol],
-        ['ContextMenu', 'en', 'en', 'en', 'en', 'ru', 'ru', 'ru', 'ru'],
+        ['ContextMenu', 'En', 'En', 'En', 'En', 'Ru', 'Ru', 'Ru', 'Ru'],
         ['ArrowLeft', arrowLeftSimbol, arrowLeftSimbol, arrowLeftSimbol, arrowLeftSimbol, arrowLeftSimbol, arrowLeftSimbol, arrowLeftSimbol, arrowLeftSimbol],
-        ['ArrowDown', arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol],
+        ['SoundArrowDown', arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol, arrowDownSimbol],
         ['ArrowRight', arrowRightSimbol, arrowRightSimbol, arrowRightSimbol, arrowRightSimbol, arrowRightSimbol, arrowRightSimbol, arrowRightSimbol, arrowRightSimbol],
     ],
 
@@ -173,7 +173,7 @@ const Keyboard = {
         'Space': 56,
         'ContextMenu': 57,
         'ArrowLeft': 58,
-        'ArrowDown': 59,
+        'SoundArrowDown': 59,
         'ArrowRight': 60
     },
 
@@ -203,10 +203,8 @@ const Keyboard = {
         };
 
         this.elements.keys = document.querySelectorAll('.keyboard__key');
-
-
-
     },
+
 
     _createKeys() {
         const fragment = document.createDocumentFragment();
@@ -248,7 +246,7 @@ const Keyboard = {
                 case 'ArrowLeft':
                     keyElement.classList.add('keyboard__key_control');
                     break;
-                case 'ArrowDown':
+                case 'SoundArrowDown':
                     keyElement.classList.add('keyboard__key_control');
                     break;
                 case 'ArrowRight':
@@ -271,19 +269,13 @@ const Keyboard = {
                     keyElement.classList.add('keyboard__key_w', 'control-text-key2');
                     keyElement.classList.add('keyboard__key_control');
                     break;
-
-
-
-
                 case 'Space':
                     keyElement.classList.add('keyboard__key_extra-wide', 'control-text-key');
 
                     keyElement.classList.add('keyboard__key_control');
                     break;
                 default:
-
                     break;
-
             }
             keyElement.textContent = keymass[langIndex];
 
@@ -302,12 +294,14 @@ const Keyboard = {
     },
 };
 
+
 let keyPressedByMouseId;
 let keypressed = false;
 let globalCapslock = false;
 let globalShift = false;
 let globalCtrl = false;
 let globalAlt = false;
+let globalSoundON = false;
 let mouseControl = false;
 let mouseShift = false;
 let mouseAlt = false;
@@ -331,31 +325,25 @@ function showInput() {
 
 }
 
+
 function addHtml() {
     const fragment = document.createDocumentFragment();
-
-
     const textarea = document.createElement('textarea');
-
-
-
-
-
     textarea.setAttribute('name', 'input');
     textarea.setAttribute('cols', '30');
     textarea.setAttribute('rows', '15');
     textarea.setAttribute('autofocus', '');
     textarea.setAttribute('placeholder', 'Click here');
-
-
-
     fragment.appendChild(textarea);
     return fragment;
 }
 
+
 function keyDown(keyevent) {
     keyevent.preventDefault();
+   
     if (keyevent.code in Keyboard.keyArrayDecode) {
+        playSound(keyevent.code);
         let keyNum = Keyboard.keyArrayDecode[keyevent.code];
         Keyboard.elements.keys[keyNum].classList.add('keyboard__key_pressed');
         textarea.focus();
@@ -409,7 +397,6 @@ function keyDown(keyevent) {
 }
 
 
-
 function keyUp(keyevent) {
     keyevent.preventDefault();
     if (keyevent.code in Keyboard.keyArrayDecode) {
@@ -426,8 +413,6 @@ function keyUp(keyevent) {
 }
 
 
-
-
 function mouseDown(event) {
     event.preventDefault();
     if ((event.target.classList.contains('keyboard__key')) && (event.which == 1)) {
@@ -439,11 +424,9 @@ function mouseDown(event) {
             code: event.target.id,
         });
         document.dispatchEvent(newevent);
-
     }
-
-
 }
+
 
 function mouseUp(event) {
     event.preventDefault();
@@ -461,7 +444,6 @@ function mouseUp(event) {
 function keyUpProcessing(keyevent) {
 
 }
-
 
 
 function controlKeyProcessing(keyevent) {
@@ -485,6 +467,7 @@ function controlKeyProcessing(keyevent) {
             changeKeyCaps();
             break;
         case 'Enter':
+
             inputKeyToTextarea('\n');
             break;
         case 'ShiftLeft':
@@ -511,33 +494,44 @@ function controlKeyProcessing(keyevent) {
 
             break;
         case 'ContextMenu':
-            if (!keyevent.repeat) {
-                if (globalAlt) {
-                    inputContextMenuToTextarea();
-                    mouseAlt = false;
-                    let newevent = new KeyboardEvent('keyup', {
-                        key: 'mouseup',
-                        code: 'AltLeft',
-                    });
-                    if (altResolve(newevent)) {
-                        Keyboard.elements.keys[Keyboard.controlKeys['AltLeft']].classList.remove('keyboard__key_pressed');
-                    }
+            // Пример как Alt+ContexMenu
+            // if (!keyevent.repeat) {
+            //     if (globalAlt) {
+            //         inputContextMenuToTextarea();
+            //         mouseAlt = false;
+            //         let newevent = new KeyboardEvent('keyup', {
+            //             key: 'mouseup',
+            //             code: 'AltLeft',
+            //         });
+            //         if (altResolve(newevent)) {
+            //             Keyboard.elements.keys[Keyboard.controlKeys['AltLeft']].classList.remove('keyboard__key_pressed');
+            //         }
+            //     }
+            // }
 
-                }
-            }
-
+            //Вместо блока выше
+            inputContextMenuToTextarea();
             break;
         case 'ArrowLeft':
             inputArrowLeftToTextarea();
             break;
-        case 'ArrowDown':
-            inputArrowDownToTextarea();
+        case 'SoundArrowDown':
+            if (!keyevent.repeat) {
+                if (globalSoundON) {
+                    Keyboard.elements.keys[Keyboard.controlKeys['SoundArrowDown']].classList.remove('keyboard__key-ON');
+                    globalSoundON = false;
+                } else {
+                    Keyboard.elements.keys[Keyboard.controlKeys['SoundArrowDown']].classList.add('keyboard__key-ON');
+                    globalSoundON = true;
+                }
+            }
             break;
         case 'ArrowRight':
             inputArrowRightToTextarea();
             break;
     }
 }
+
 
 function resolveMouseKeyup(keyevent) {
     let result = false;
@@ -548,9 +542,6 @@ function resolveMouseKeyup(keyevent) {
     } else if (keyevent.code === 'AltLeft') {
         result = altResolve(keyevent);
     }
-
-
-
     return result;
 }
 
@@ -587,7 +578,6 @@ function controlResolve(keyevent) {
 }
 
 
-
 function shiftResolve(keyevent) {
     if (keyevent.key === 'mousedown') {
         if (!mouseShift) {
@@ -621,7 +611,6 @@ function shiftResolve(keyevent) {
 }
 
 
-
 function altResolve(keyevent) {
     if (keyevent.key === 'mousedown') {
         if (!mouseAlt) {
@@ -652,6 +641,7 @@ function altResolve(keyevent) {
     return false;
 }
 
+
 function changeKeyCaps() {
 
     let keyCapsIndex = 1;
@@ -666,8 +656,9 @@ function changeKeyCaps() {
     }
     Keyboard.elements.keys.forEach((key, index) => {
         key.textContent = Keyboard.keyArrayLayout[index][keyCapsIndex];
-    })
+    });
 }
+
 
 function inputKeyToTextarea(str) {
     let start = textarea.selectionStart;
@@ -680,7 +671,6 @@ function inputKeyToTextarea(str) {
     }
     textarea.selectionStart = start + 1;
     textarea.selectionEnd = start + 1;
-
 }
 
 
@@ -740,8 +730,6 @@ function inputContextMenuToTextarea() {
 }
 
 
-
-
 function changeLanguage() {
     if (Keyboard.language == 'en') {
         Keyboard.language = 'ru';
@@ -750,4 +738,39 @@ function changeLanguage() {
     }
     localStorage.setItem('language', Keyboard.language);
     changeKeyCaps();
+}
+
+
+function playSound(event) {
+    if (globalSoundON) {
+        return;
+    }
+    const audio = new Audio();
+    switch (event) {
+        case 'Enter':
+            audio.src = './sounds/enter.wav';
+            break;
+        case 'ShiftLeft':
+            audio.src = './sounds/shift.wav';
+            break;
+        case 'CapsLock':
+            audio.src = './sounds/caplock.wav';
+            break;
+        case 'Backspace':
+            audio.src = './sounds/backspace.wav';
+            break;
+
+        default:
+            if (Keyboard.language == 'en') {
+                audio.src = './sounds/en.wav';
+            } else {
+                audio.src = './sounds/ru.wav';
+            }
+            break;
+    }
+    if (!audio) {
+        return;
+    }
+    audio.currentTime = 0;
+    audio.play();
 }
