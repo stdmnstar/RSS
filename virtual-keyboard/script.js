@@ -10,6 +10,19 @@ const arrowUpSimbol = "🎤";
 //const arrowDownSimbol = String.fromCharCode(8595);
 const arrowDownSimbol = '🔇';
 
+let rec;
+let supportSpeech = true;
+let messageSupportSpeach;
+if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+    messageSupportSpeach = 'Ваш браузер поддерживат голосовой ввод данных';
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    rec = new SpeechRecognition();
+} else {
+    supportSpeech = false;
+    messageSupportSpeach = 'Ваш браузер не поддерживат голосовой ввод данных';
+
+}
+
 
 const Keyboard = {
     language: 'en',
@@ -38,7 +51,7 @@ const Keyboard = {
         'CapsLock': 28,
         'Enter': 40,
         'ShiftLeft': 41,
-        'ArrowUp': 52,
+        'SpeechArrowUp': 52,
         'ControlLeft': 53,
         'hideKeyboard': 54,
         'AltLeft': 55,
@@ -102,7 +115,7 @@ const Keyboard = {
         ['Comma', ',', ',', '<', '<', 'б', 'Б', 'Б', 'б'],
         ['Period', '.', '.', '>', '>', 'ю', 'Ю', 'Ю', 'ю'],
         ['Slash', '/', '/', '?', '?', '.', '.', ',', ','],
-        ['ArrowUp', arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol],
+        ['SpeechArrowUp', arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol, arrowUpSimbol],
         ['ControlLeft', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl', 'Ctrl'],
         ['hideKeyboard', keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol, keyboardDownSimbol],
         ['AltLeft', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt', 'Alt'],
@@ -166,7 +179,7 @@ const Keyboard = {
         'Comma': 49,
         'Period': 50,
         'Slash': 51,
-        'ArrowUp': 52,
+        'SpeechArrowUp': 52,
         'ControlLeft': 53,
         'hideKeyboard': 54,
         'AltLeft': 55,
@@ -182,8 +195,14 @@ const Keyboard = {
 
         if (localStorage.getItem('language') === 'ru') {
             this.language = localStorage.getItem('language');
+            if (supportSpeech) {
+                rec.lang = 'ru-RU';
+            }
         } else {
             localStorage.setItem('language', this.language);
+            if (supportSpeech) {
+                rec.lang = 'en-US';
+            }
         }
         this.elements.main = document.createElement('div');
         this.elements.main.setAttribute('tabindex', '0');
@@ -211,7 +230,7 @@ const Keyboard = {
 
         this.keyArrayLayout.forEach(keymass => {
             const keyElement = document.createElement('div');
-            const insertLineBreak = ['Backspace', 'Backslash', 'Enter', 'ArrowUp', 'ArrowRight'].indexOf(keymass[0]) !== -1;
+            const insertLineBreak = ['Backspace', 'Backslash', 'Enter', 'SpeechArrowUp', 'ArrowRight'].indexOf(keymass[0]) !== -1;
 
             keyElement.classList.add('keyboard__key');
             keyElement.setAttribute('id', keymass[0]);
@@ -239,7 +258,7 @@ const Keyboard = {
                     keyElement.classList.add('keyboard__key_the-widest', 'control-text-key');
                     keyElement.classList.add('keyboard__key_control');
                     break;
-                case 'ArrowUp':
+                case 'SpeechArrowUp':
 
                     keyElement.classList.add('keyboard__key_control');
                     break;
@@ -286,12 +305,7 @@ const Keyboard = {
         });
         return fragment;
     },
-    _triggerEvent(eventName) {
 
-    },
-    _toggleControls(control) {
-
-    },
 };
 
 
@@ -301,6 +315,7 @@ let globalCapslock = false;
 let globalShift = false;
 let globalCtrl = false;
 let globalAlt = false;
+let globalSpeechON = false;
 let globalSoundON = false;
 let mouseControl = false;
 let mouseShift = false;
@@ -333,7 +348,7 @@ function addHtml() {
     textarea.setAttribute('cols', '30');
     textarea.setAttribute('rows', '15');
     textarea.setAttribute('autofocus', '');
-    textarea.setAttribute('placeholder', 'Click here');
+    textarea.setAttribute('placeholder', 'Click here. ' + messageSupportSpeach);
     fragment.appendChild(textarea);
     return fragment;
 }
@@ -341,7 +356,7 @@ function addHtml() {
 
 function keyDown(keyevent) {
     keyevent.preventDefault();
-   
+
     if (keyevent.code in Keyboard.keyArrayDecode) {
         playSound(keyevent.code);
         let keyNum = Keyboard.keyArrayDecode[keyevent.code];
@@ -374,8 +389,7 @@ function keyDown(keyevent) {
 
             } else {
                 if (globalShift) {
-
-                    inputKeyToTextarea(Keyboard.elements.keys[Keyboard.keyArrayDecode[keyevent.code]].innerText);
+                    inputStringToTextarea(Keyboard.elements.keys[Keyboard.keyArrayDecode[keyevent.code]].innerText);
                     mouseShift = false;
                     let newevent = new KeyboardEvent('keyup', {
                         key: 'mouseup',
@@ -389,7 +403,7 @@ function keyDown(keyevent) {
                     }
 
                 } else {
-                    inputKeyToTextarea(Keyboard.elements.keys[Keyboard.keyArrayDecode[keyevent.code]].innerText);
+                    inputStringToTextarea(Keyboard.elements.keys[Keyboard.keyArrayDecode[keyevent.code]].innerText);
                 }
             }
         }
@@ -452,45 +466,42 @@ function controlKeyProcessing(keyevent) {
             inputBackspaceToTextarea();
             break;
         case 'Tab':
-            inputKeyToTextarea('\t');
+            inputStringToTextarea('\t');
             break;
         case 'CapsLock':
-            if (!keyevent.repeat) {
-                if (globalCapslock) {
-                    Keyboard.elements.keys[Keyboard.controlKeys['CapsLock']].classList.remove('keyboard__key-ON');
-                    globalCapslock = false;
-                } else {
-                    Keyboard.elements.keys[Keyboard.controlKeys['CapsLock']].classList.add('keyboard__key-ON');
-                    globalCapslock = true;
-                }
-            }
+            Keyboard.elements.keys[Keyboard.controlKeys['CapsLock']].classList.toggle('keyboard__key-ON');
+            globalCapslock = !globalCapslock;
             changeKeyCaps();
             break;
         case 'Enter':
 
-            inputKeyToTextarea('\n');
+            inputStringToTextarea('\n');
             break;
         case 'ShiftLeft':
             shiftResolve(keyevent);
 
             break;
-        case 'ArrowUp':
-            inputArrowUpToTextarea();
-
+        case 'SpeechArrowUp':
+            Keyboard.elements.keys[Keyboard.controlKeys['SpeechArrowUp']].classList.toggle('keyboard__key-ON');
+            globalSpeechON = !globalSpeechON;
+            if (supportSpeech) {
+                inputSpeechArrowUpToTextarea();
+            } else {
+                alert('Ваш браузер не поддерживат голосовой ввод данных');
+            }
             break;
         case 'ControlLeft':
-            controlResolve(keyevent);
-
+          //  controlResolve(keyevent);
             break;
         case 'hideKeyboard':
             document.querySelector('.keyboard').classList.add("keyboard--hidden");
             break;
         case 'AltLeft':
-            altResolve(keyevent);
+           // altResolve(keyevent);
             break;
 
         case 'Space':
-            inputSpaceToTextarea();
+            inputStringToTextarea(' ');
 
             break;
         case 'ContextMenu':
@@ -516,15 +527,8 @@ function controlKeyProcessing(keyevent) {
             inputArrowLeftToTextarea();
             break;
         case 'SoundArrowDown':
-            if (!keyevent.repeat) {
-                if (globalSoundON) {
-                    Keyboard.elements.keys[Keyboard.controlKeys['SoundArrowDown']].classList.remove('keyboard__key-ON');
-                    globalSoundON = false;
-                } else {
-                    Keyboard.elements.keys[Keyboard.controlKeys['SoundArrowDown']].classList.add('keyboard__key-ON');
-                    globalSoundON = true;
-                }
-            }
+            Keyboard.elements.keys[Keyboard.controlKeys['SoundArrowDown']].classList.toggle('keyboard__key-ON');
+            globalSoundON = !globalSoundON;
             break;
         case 'ArrowRight':
             inputArrowRightToTextarea();
@@ -660,7 +664,7 @@ function changeKeyCaps() {
 }
 
 
-function inputKeyToTextarea(str) {
+function inputStringToTextarea(str) {
     let start = textarea.selectionStart;
     if (textarea.selectionStart != textarea.selectionEnd) {
         textarea.value = textarea.value.slice(0, textarea.selectionStart) + str + textarea.value.slice(textarea.selectionEnd);
@@ -669,8 +673,8 @@ function inputKeyToTextarea(str) {
     } else {
         textarea.value = textarea.value.slice(0, textarea.selectionStart) + str + textarea.value.slice(textarea.selectionEnd);
     }
-    textarea.selectionStart = start + 1;
-    textarea.selectionEnd = start + 1;
+    textarea.selectionStart = start + str.length;
+    textarea.selectionEnd = start + str.length;
 }
 
 
@@ -684,14 +688,6 @@ function inputBackspaceToTextarea() {
         textarea.selectionStart = start - 1;
         textarea.selectionEnd = start - 1;
     }
-}
-
-
-function inputSpaceToTextarea() {
-    let start = textarea.selectionStart;
-    textarea.value = textarea.value.slice(0, textarea.selectionStart) + ' ' + textarea.value.slice(textarea.selectionEnd);
-    textarea.selectionStart = start + 1;
-    textarea.selectionEnd = start + 1;
 }
 
 
@@ -733,8 +729,14 @@ function inputContextMenuToTextarea() {
 function changeLanguage() {
     if (Keyboard.language == 'en') {
         Keyboard.language = 'ru';
+        if (supportSpeech) {
+            rec.lang = 'ru-RU';
+        }
     } else {
         Keyboard.language = 'en';
+        if (supportSpeech) {
+            rec.lang = 'en-US';
+        }
     }
     localStorage.setItem('language', Keyboard.language);
     changeKeyCaps();
@@ -773,4 +775,30 @@ function playSound(event) {
     }
     audio.currentTime = 0;
     audio.play();
+}
+
+function inputSpeechArrowUpToTextarea(event) {
+
+    if (globalSpeechON) {
+        rec.interimResults = false;
+        rec.addEventListener("result", resultSpeachToTextarea);
+        rec.addEventListener("end", rec.start);
+        rec.start();
+    } else {
+        rec.removeEventListener("result", resultSpeachToTextarea);
+        rec.removeEventListener('end', rec.start);
+        rec.stop();
+    }
+}
+
+function resultSpeachToTextarea(e) {
+
+    let text = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('');
+
+    if (e.results[0].isFinal) {
+        inputStringToTextarea(text + ' ');
+    }
 }
