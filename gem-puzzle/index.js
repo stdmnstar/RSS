@@ -8,7 +8,6 @@ const SIZES = {
   '8x8': 8,
 };
 
-
 let moves = 0;
 let time = 0;
 let timerStart = 0;
@@ -27,19 +26,7 @@ let cells = [];
 
 let historyMoves = [];
 
-let records = localStorage.getItem('records');
-
-if (!records) {
-  records = {};
-  for (const key of Object.keys(SIZES)) {
-    records[key] = {};
-
-  }
-}
-
-
 document.body.innerHTML = '';
-
 
 const wrapper = document.createElement('main');
 
@@ -49,7 +36,6 @@ const field = document.createElement('div');
 const sizeButtons = document.createElement('div');
 const buttons = document.createElement('div');
 
-
 wrapper.classList.add('wrapper');
 
 buttons.classList.add('buttons');
@@ -58,7 +44,6 @@ infoTop.classList.add('infoTop');
 field.classList.add('field');
 sizeButtons.classList.add('sizeButtons');
 
-
 wrapper.appendChild(startButtons);
 wrapper.appendChild(infoTop);
 wrapper.appendChild(field);
@@ -66,7 +51,6 @@ wrapper.appendChild(sizeButtons);
 wrapper.appendChild(buttons);
 
 document.body.appendChild(wrapper);
-
 
 buttons.innerHTML = '';
 
@@ -90,8 +74,6 @@ btnResults.id = 'btn-results';
 btnResults.setAttribute('title', 'Best of the Best');
 btnResults.classList.add('btn', 'btn-big');
 buttons.appendChild(btnResults);
-
-
 
 startButtons.innerHTML = '';
 const btnStart = document.createElement('button');
@@ -117,7 +99,6 @@ for (const sizeKey of Object.keys(SIZES)) {
   btn.textContent = sizeKey;
   sizeButtons.appendChild(btn);
 }
-
 
 infoTop.innerHTML = '';
 
@@ -147,10 +128,7 @@ timeCount.id = 'time';
 timeCount.textContent = '00:00';
 infoTop.appendChild(timeCount);
 
-
-
-createField();
-
+createInitField();
 createListeners();
 
 
@@ -163,55 +141,48 @@ function installSize(s) {
 }
 
 
-function createField() {
-
+function createInitField() {
   cells.length = 0;
 
-  field.innerHTML = '';
+  for (let i = 0; i < sellCount; i++) {
+    cells.push({
+      value: i + 1,
+      column: getColum(i, size),
+      raw: getRaw(i, size)
+    });
+  }
+  createField();
+}
+
+function createField() {
   let cell;
   let value;
-
-  for (let i = 0; i < sellCount - 1; i++) {
+  field.innerHTML = '';
+  for (let i = 0; i < sellCount; i++) {
     cell = document.createElement('div');
     cell.style.width = `${cellSize}px`;
     cell.style.height = `${cellSize}px`;
+    cell.style.height = `${cellSize}px`;
+    cell.id = i;
+    if (i !== sellCount - 1) {
+      cell.className = 'cell';
+      cell.innerHTML = cells[i].value;
+      cell.onclick = moveOnClick;
+      cell.ondragstart = drag;
+    } else {
+      cell.className = 'cell-empty';
+      cell.ondragover = allowDrop;
+      cell.ondrop = drop;
+    }
 
-    value = i + 1;
-    cell.className = 'cell';
-    cell.innerHTML = value;
-
-    const column = getColum(i, size);
-    const raw = getRaw(i, size);
-
-    cells.push({
-      value: value,
-      column: column,
-      raw: raw,
-      element: cell
-    });
-
-    cell.style.left = `${column * cellSize}px`;
-    cell.style.top = `${raw * cellSize}px`;
-
+    cells[i].element = cell;
+    cell.style.left = `${cells[i].column * cellSize}px`;
+    cell.style.top = `${cells[i].raw * cellSize}px`;
     field.appendChild(cell);
-    cell.addEventListener('click', () => {
-      move(i);
-    });
-
   }
-  const empty = {
-    value: sellCount,
-    column: getColum(sellCount - 1, size),
-    raw: getRaw(sellCount - 1, size)
-
-  };
-  cells.push(empty);
 }
 
-
-
 function move(index) {
-
   if (!isStarted) {
     alert('Игра не начата. Нажмите NEW GAME');
     return;
@@ -232,7 +203,7 @@ function move(index) {
 
   moves += 1;
   setMoves(moves);
-
+  setDraggable();
 
   if (isFinished()) {
     isStarted = false;
@@ -243,7 +214,18 @@ function move(index) {
         `Ура! Вы решили головоломку за ${timeCount.textContent} и ${moves} ходов`
       ), 300);
   }
+}
 
+function setDraggable() {
+  for (let i = 0; i < cells.length - 1; i++) {
+    cells[i].element.setAttribute('draggable', 'false');
+    cells[i].element.style.cursor = 'default';
+  }
+  const freeMovies = getFreeMovies();
+  for (let i = 0; i < freeMovies.length; i++) {
+    freeMovies[i].element.setAttribute('draggable', 'true');
+    freeMovies[i].element.style.cursor = 'grab';    
+  }
 }
 
 function setMoves(moves) {
@@ -257,18 +239,19 @@ function isFinished() {
 }
 
 function swap(cell, empty) {
-  cell.element.style.left = `${empty.column * cellSize}px`;
-  cell.element.style.top = `${empty.raw * cellSize}px`;
-  //  cell.element.classList.remove('kkk');
-
   const emptyColumn = empty.column;
   const emptyRaw = empty.raw;
+
   empty.column = cell.column;
   empty.raw = cell.raw;
   cell.column = emptyColumn;
   cell.raw = emptyRaw;
-}
 
+  cell.element.style.left = `${cell.column * cellSize}px`;
+  cell.element.style.top = `${cell.raw * cellSize}px`;
+  empty.element.style.left = `${empty.column * cellSize}px`;
+  empty.element.style.top = `${empty.raw * cellSize}px`;
+}
 
 function onOffSound() {
   btnSound.textContent = (isSound) ? '🔇' : '🔊';
@@ -295,7 +278,7 @@ function start() {
     return;
   }
 
-  createField();
+  createInitField();
 
   isSolution = true;
   isStarted = true;
@@ -304,33 +287,21 @@ function start() {
   setMoves(moves);
   const empty = cells[(sellCount - 1)];
 
-  const freeMovies = [];
+  let freeMovies = [];
   for (let k = 0; k < countShufle; k++) {
 
     freeMovies.length = 0;
-    for (let i = 0; i < sellCount - 1; i++) {
-      const cell = cells[i];
-      const leftDiff = Math.abs(empty.column - cell.column);
-      const toptDiff = Math.abs(empty.raw - cell.raw);
-      if (leftDiff + toptDiff == 1) {
-        freeMovies.push(cell);
-
-      }
-    }
+    freeMovies = getFreeMovies();
     const randomSide = Math.floor(Math.random() * (freeMovies.length));
 
     swap(freeMovies[randomSide], empty);
     historyMoves.push(freeMovies[randomSide].value);
 
-    console.log('hist', historyMoves)
-
     if (historyMoves[k] == historyMoves[k - 1]) {
       historyMoves.pop();
       historyMoves.pop();
       k -= 2;
-      console.log('----------')
     }
-
   }
   if (timerId) {
     moves = 0;
@@ -340,9 +311,24 @@ function start() {
   }
 
   timerStart = Date.now();
+
+  setDraggable();
   startTimer();
 }
 
+function getFreeMovies() {
+  const empty = cells[(sellCount - 1)];
+  const freeMovies = [];
+  for (let i = 0; i < sellCount - 1; i++) {
+    const cell = cells[i];
+    const leftDiff = Math.abs(empty.column - cell.column);
+    const toptDiff = Math.abs(empty.raw - cell.raw);
+    if (leftDiff + toptDiff == 1) {
+      freeMovies.push(cell);
+    }
+  }
+  return freeMovies;
+}
 
 function startTimer() {
   timerId = setInterval(() => {
@@ -380,8 +366,6 @@ function solution() {
   for (let i = historyMoves.length - 1; i >= 0; i--) {
 
     setTimeout(() => {
-      console.log(i);
-
       swap(cells[historyMoves[i] - 1], empty);
       playSound(isSound);
 
@@ -410,8 +394,7 @@ function saveField() {
       historyMoves: historyMoves,
 
     };
-    localStorage.setItem('lastSaved', JSON.stringify(cellsObject));
-    console.log('перед', historyMoves)
+    localStorage.setItem('lastSaved', JSON.stringify(cellsObject));   
   }
 }
 
@@ -444,44 +427,34 @@ function restoreField() {
       cells = lastSaved.cells;
       historyMoves = lastSaved.historyMoves;
 
-      let cell;
-      let value;
-      field.innerHTML = '';
-
-      for (let i = 0; i < sellCount - 1; i++) {
-        cell = document.createElement('div');
-        cell.style.width = `${cellSize}px`;
-        cell.style.height = `${cellSize}px`;
-        cell.className = 'cell';
-        cell.innerHTML = cells[i].value;
-
-        cells[i].element = cell;
-
-        cell.style.left = `${cells[i].column * cellSize}px`;
-        cell.style.top = `${cells[i].raw * cellSize}px`;
-
-
-        field.appendChild(cell);
-        cell.addEventListener('click', () => {
-          move(i);
-        });
-      }
-
+      createField();
+      setDraggable();
 
       if (isStarted) {
         timerStart = Date.now() - time * 1000;
         startTimer();
       }
-
-      console.log('в конце', historyMoves)
-
     } else {
       alert('No saved position!');
     }
   }
 }
 
+function moveOnClick(e) {
+  move(e.target.id);
+}
 
+function drop(event) {
+  move(event.dataTransfer.getData('id'));
+}
+
+function drag(event) {
+  event.dataTransfer.setData('id', event.target.id);  
+}
+
+function allowDrop(event) {
+  event.preventDefault();  
+}
 
 function createListeners() {
   document
@@ -492,11 +465,9 @@ function createListeners() {
     .getElementById('btn-solution')
     .addEventListener('click', () => solution());
 
-
   document
     .getElementById('btn-sound')
     .addEventListener('click', () => onOffSound());
-
 
   document
     .getElementById('btn-save')
@@ -510,7 +481,6 @@ function createListeners() {
     .getElementById('btn-results')
     .addEventListener('click', () => showResults());
 
-  
   sizeButtons.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
 
@@ -528,7 +498,7 @@ function createListeners() {
         clearTimeout(timerId);
         timeCount.textContent = '00:00';
       }
-      createField();
+      createInitField();
     }
   });
 }
@@ -540,4 +510,3 @@ function getColum(index, size) {
 function getRaw(index, size) {
   return (index - getColum(index, size)) / size;
 }
-
