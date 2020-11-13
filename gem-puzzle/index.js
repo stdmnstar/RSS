@@ -171,7 +171,8 @@ function createField() {
       cell.className = 'cell';
       cell.innerHTML = cells[i].value;
       cell.onclick = moveOnClick;
-      cell.ondragstart = drag;
+      cell.ondragstart = dragStart;
+      cell.ondragend = dragEnd;
     } else {
       cell.className = 'cell-empty';
       cell.ondragover = allowDrop;
@@ -451,8 +452,18 @@ function drop(event) {
   move(event.dataTransfer.getData('id'));
 }
 
-function drag(event) {
+function dragStart(event) {
   event.dataTransfer.setData('id', event.target.id);
+  setTimeout(() => {
+    cells[event.target.id].element.classList.add('hide');
+  }, 0);
+}
+
+function dragEnd(event) {
+  setTimeout(() => {
+    cells[event.target.id].element.classList.remove('hide');
+  }, 0);
+
 }
 
 function allowDrop(event) {
@@ -510,13 +521,12 @@ function createListeners() {
 
 function resizeWindow() {
   installSize(size);
-  for (let i = 0; i < cells.length - 1; i++) {
+  for (let i = 0; i < cells.length; i++) {
     cells[i].element.style.width = `${cellSize}px`;
     cells[i].element.style.height = `${cellSize}px`;
     cells[i].element.style.left = `${cells[i].column * cellSize}px`;
     cells[i].element.style.top = `${cells[i].raw * cellSize}px`;
   }
-
 }
 
 function getColum(index, size) {
