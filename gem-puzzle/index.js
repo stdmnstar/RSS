@@ -1,5 +1,5 @@
 const SIZES = {
-  '2x2': 2,
+  // '2x2': 2,
   '3x3': 3,
   '4x4': 4,
   '5x5': 5,
@@ -113,7 +113,6 @@ infoTop.appendChild(movesCount);
 
 const btnSound = document.createElement('button');
 btnSound.textContent = '🔊';
-//btnSound.textContent = '🔇';
 btnSound.id = 'btn-sound';
 btnSound.setAttribute('title', 'Sound on/off');
 btnSound.classList.add('btn', 'btn-big');
@@ -134,9 +133,13 @@ createListeners();
 
 
 function installSize(s) {
+  let widthField = 400;
+  if (document.body.clientWidth < 480) {
+    widthField = 280;
+  }
   size = s;
   sellCount = s * s;
-  cellSize = 400 / s;
+  cellSize = widthField / s;
   countShufle = sellCount * 3;
 }
 
@@ -184,7 +187,7 @@ function createField() {
 
 function move(index) {
   if (!isStarted) {
-    alert('Игра не начата. Нажмите NEW GAME');
+    myAlert('Игра не начата. Нажмите NEW GAME');
     return;
   }
   const cell = cells[index];
@@ -210,7 +213,7 @@ function move(index) {
     clearInterval(timerId);
     //alert('win');
     setTimeout(() =>
-      alert(
+      myAlert(
         `Ура! Вы решили головоломку за ${timeCount.textContent} и ${moves} ходов`
       ), 300);
   }
@@ -224,7 +227,7 @@ function setDraggable() {
   const freeMovies = getFreeMovies();
   for (let i = 0; i < freeMovies.length; i++) {
     freeMovies[i].element.setAttribute('draggable', 'true');
-    freeMovies[i].element.style.cursor = 'grab';    
+    freeMovies[i].element.style.cursor = 'grab';
   }
 }
 
@@ -274,7 +277,7 @@ function playSound(isSound) {
 
 function start() {
   if (solutionWork) {
-    alert('Дождитесь завершения анимации');
+    myAlert('Дождитесь завершения анимации');
     return;
   }
 
@@ -346,11 +349,11 @@ function startTimer() {
 
 function solution() {
   if (solutionWork) {
-    alert('Дождитесь завершения анимации');
+    myAlert('Дождитесь завершения анимации');
     return;
   }
   if (!isSolution) {
-    alert('Нет игры для завершения');
+    myAlert('Нет игры для завершения');
     return;
   }
 
@@ -380,7 +383,7 @@ function solution() {
 
 }
 
-function saveField() {
+function saveGame() {
   if (confirm('Сохранить игру?')) {
 
     const cellsObject = {
@@ -394,48 +397,48 @@ function saveField() {
       historyMoves: historyMoves,
 
     };
-    localStorage.setItem('lastSaved', JSON.stringify(cellsObject));   
+    localStorage.setItem('lastSaved', JSON.stringify(cellsObject));
   }
 }
 
-function restoreField() {
-  if (confirm('Restore last saved position?')) {
-    const lastSaved = JSON.parse(localStorage.getItem('lastSaved'));
-    if (lastSaved) {
-      if (timerId) {
-        clearTimeout(timerId);
-      }
+function restoreGame() {
+  const lastSaved = JSON.parse(localStorage.getItem('lastSaved'));
+  if (!lastSaved) {
+    myAlert('Сохраненной игры не обнаружено!');
+    return;
+  }
+  if (confirm('Восстановить последнюю сохраненную игру?')) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
 
-      moves = lastSaved.moves;
-      movesCount.textContent = moves.toString().padStart('0', 3);
+    moves = lastSaved.moves;
+    movesCount.textContent = moves.toString().padStart('0', 3);
 
-      time = lastSaved.time;
-      timeCount.textContent =
-        parseInt(time / 60)
-        .toString()
-        .padStart(2, '0') +
-        ':' +
-        parseInt(time % 60)
-        .toString()
-        .padStart(2, '0');
+    time = lastSaved.time;
+    timeCount.textContent =
+      parseInt(time / 60)
+      .toString()
+      .padStart(2, '0') +
+      ':' +
+      parseInt(time % 60)
+      .toString()
+      .padStart(2, '0');
 
-      size = lastSaved.size;
-      isStarted = lastSaved.isStarted;
-      isSolution = lastSaved.isSolution;
-      size = lastSaved.size;
-      installSize(size);
-      cells = lastSaved.cells;
-      historyMoves = lastSaved.historyMoves;
+    size = lastSaved.size;
+    isStarted = lastSaved.isStarted;
+    isSolution = lastSaved.isSolution;
+    size = lastSaved.size;
+    installSize(size);
+    cells = lastSaved.cells;
+    historyMoves = lastSaved.historyMoves;
 
-      createField();
-      setDraggable();
+    createField();
+    setDraggable();
 
-      if (isStarted) {
-        timerStart = Date.now() - time * 1000;
-        startTimer();
-      }
-    } else {
-      alert('No saved position!');
+    if (isStarted) {
+      timerStart = Date.now() - time * 1000;
+      startTimer();
     }
   }
 }
@@ -449,11 +452,11 @@ function drop(event) {
 }
 
 function drag(event) {
-  event.dataTransfer.setData('id', event.target.id);  
+  event.dataTransfer.setData('id', event.target.id);
 }
 
 function allowDrop(event) {
-  event.preventDefault();  
+  event.preventDefault();
 }
 
 function createListeners() {
@@ -471,11 +474,11 @@ function createListeners() {
 
   document
     .getElementById('btn-save')
-    .addEventListener('click', () => saveField());
+    .addEventListener('click', () => saveGame());
 
   document
     .getElementById('btn-restore')
-    .addEventListener('click', () => restoreField());
+    .addEventListener('click', () => restoreGame());
 
   document
     .getElementById('btn-results')
@@ -485,7 +488,7 @@ function createListeners() {
     if (e.target.tagName === 'BUTTON') {
 
       if (solutionWork) {
-        alert('Дождитесь завершения анимации');
+        myAlert('Дождитесь завершения анимации');
         return;
       }
 
@@ -501,6 +504,19 @@ function createListeners() {
       createInitField();
     }
   });
+
+  window.onresize = resizeWindow;
+}
+
+function resizeWindow() {
+  installSize(size);
+  for (let i = 0; i < cells.length - 1; i++) {
+    cells[i].element.style.width = `${cellSize}px`;
+    cells[i].element.style.height = `${cellSize}px`;
+    cells[i].element.style.left = `${cells[i].column * cellSize}px`;
+    cells[i].element.style.top = `${cells[i].raw * cellSize}px`;
+  }
+
 }
 
 function getColum(index, size) {
@@ -509,4 +525,35 @@ function getColum(index, size) {
 
 function getRaw(index, size) {
   return (index - getColum(index, size)) / size;
+}
+
+function closeAlertBox() {
+  const alertBox = document.getElementById("alertBox");
+  const alertClose = document.getElementById("alertClose");
+  const alertClose2 = document.getElementById("alertClose2");
+
+  alertBox.parentNode.removeChild(alertBox);
+  alertClose.parentNode.removeChild(alertClose);
+  alertClose2.parentNode.removeChild(alertClose2);
+}
+
+function myAlert(msg, width = '200px', height = '100px') {
+  const alertBox = document.createElement("div");
+  document.body.appendChild(alertBox);
+  alertBox.id = "alertBox";
+  alertBox.innerHTML = msg;
+  alertBox.style.width = width;
+  alertBox.style.height = height;
+
+  const alertClose = document.createElement("div");
+  alertClose.id = "alertClose";
+  alertClose.innerHTML = "X";
+  alertBox.appendChild(alertClose);
+
+  alertClose.onclick = closeAlertBox;
+
+  const alertClose2 = document.createElement("div");
+  alertClose2.id = "alertClose2";
+  document.body.appendChild(alertClose2);
+  alertClose2.onclick = closeAlertBox;
 }
