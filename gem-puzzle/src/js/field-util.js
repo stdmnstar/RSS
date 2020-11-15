@@ -44,3 +44,9 @@ export function isFinished(cells, size) {
     return cell.value === cell.raw * size + cell.column + 1;
   });
 }
+
+export function parsetime(time){
+ return `${parseInt(time / 60, 10).toString()
+    .padStart(2, '0')}:${parseInt(time % 60, 10).toString()
+      .padStart(2, '0')}`;
+}

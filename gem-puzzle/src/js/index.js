@@ -6,11 +6,16 @@ import myAlert from './myalert';
 import setDraggable from './drag';
 import playSound from './sound';
 import {
+  showResults,
+  setResults
+} from './results';
+import {
   getColum,
   getRaw,
   getFreeMovies,
   swap,
-  isFinished
+  isFinished,
+  parsetime
 } from './field-util';
 
 const SIZES = {
@@ -178,6 +183,7 @@ function move(index) {
       myAlert(
         `Ура! Вы решили головоломку за ${timeCount.textContent} и ${moves} ходов`
       ), 300);
+    setResults(size, moves, timeCount.textContent);
   }
 }
 
@@ -250,9 +256,7 @@ function createInitField() {
 function startTimer() {
   timerId = setInterval(() => {
     time = (Date.now() - timerStart) / 1000;
-    timeCount.textContent = `${parseInt(time / 60, 10).toString()
-      .padStart(2, '0')}:${parseInt(time % 60, 10).toString()
-        .padStart(2, '0')}`;
+    timeCount.textContent = parsetime(time);
   }, 1000);
 }
 
@@ -354,39 +358,37 @@ function restoreGame() {
   if (!lastSaved) {
     myAlert('Сохраненной игры не обнаружено!');
     return;
-  }  
-    if (timerId) {
-      clearTimeout(timerId);
-    }
+  }
+  if (timerId) {
+    clearTimeout(timerId);
+  }
 
-    moves = lastSaved.moves;
-    setMovesOnField(moves);
+  moves = lastSaved.moves;
+  setMovesOnField(moves);
 
-    time = lastSaved.time;
-    timeCount.textContent = `${parseInt(time / 60, 10).toString()
-      .padStart(2, '0')}:${parseInt(time % 60, 10).toString()
-        .padStart(2, '0')}`;
-    size = lastSaved.size;
-    isStarted = lastSaved.isStarted;
-    isSolution = lastSaved.isSolution;
-    size = lastSaved.size;
-    installSize(size);
-    cells = lastSaved.cells;
-    historyMoves = lastSaved.historyMoves;
+  time = lastSaved.time;
+  timeCount.textContent = parsetime(time);
+  size = lastSaved.size;
+  isStarted = lastSaved.isStarted;
+  isSolution = lastSaved.isSolution;
+  size = lastSaved.size;
+  installSize(size);
+  cells = lastSaved.cells;
+  historyMoves = lastSaved.historyMoves;
 
-    createField();
-    setDraggable(cells, sellCount);
+  createField();
+  setDraggable(cells, sellCount);
 
-    if (isStarted) {
-      timerStart = Date.now() - time * 1000;
-      startTimer();
-    }
+  if (isStarted) {
+    timerStart = Date.now() - time * 1000;
+    startTimer();
+  }
   myAlert('Восстановлена последняя сохраненная игра');
 }
 
 function resizeWindow() {
   installSize(size);
-  for (let i = 0; i < cells.length; i+=1) {
+  for (let i = 0; i < cells.length; i += 1) {
     cells[i].element.style.width = `${cellSize}px`;
     cells[i].element.style.height = `${cellSize}px`;
     cells[i].element.style.left = `${cells[i].column * cellSize}px`;
@@ -396,7 +398,7 @@ function resizeWindow() {
 
 function onOffSound() {
   btnSound.textContent = (isSound) ? '🔇' : '🔊';
-  isSound =  !isSound;
+  isSound = !isSound;
 }
 
 createInitField();
@@ -405,7 +407,7 @@ btnSolution.addEventListener('click', () => solution());
 btnSound.addEventListener('click', () => onOffSound());
 btnSave.addEventListener('click', () => saveGame());
 btnRestore.addEventListener('click', () => restoreGame());
-btnResults.addEventListener('click', () => showResults());
+btnResults.addEventListener('click', () => showResults(size));
 sizeButtons.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON') {
 
