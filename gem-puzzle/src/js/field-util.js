@@ -50,3 +50,8 @@ export function parsetime(time){
     .padStart(2, '0')}:${parseInt(time % 60, 10).toString()
       .padStart(2, '0')}`;
 }
+
+export function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+

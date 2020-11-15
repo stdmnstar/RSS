@@ -1,6 +1,156 @@
 import '../css/style.scss';
 import '../favicon.ico';
 import '../sounds/audio.mp3';
+import '../img/1.jpg';
+import '../img/2.jpg';
+import '../img/3.jpg';
+import '../img/4.jpg';
+import '../img/5.jpg';
+import '../img/6.jpg';
+import '../img/7.jpg';
+import '../img/8.jpg';
+import '../img/9.jpg';
+import '../img/10.jpg';
+import '../img/11.jpg';
+import '../img/12.jpg';
+import '../img/13.jpg';
+import '../img/14.jpg';
+import '../img/15.jpg';
+import '../img/16.jpg';
+import '../img/17.jpg';
+import '../img/18.jpg';
+import '../img/19.jpg';
+import '../img/20.jpg';
+import '../img/21.jpg';
+import '../img/22.jpg';
+import '../img/23.jpg';
+import '../img/24.jpg';
+import '../img/25.jpg';
+import '../img/26.jpg';
+import '../img/27.jpg';
+import '../img/28.jpg';
+import '../img/29.jpg';
+import '../img/30.jpg';
+import '../img/31.jpg';
+import '../img/32.jpg';
+import '../img/33.jpg';
+import '../img/34.jpg';
+import '../img/35.jpg';
+import '../img/36.jpg';
+import '../img/37.jpg';
+import '../img/38.jpg';
+import '../img/39.jpg';
+import '../img/40.jpg';
+import '../img/41.jpg';
+import '../img/42.jpg';
+import '../img/43.jpg';
+import '../img/44.jpg';
+import '../img/45.jpg';
+import '../img/46.jpg';
+import '../img/47.jpg';
+import '../img/48.jpg';
+import '../img/49.jpg';
+import '../img/50.jpg';
+import '../img/51.jpg';
+import '../img/52.jpg';
+import '../img/53.jpg';
+import '../img/54.jpg';
+import '../img/55.jpg';
+import '../img/56.jpg';
+import '../img/57.jpg';
+import '../img/58.jpg';
+import '../img/59.jpg';
+import '../img/60.jpg';
+import '../img/61.jpg';
+import '../img/62.jpg';
+import '../img/63.jpg';
+import '../img/64.jpg';
+import '../img/65.jpg';
+import '../img/66.jpg';
+import '../img/67.jpg';
+import '../img/68.jpg';
+import '../img/69.jpg';
+import '../img/70.jpg';
+import '../img/71.jpg';
+import '../img/72.jpg';
+import '../img/73.jpg';
+import '../img/74.jpg';
+import '../img/75.jpg';
+import '../img/76.jpg';
+import '../img/77.jpg';
+import '../img/78.jpg';
+import '../img/79.jpg';
+import '../img/80.jpg';
+import '../img/81.jpg';
+import '../img/82.jpg';
+import '../img/83.jpg';
+import '../img/84.jpg';
+import '../img/85.jpg';
+import '../img/86.jpg';
+import '../img/87.jpg';
+import '../img/88.jpg';
+import '../img/89.jpg';
+import '../img/90.jpg';
+import '../img/91.jpg';
+import '../img/92.jpg';
+import '../img/93.jpg';
+import '../img/94.jpg';
+import '../img/95.jpg';
+import '../img/96.jpg';
+import '../img/97.jpg';
+import '../img/98.jpg';
+import '../img/99.jpg';
+import '../img/100.jpg';
+import '../img/101.jpg';
+import '../img/102.jpg';
+import '../img/103.jpg';
+import '../img/104.jpg';
+import '../img/105.jpg';
+import '../img/106.jpg';
+import '../img/107.jpg';
+import '../img/108.jpg';
+import '../img/109.jpg';
+import '../img/110.jpg';
+import '../img/111.jpg';
+import '../img/112.jpg';
+import '../img/113.jpg';
+import '../img/114.jpg';
+import '../img/115.jpg';
+import '../img/116.jpg';
+import '../img/117.jpg';
+import '../img/118.jpg';
+import '../img/119.jpg';
+import '../img/120.jpg';
+import '../img/121.jpg';
+import '../img/122.jpg';
+import '../img/123.jpg';
+import '../img/124.jpg';
+import '../img/125.jpg';
+import '../img/126.jpg';
+import '../img/127.jpg';
+import '../img/128.jpg';
+import '../img/129.jpg';
+import '../img/130.jpg';
+import '../img/131.jpg';
+import '../img/132.jpg';
+import '../img/133.jpg';
+import '../img/134.jpg';
+import '../img/135.jpg';
+import '../img/136.jpg';
+import '../img/137.jpg';
+import '../img/138.jpg';
+import '../img/139.jpg';
+import '../img/140.jpg';
+import '../img/141.jpg';
+import '../img/142.jpg';
+import '../img/143.jpg';
+import '../img/144.jpg';
+import '../img/145.jpg';
+import '../img/146.jpg';
+import '../img/147.jpg';
+import '../img/148.jpg';
+import '../img/149.jpg';
+import '../img/150.jpg';
 
 import myAlert from './myalert';
 import setDraggable from './drag';
@@ -15,8 +165,11 @@ import {
   getFreeMovies,
   swap,
   isFinished,
-  parsetime
+  parsetime,
+  getRandomInt
 } from './field-util';
+
+const imgCount = 150;
 
 const SIZES = {
   '3x3': 3,
@@ -41,6 +194,7 @@ let solutionWork = false;
 let isSound = true;
 let cells = [];
 let historyMoves = [];
+let image;
 
 function installSize(s) {
   let widthField = 400;
@@ -215,6 +369,7 @@ function allowDrop(event) {
 function createField() {
   let cell;
   field.innerHTML = '';
+
   for (let i = 0; i < sellCount; i += 1) {
     cell = document.createElement('div');
     cell.style.width = `${cellSize}px`;
@@ -227,6 +382,10 @@ function createField() {
       cell.onclick = moveOnClick;
       cell.ondragstart = dragStart;
       cell.ondragend = dragEnd;
+      cell.style.backgroundImage = image;
+      cell.style.backgroundSize = `${cellSize * size}px`;
+      cell.style.backgroundPositionX = `${-getColum(i,size) * cellSize}px`;
+      cell.style.backgroundPositionY = `${-getRaw(i,size) * cellSize}px`;
     } else {
       cell.className = 'cell-empty';
       cell.ondragover = allowDrop;
@@ -250,6 +409,7 @@ function createInitField() {
       raw: getRaw(i, size)
     });
   }
+  image = `url(./img/${getRandomInt(1, imgCount)}.jpg)`;
   createField();
 }
 
@@ -329,17 +489,16 @@ function solution() {
   const empty = cells[(sellCount - 1)];
   for (let i = historyMoves.length - 1; i >= 0; i -= 1) {
     swapSolution(historyMoves.length - i, cells[historyMoves[i] - 1], empty);
-
   }
   isSolution = false;
 
   setTimeout(() => {
     solutionWork = false;
-  }, 300 * (historyMoves.length));
-}
+  }, 300 * (historyMoves.length));}
 
 function saveGame() {
   const cellsObject = {
+    image,
     moves,
     time,
     timerStart,
@@ -362,7 +521,7 @@ function restoreGame() {
   if (timerId) {
     clearTimeout(timerId);
   }
-
+  image = lastSaved.image;
   moves = lastSaved.moves;
   setMovesOnField(moves);
 
@@ -393,6 +552,9 @@ function resizeWindow() {
     cells[i].element.style.height = `${cellSize}px`;
     cells[i].element.style.left = `${cells[i].column * cellSize}px`;
     cells[i].element.style.top = `${cells[i].raw * cellSize}px`;
+    cells[i].element.style.backgroundSize = `${cellSize * size}px`;
+    cells[i].element.style.backgroundPositionX = `${-getColum(i,size) * cellSize}px`;
+    cells[i].element.style.backgroundPositionY = `${-getRaw(i,size) * cellSize}px`;
   }
 }
 
@@ -401,7 +563,7 @@ function onOffSound() {
   isSound = !isSound;
 }
 
-createInitField();
+start();
 btnStart.addEventListener('click', () => start());
 btnSolution.addEventListener('click', () => solution());
 btnSound.addEventListener('click', () => onOffSound());
@@ -424,7 +586,7 @@ sizeButtons.addEventListener('click', (e) => {
       clearTimeout(timerId);
       timeCount.textContent = '00:00';
     }
-    createInitField();
+    start();
   }
 });
 
