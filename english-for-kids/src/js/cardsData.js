@@ -177,10 +177,10 @@ const cardsData = [
             audioSrc: 'audio/friendly.mp3'
         },
         {
-            word: 'unfrienly',
+            word: 'unfriendly',
             translation: 'недружелюбный',
-            image: 'img/unfrienly.jpg',
-            audioSrc: 'audio/unfrienly.mp3'
+            image: 'img/unfriendly.jpg',
+            audioSrc: 'audio/unfriendly.mp3'
         },
         {
             word: 'young',
@@ -238,10 +238,10 @@ const cardsData = [
             audioSrc: 'audio/rabbit.mp3'
         },
         {
-            word: 'ship',
+            word: 'sheep',
             translation: 'овца',
-            image: 'img/ship.jpg',
-            audioSrc: 'audio/ship.mp3'
+            image: 'img/sheep.jpg',
+            audioSrc: 'audio/sheep.mp3'
         }
     ],
     [{
@@ -251,10 +251,10 @@ const cardsData = [
             audioSrc: 'audio/bird.mp3'
         },
         {
-            word: 'fish',
+            word: 'cow',
             translation: 'рыба',
-            image: 'img/fish1.jpg',
-            audioSrc: 'audio/fish.mp3'
+            image: 'img/cow.jpg',
+            audioSrc: 'audio/cow.mp3'
         },
         {
             word: 'frog',
@@ -351,7 +351,7 @@ const cardsData = [
         {
             word: 'angry',
             translation: 'сердитый',
-            image: 'img/angry.jpeg',
+            image: 'img/angry.jpg',
             audioSrc: 'audio/angry.mp3'
         },
         {
@@ -373,10 +373,10 @@ const cardsData = [
             audioSrc: 'img/surprised.jpg'
         },
         {
-            word: 'scred',
+            word: 'scared',
             translation: 'испуганный',
-            image: 'img/scred.jpg',
-            audioSrc: 'audio/scred.mp3'
+            image: 'img/scared.jpg',
+            audioSrc: 'audio/scared.mp3'
         },
         {
             word: 'smile',
@@ -391,7 +391,8 @@ const cardsData = [
             udioSrc: 'audio/laugh.mp3'
         }
     ],
-    ['Action (set A)', 'Action (set B)', 'Action (set C)', 'Adjective', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotion']
-]
+    ['Action (set A)', 'Action (set B)', 'Action (set C)', 'Adjective', 
+        'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotion']
+];
 
 export default cardsData;
