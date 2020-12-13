@@ -1,3 +1,8 @@
 import './scss/index.scss';
 
-console.log('hello world')
+let button = document.querySelector('button');
+
+button.addEventListener('click', () => {
+  console.log('hello');
+})
+

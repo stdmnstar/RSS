@@ -9,16 +9,9 @@ const PATHS = {
   assets: 'assets/',
   static: 'static/',
   config: 'config/',
-  fonts: 'fonts/',
   image: 'image/',
   audio: 'audio/',
-  views: 'views/',
-  components: 'components/',
 };
-
-const PAGES = [
-  // 'card',
-];
 
 module.exports = {
   externals: {
@@ -31,18 +24,18 @@ module.exports = {
     path: PATHS.dist,
     // publicPath: '/',
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          name: 'vendors',
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         name: 'vendors',
+  //         test: /[\\/]node_modules[\\/]/,
+  //         chunks: 'all',
+  //         enforce: true,
+  //       },
+  //     },
+  //   },
+  // },
   module: {
     rules: [{
       test: /\.js$/,
@@ -143,24 +136,8 @@ module.exports = {
       filename: './index.html',
       inject: true, // if true - to insert link & script tags into html
     }),
-    ...PAGES.map((page) => new HtmlWebpackPlugin({
-      template: `${PATHS.src}/${PATHS.components}${page}/${page}.html`,
-      filename: `${PATHS.views}${page}.html`,
-      inject: false,
-    })),
     new CopyWebpackPlugin([
-      // {
-      //   from: `${PATHS.src}/${PATHS.components}`,
-      //   to: `${PATHS.views}[name].[ext]`,
-      //   ignore: ['*.!(html|htm)'],
-      // },
       { from: `${PATHS.src}/${PATHS.assets}${PATHS.image}`, to: `${PATHS.assets}${PATHS.image}` },
-      {
-        from: `${PATHS.src}/${PATHS.assets}${PATHS.fonts}`,
-        to: `${PATHS.assets}${PATHS.fonts}`,
-        ignore: ['*LICENSE*'],
-      },
-      // { from: `${PATHS.src}/${PATHS.assets}${PATHS.icons}`, to: `${PATHS.assets}${PATHS.icons}` },
       { from: `${PATHS.src}/${PATHS.assets}${PATHS.audio}`, to: `${PATHS.assets}${PATHS.audio}` },
       { from: `${PATHS.src}/${PATHS.static}`, to: '' },
     ]),
