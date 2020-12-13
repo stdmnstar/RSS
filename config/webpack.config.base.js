@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BabelPolyfill = require('babel-polyfill');
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -18,7 +19,7 @@ module.exports = {
     paths: PATHS,
   },
   entry: {
-    app: `${PATHS.src}/index.js`,
+    app: ['babel-polyfill', `${PATHS.src}/index.js`],
   },
   output: {
     path: PATHS.dist,
