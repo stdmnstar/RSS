@@ -1,0 +1,26 @@
+.leaflet-container{
+  height: 800px;
+  width: 800px;
+  margin: 0 auto;
+}
+.cases{
+    color: #e60000;
+}
+.recovered{
+  color: #70a800;
+}
+.deaths{
+  color: #1D74C5;
+}
+.leaflet-popup .leaflet-popup-content-wrapper{
+  background-color: #242424;
+  border-radius: 10px;
+  h2{
+    color: rgb(255, 255, 255);
+  }
+  p{
+    color: rgb(255, 255, 255);
+    font-size: 1.5em;
+    font-family: "Avenir Next";
+  }
+}
