@@ -8,7 +8,7 @@
 //       element: document.querySelector('.js-count')
 //     });
 //   }
-  
+
 //   /**
 //     * React to state changes and render the component's HTML
 //     *
