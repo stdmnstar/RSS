@@ -1,12 +1,20 @@
 import './scss/index.scss';
 import './app/components/tracking';
 import Map from './app/components/map';
+import { change } from './app/components/change';
 import { getCountrysInfo, getGlobalInfo } from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
 
-export let country = 'global';
+export let countryObj = {
+    iso2: 'global',
+    get iso() { return this.iso2 },
+    set iso(value) {
+       this.iso2 = value;
+       change();
+    }
+};
 export let objMap;
 
 async function init() {
