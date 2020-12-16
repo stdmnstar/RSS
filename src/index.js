@@ -1,12 +1,14 @@
 import './scss/index.scss';
-
 import { getCountrysInfo, getGlobalInfo } from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
 
+export let country = 'global';
+export let objMap;
+
 async function init() {
-  const сountrysInfo = await getCountrysInfo();
+   let сountrysInfo = await getCountrysInfo();
   сountrysInfo.forEach((el) => {
     el[DATA_TIPE.casesPer100th] = getCountPer100thFromMillion(el.casesPerOneMillion);
     el[DATA_TIPE.deathsPer100th] = getCountPer100thFromMillion(el.deathsPerOneMillion);
