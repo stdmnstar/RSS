@@ -17,3 +17,7 @@ export async function getCountryPeriod(iso2, day) {
   const response = await fetch(`https://disease.sh/v3/covid-19/historical/${iso2}?lastdays=${day}`);
   return response.json();
 }
+export async function countryLatLon(lat, lon) {
+  const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lon}`);
+  return response.json();
+}
