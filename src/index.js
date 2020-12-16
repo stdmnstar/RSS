@@ -1,4 +1,6 @@
 import './scss/index.scss';
+import './app/components/tracking';
+import Map from './app/components/map';
 import { getCountrysInfo, getGlobalInfo } from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
@@ -22,6 +24,9 @@ async function init() {
     if (obj.countryInfo.iso2 !== null) return obj;
   });
   listOfCounriesHandler(сountrysInfo, DATA_TIPE.cases);
+
+  objMap = new Map(сountrysInfo);
+  objMap.createMap();
 // const globalInfo = await getGlobalInfo();
 // console.log(globalInfo);
 }
