@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
+import { countryObj } from '../../index';
+import { countryLatLon } from './api';
 export default class Map {
   constructor(сountrysInfo) {
     this.сountrysArrray = сountrysInfo;
@@ -20,8 +21,39 @@ export default class Map {
     this.createMarker('cases');
 
     this.map.on('click', (e) => {
-      console.log(`Lat, Lon : ${e.latlng.lat}, ${e.latlng.lng}`);
+      this.country(e.latlng.lat, e.latlng.lng);
     });
+  }
+
+  async country(lat, lon){
+    let country = await countryLatLon(lat, lon);
+    if(country.error !== "Unable to geocode"){
+      const iso2 = country.features[0].properties.address.country_code.toUpperCase();
+      countryObj.iso = iso2;
+      this.zoomMap(iso2);
+    }
+    else {
+      countryObj.iso = 'global';
+      this.zoomMap(countryObj.iso);
+    }
+  }
+
+  zoomMap(iso2){
+    if(iso2 === 'global') this.map.setView([0,0],2)
+    this.сountrysArrray.forEach((el) => {
+      if(el.countryInfo.iso2 === iso2){
+        this.map.setView([el.countryInfo.lat, el.countryInfo.long], 4);
+      }
+    });
+  }
+
+  clickMarker(element, marker){
+    marker.addEventListener(('click'), () => {
+      const iso2 = element.countryInfo.iso2;
+      countryObj.iso = iso2;
+      this.zoomMap(iso2);
+    });
+    
   }
 
   createMarker(indicator) {
@@ -33,6 +65,7 @@ export default class Map {
         radius: setting.rad, color: setting.color, stroke: false, fillOpacity: setting.opacity,
       }).addTo(this.map);
       this.marker.bindPopup(`<h2>${element.country}</h2><p>${indicator[0].toUpperCase() + indicator.slice(1)}: <span  class="${setting.class}">${element[indicator].toLocaleString('ru-RU')}</span></p>`, { closeButton: false, closeOnClick: false });
+      this.clickMarker(element, this.marker);
       this.marker.on('mouseover', function open() {
         this.openPopup();
       });
@@ -45,7 +78,9 @@ export default class Map {
   /*eslint-disable */
   clearMap() {
     Object.keys(this.map._layers).filter((el) => { 
-      if (this.map._layers[el]._radius !== undefined) this.map.removeLayer(this.map._layers[el]); 
+      if (this.map._layers[el] !== undefined && this.map._layers[el]._radius !== undefined) {
+        this.map.removeLayer(this.map._layers[el]); 
+      }
       return el;
     });
   }
@@ -231,6 +266,6 @@ el < 100'000'000 8
   8  2   >
 
 
-https://nominatim.openstreetmap.org/reverse?format=geojson&lat={}&lon={}
+
 */
 /* eslint-enable */
