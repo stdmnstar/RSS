@@ -8,7 +8,7 @@ export let country = 'global';
 export let objMap;
 
 async function init() {
-   let сountrysInfo = await getCountrysInfo();
+  let сountrysInfo = await getCountrysInfo();
   сountrysInfo.forEach((el) => {
     el[DATA_TIPE.casesPer100th] = getCountPer100thFromMillion(el.casesPerOneMillion);
     el[DATA_TIPE.deathsPer100th] = getCountPer100thFromMillion(el.deathsPerOneMillion);
@@ -16,6 +16,10 @@ async function init() {
     el[DATA_TIPE.todayCasesPer100th] = getCountPer100th(el.todayCases, el.population);
     el[DATA_TIPE.todayDeathsPer100th] = getCountPer100th(el.todayDeaths, el.population);
     el[DATA_TIPE.todayRecoveredPer100th] = getCountPer100th(el.todayRecovered, el.population);
+  });
+  сountrysInfo = сountrysInfo.filter((el) => {
+    const obj = el;
+    if (obj.countryInfo.iso2 !== null) return obj;
   });
   listOfCounriesHandler(сountrysInfo, DATA_TIPE.cases);
 // const globalInfo = await getGlobalInfo();
