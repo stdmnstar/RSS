@@ -1,7 +1,9 @@
 import Chart from 'chart.js';
-import { DATA_TIPE_COLORS } from '../constans/categories'
+import { MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS } from '../constans/categories'
 
 const graficLinePanel = document.querySelector('.grafic__line-panel');
+const listOfDays = document.getElementById("list-of-days");
+
 
 export default class Grafic{
   constructor(config, mood) {
@@ -38,16 +40,12 @@ export default class Grafic{
           display: true,
           text: this.name,
           fontColor: 'black',
-          fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
           fontSize: 16,
-          fontStyle: 'normal',
         },
         legend: {
           labels: {
             fontColor: 'black',
-            fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
             fontSize: 16,
-            fontStyle: 'normal',
           }
         },
         tooltips: {
@@ -55,22 +53,62 @@ export default class Grafic{
         },
         scales: {
           yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: "Number of people",
+              padding: 5,
+              fontColor: 'black',
+              fontSize: 16,
+            },
             ticks: {
               beginAtZero: false,
               fontColor: 'black',
-              fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
               fontSize: 16,
-              fontStyle: 'normal',
             }
           }],
           xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: "Dates",
+              padding: 5,
+              fontColor: 'black',
+              fontSize: 16,
+            },
             ticks: {
               fontColor: 'black',
-              fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-              fontSize: 16,
-              fontStyle: 'normal',
+              fontSize: 12,
+              callback: function(value, index, values) {
+                        let date;
+                        let monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '')
+                        let month = MONTHS[monthIndex - 1];
+                        let day = value.replace(/[0-9]*\//, '').replace(/\/[0-9]*/, '');
+                        switch (listOfDays.value) {
+                          case '366':
+                          if (day === '1') {
+                              date = month;
+                            } else {
+                              date = '';
+                            }
+                            break;
+                          case '30':
+                            if (day === '1') {
+                              date = month;
+                            } else {
+                              date = day;
+                            }
+                            break;
+                          default:
+                            date = `${month} ${day}`;
+                            break;
+                          }
+                        return date;
+                    }
             }
           }],
+        },
+        animation: {
+          easing: 'easeInOutElastic',
+          duration: 1200,
         },
         layout: {
           padding: {
@@ -80,11 +118,12 @@ export default class Grafic{
             bottom: 0
           }
         },
-        showLines: true 
+        showLines: true,
       }
     }
     
     this.el = this.el.getContext('2d')
+    Chart.defaults.global.defaultFontFamily = "'Helvetica', 'Arial', sans-serif";
     this.chart = new Chart(this.el, this.chartConfig);
 
     changeTypeBox.onclick = () => {
@@ -123,12 +162,16 @@ export default class Grafic{
     this.labels = Object.keys(obj);
     const magnitudes = Object.values(obj);
     const newData = {
-      label: this.mood,
+      label: DATA_TIPE_FOR_PRINT[this.mood],
       data: magnitudes,
-      backgroundColor: `${this.color}`,
-      borderColor: `${this.color}`,
+      pointColor: `rgba(${this.color}, 1)`,
+      pointStrokeColor: "#202b33",
+      pointHighlightStroke: "rgba(225,225,225,0.9)",
+      backgroundColor: `rgba(${this.color}, 0.2)`,
+      borderColor: `rgba(${this.color}, 0.7)`,
       borderWidth: 1,
-      fill: false,
+      pointRadius: 2,
+      pointStyle: 'circle',
     }
     this.datasets = [];
     this.datasets.push(newData);
@@ -156,25 +199,4 @@ export default class Grafic{
     }
     this.chartConfig.type = this.type;
   }
-
-  // addUserToChart = (config, setName) => {
-  //   const name = setName || generateRandomName();
-  //   const data = Array(10).fill(0).map(() => generateRandomTime());
-  //   let randomColor;
-  //   do {
-  //     randomColor = generateRandomColor();
-  //   } while (colorSet.has(randomColor));
-  //   colorSet.add(randomColor);
-  //   const newUser = {
-  //     label: name,
-  //     data: data,
-  //     backgroundColor: randomColor,
-  //     borderColor: randomColor,
-  //     borderWidth: 2,
-  //     fill: false,
-  //   }
-  //   config.data.datasets.push(newUser);
-  //   chart.update();
-  // }
-
 }

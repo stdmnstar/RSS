@@ -19,15 +19,21 @@
       </select>
     
       <select id="list-of-days">
-        <option value="7"selected="selected">Week</option>
-        <option value="30" selected="selected">Month</option>
-        <option value="365">Year</option>
+        <option value="7">Week</option>
+        <option value="30">Month</option>
+        <option value="366" selected>Year</option>
       </select>
       <hr>
       <div class="grafic__line-panel hidden">
-        <input type="checkbox" name="line" id="cases-line" value="cases">cases<Br> 
-        <input type="checkbox" name="line" id="deaths-line" value="deaths">deaths<Br> 
-        <input type="checkbox" name="line" id="recovered-line" value="recovered">recovered
+      <label for="cases-line"></label>
+      <input type="checkbox" name="gender" id="cases-line" value="cases-line"><br>
+
+      <label for="deaths-line"></label>
+      <input type="checkbox" name="gender" id="deaths-line" value="deaths-line"><br>
+
+      <label for="recovered-line"></label>
+      <input type="checkbox" name="gender" id="recovered-line" value="recovered-line"><br>
+
       </div>
       <hr>
     </div>

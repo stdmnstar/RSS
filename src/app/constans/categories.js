@@ -30,55 +30,39 @@ export const DATA_TIPE_FOR_PRINT = {
 };
 
 export const DATA_TIPE_COLORS = {
-  cases: '#FFF500',
-  deaths: '#FB000D',
-  recovered: '#14D100',
+  cases: '255, 245, 0',
+  deaths: '251, 0, 13',
+  recovered: '20, 209, 0',
 
-  todayCases: '#FFF840',
-  todayDeaths: '#FD3F49',
-  todayRecovered: '#4AE83A',
+  todayCases: '255, 248, 64',
+  todayDeaths: '253, 63, 73',
+  todayRecovered: '74, 232, 58',
 
-  casesPer100th: '#BFBA30',
-  deathsPer100th: '#BC2F36',
-  recoveredPer100th: '#329D27',
+  casesPer100th: '191, 186, 48',
+  deathsPer100th: '188, 47, 54',
+  recoveredPer100th: '50, 157, 39',
 
-  todayCasesPer100th: '#FFFA73',
-  todayDeathsPer100th: '#FD7279',
-  todayRecoveredPer100th: '	#74E868',
+  todayCasesPer100th: '255, 250, 115',
+  todayDeathsPer100th: '253, 114, 121',
+  todayRecoveredPer100th: '116, 232, 104)',
 };
 
 export const DATA_TIPE_CLASS = {
-  cases: 1,
-  deaths: 1,
-  recovered: 1,
+  cases: 0,
+  deaths: 0,
+  recovered: 0,
 
-  todayCases: 2,
-  todayDeaths: 2,
-  todayRecovered: 2,
+  todayCases: 1,
+  todayDeaths: 1,
+  todayRecovered: 1,
 
-  casesPer100th: 3,
-  deathsPer100th: 3,
-  recoveredPer100th: 3,
+  casesPer100th: 2,
+  deathsPer100th: 2,
+  recoveredPer100th: 2,
   
-  todayCasesPer100th: 4,
-  todayDeathsPer100th: 4,
-  todayRecoveredPer100th: 4,
+  todayCasesPer100th: 3,
+  todayDeathsPer100th: 3,
+  todayRecoveredPer100th: 3,
 };
 
-export const DATA_TIPE_ID = {
-  cases: 1,
-  deaths: 1,
-  recovered: 1,
-
-  todayCases: 2,
-  todayDeaths: 2,
-  todayRecovered: 2,
-
-  casesPer100th: 3,
-  deathsPer100th: 3,
-  recoveredPer100th: 3,
-  
-  todayCasesPer100th: 4,
-  todayDeathsPer100th: 4,
-  todayRecoveredPer100th: 4,
-};
+export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
