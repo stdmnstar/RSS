@@ -29,14 +29,15 @@ export default class Grafic {
     this.addDataToChart(this.config);
 
     const fontFamily = 'Montserrat, sans-serif';
-    const fontSize = 12;
+    const fontSize = 14;
     const fontWeight = 400;
     const fontColor = 'black';
 
     const commonOptions = {
-      titleFontFamily: fontFamily,
-      titleFontSize: fontSize + 2,
-      titleFontWeight: fontWeight,
+      fontFamily,
+      fontSize: fontSize - 2,
+      fontWeight,
+      fontColor,
     };
 
     this.chartConfig = {
@@ -50,12 +51,12 @@ export default class Grafic {
           display: true,
           text: this.name,
           fontColor,
-          fontSize: 16,
+          fontSize,
         },
         legend: {
           labels: {
             fontColor,
-            fontSize: 16,
+            fontSize,
           },
         },
         tooltips: {
@@ -68,12 +69,11 @@ export default class Grafic {
               labelString: 'Number of people',
               padding: 5,
               fontColor,
-              fontSize: 16,
+              fontSize,
             },
             ticks: {
               beginAtZero: false,
-              fontColor,
-              fontSize: 16,
+              ...commonOptions,
             },
           }],
           xAxes: [{
@@ -82,12 +82,11 @@ export default class Grafic {
               labelString: 'Dates',
               padding: 5,
               fontColor,
-              fontSize: 16,
+              fontSize,
             },
             ticks: {
-              fontColor,
-              fontSize: 12,
-              callback(value, index, values) {
+              ...commonOptions,
+              callback(value) {
                 let date;
                 const monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '');
                 const month = MONTHS[monthIndex - 1];
@@ -155,7 +154,7 @@ export default class Grafic {
     const chartWrapper = document.createElement('canvas');
     chartWrapper.setAttribute('id', 'chart');
     chartWrapper.setAttribute('width', '200');
-    chartWrapper.setAttribute('height', '70');
+    chartWrapper.setAttribute('height', '100');
     return chartWrapper;
   }
 

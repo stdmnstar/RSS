@@ -1,6 +1,6 @@
 import Grafic from './components/Grafic';
 import {
-  getCountrysInfo, getGlobalInfo, getCountryInfo, getCountryPeriod,
+  getCountryPeriod,
 } from './utils/api';
 
 const state = {
@@ -12,18 +12,8 @@ const state = {
 const listOfCountries = document.getElementById('list-of-countries');
 state.target = listOfCountries.value;
 
-listOfCountries.addEventListener('change', () => {
-  state.target = listOfCountries.value;
-  getData();
-});
-
 const listOfDays = document.getElementById('list-of-days');
 state.days = listOfDays.value;
-
-listOfDays.addEventListener('change', () => {
-  state.days = listOfDays.value;
-  getData();
-});
 
 async function getData() {
   const { target, days, mood } = state;
@@ -37,7 +27,17 @@ async function getData() {
 
 getData();
 
-const graficSection = document.querySelector('.grafic__section');
+listOfCountries.addEventListener('change', () => {
+  state.target = listOfCountries.value;
+  getData();
+});
+
+listOfDays.addEventListener('change', () => {
+  state.days = listOfDays.value;
+  getData();
+});
+
+// const graficSection = document.querySelector('.grafic__section');
 
 // graficSection.addEventListener('click', (e) => {
 //   if (e.target.closest('#cases')) {
