@@ -1,5 +1,4 @@
-
- export async function getGlobalInfo() {
+export async function getGlobalInfo() {
   let response = await fetch('https://disease.sh/v3/covid-19/all');
   return await response.json();
 }
@@ -18,3 +17,4 @@ export async function getCountryPeriod(iso2, day) {
   let response = await fetch(`https://disease.sh/v3/covid-19/historical/${iso2}?lastdays=${day}`);
   return await response.json();
 }
+

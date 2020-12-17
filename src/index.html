@@ -9,6 +9,41 @@
 </head>
 
 <body>
+  <div class="grafic__section">
+    <div>
+      <input type="checkbox" name="line" value="line" id="line">Line<Br> 
+      <select id="list-of-countries">
+        <option value="All" selected="selected">All</option>
+        <option value="BY">BY</option>
+        <option value="RU">RU</option>
+      </select>
+    
+      <select id="list-of-days">
+        <option value="7"selected="selected">Week</option>
+        <option value="30" selected="selected">Month</option>
+        <option value="365">Year</option>
+      </select>
+      <hr>
+      <div class="grafic__line-panel hidden">
+        <input type="checkbox" name="line" id="cases-line" value="cases">cases<Br> 
+        <input type="checkbox" name="line" id="deaths-line" value="deaths">deaths<Br> 
+        <input type="checkbox" name="line" id="recovered-line" value="recovered">recovered
+      </div>
+      <hr>
+    </div>
+    <div>
+      <hr>
+      <button id="cases">cases</button>
+      <button id="deaths">deaths</button>
+      <button id="recovered">recovered</button>
+      <button id="todayCases">todayCases</button>
+      <button id="todayDeaths">todayDeaths</button>
+      <button id="todayRecovered">todayRecovered</button>
+
+    </div>
+    <div class="grafic__template">
+    </div>
+  </div>
 
 </body>
 
