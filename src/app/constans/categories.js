@@ -1,17 +1,17 @@
 export const DATA_TIPE = {
-  'population': 'population',
-  'cases': 'cases',
-  'deaths': 'deaths',  
-  'recovered': 'recovered',
-  'todayCases': 'todayCases',
-  'todayDeaths': 'todayDeaths',
-  'todayRecovered': 'todayRecovered',
-  'casesPer100th': 'casesPerOneMillion',
-  'deathsPer100th': 'deathsPerOneMillion',
-  'recoveredPer100th': 'recoveredPerOneMillion',
-  'todaycasesPer100th': 'todaycasesPerOneMillion',
-  'todaydeathsPer100th': 'todaydeathsPerOneMillion',
-  'todayrecoveredPer100th': 'todayrecoveredPerOneMillion',
+  population: 'population',
+  cases: 'cases',
+  deaths: 'deaths',
+  recovered: 'recovered',
+  todayCases: 'todayCases',
+  todayDeaths: 'todayDeaths',
+  todayRecovered: 'todayRecovered',
+  casesPer100th: 'casesPerOneMillion',
+  deathsPer100th: 'deathsPerOneMillion',
+  recoveredPer100th: 'recoveredPerOneMillion',
+  todaycasesPer100th: 'todaycasesPerOneMillion',
+  todaydeathsPer100th: 'todaydeathsPerOneMillion',
+  todayrecoveredPer100th: 'todayrecoveredPerOneMillion',
 };
 
 export const DATA_TIPE_FOR_PRINT = {
@@ -59,7 +59,7 @@ export const DATA_TIPE_CLASS = {
   casesPer100th: 2,
   deathsPer100th: 2,
   recoveredPer100th: 2,
-  
+
   todayCasesPer100th: 3,
   todayDeathsPer100th: 3,
   todayRecoveredPer100th: 3,
