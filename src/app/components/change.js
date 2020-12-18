@@ -29,6 +29,6 @@ export function change() {
   console.log(rezult);
   console.log(countryObj.iso);
   objMap.createMarker(rezult);
-  //objMap.zoomMap(countryObj.iso2);
+  objMap.zoomMap(countryObj.iso2);
   // create(rezult, country)
 }
