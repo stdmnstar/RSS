@@ -1,5 +1,8 @@
 import Chart from 'chart.js';
 import { MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_ID, DATA_TIPE_CLASSES } from './const';
+import { getCountPer100th } from './util';
+
+const graficTemplate = document.querySelector('.grafic__template');
 
 const chartsField = document.querySelector('#charts-field');
 
@@ -13,11 +16,11 @@ const fontWeight = 400;
 const fontColor = 'black';
 
 const commonOptions = {
-    fontFamily,
-    fontSize: fontSize - 2,
-    fontWeight,
-    fontColor,
-  };
+  fontFamily,
+  fontSize: fontSize - 2,
+  fontWeight,
+  fontColor,
+};
 
 export default class Grafic {
   constructor(config) {
@@ -47,7 +50,6 @@ export default class Grafic {
 
     // elements
     this.el = null;
-    // this.chartConfig = this.createChartConfig();
 
     if (config.country) {
       this.iso = config.country;
@@ -104,8 +106,12 @@ export default class Grafic {
     this.createChartDatasets();
     this.createChartConfig();
 
-    let crx = chartsField.getContext('2d');
-    this.chart = new Chart(crx, this.chartConfig);
+    this.createChartTemplate();
+    graficTemplate.innerHTML = '&nbsp;';
+    graficTemplate.append(this.chartField);
+
+    var ctx = document.querySelector('#charts-field').getContext("2d");
+    this.chart = new Chart(ctx, this.chartConfig);
   }
 
   createChartLabels() {
@@ -115,16 +121,21 @@ export default class Grafic {
   }
 
   initDatasets() {
-    this.labelsValues = this.labelsKeys.map((el) => this.config[el]);
+    if (this.labelsID === 0 || this.labelsID === 1) {
+      this.labelsValues = this.labelsKeys.map((el) => this.config[el]);
+    } else {
+      let keysValue = this.labelsKeys.map((el) => el.replace('Per100th', ''))
+      this.labelsValues = keysValue.map((el) => this.config[el]);
+    }
     this.listOfData = this.labelsValues;
-    console.log(this.listOfData)
+
   }
 
   initChartDatasets() {
     if (this.labelsID === 0 || this.labelsID === 1) {
       this.data = this.listOfData;
     } else {
-      this.data = this.listOfData // здесь добавить функцию которая приведет значения к 100 тьс
+      this.data = this.listOfData.map((el) => getCountPer100th(el, this.config.population))
     }
   }
 
@@ -175,7 +186,13 @@ export default class Grafic {
     }
   }
 
-
+  createChartTemplate() {
+    const chartWrapper = document.createElement('canvas');
+    chartWrapper.setAttribute('id', 'charts-field');
+    chartWrapper.setAttribute('width', '200');
+    chartWrapper.setAttribute('height', '100');
+    this.chartField = chartWrapper;
+  }
 }
 
 // export default class GraficOld {

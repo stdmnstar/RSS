@@ -26,9 +26,11 @@ export function change() {
       if (!time && !popul) rezult = DATA_TIPE.recovered;
       break;
   }
-  console.log(rezult);
   // console.log(objGrafic);
   // console.log(countryObj.iso);
+  if (objGrafic.chart) {
+    objGrafic.chart.destroy();
+  }
   objMap.createMarker(rezult);
   objGrafic.initChartConfig(rezult);
   // objGrafic.initChartConfig(rezult);
