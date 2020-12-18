@@ -1,4 +1,6 @@
 import Chart from 'chart.js';
+import './char.plugin'
+
 import { MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_ID, DATA_TIPE_CLASSES } from './const';
 import { getCountPer100th } from './util';
 
@@ -58,7 +60,7 @@ export default class Grafic {
     }
   }
 
-  initChartConfig(mood) {
+  initChartConfig(mood = 'cases') {
     switch(mood) {
       case 'cases':
         this.labelsID = 0;
@@ -112,10 +114,11 @@ export default class Grafic {
 
     var ctx = document.querySelector('#charts-field').getContext("2d");
     this.chart = new Chart(ctx, this.chartConfig);
+    this.chart;
   }
 
   createChartLabels() {
-    this.activeLabel = this.mood;
+    this.activeLabel = DATA_TIPE_FOR_PRINT[this.mood];
     this.labelsKeys = DATA_TIPE_CLASSES[this.labelsID];
     this.labels = this.labelsKeys.map((el) => DATA_TIPE_FOR_PRINT[el]);
   }
@@ -137,6 +140,7 @@ export default class Grafic {
     } else {
       this.data = this.listOfData.map((el) => getCountPer100th(el, this.config.population))
     }
+    this.activeNumber = this.data[this.labelsKeys.indexOf(this.mood)]
   }
 
   createDataSetIn() {
@@ -182,7 +186,17 @@ export default class Grafic {
         responsive: true, 
         maintainAspectRatio: true,
         cutoutPercentage: 60,
-      }
+        elements: {
+          center: {
+            text: `Common ${this.activeLabel} in ${this.iso} equals ${this.activeNumber}`,
+            color: '#000', 
+            fontStyle: 'Arial', 
+            sidePadding: 20, 
+            minFontSize: 25, 
+            lineHeight: 25, 
+          }
+        }
+      },
     }
   }
 
@@ -194,6 +208,8 @@ export default class Grafic {
     this.chartField = chartWrapper;
   }
 }
+
+
 
 // export default class GraficOld {
 //   constructor(config, mood) {

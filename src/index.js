@@ -42,6 +42,7 @@ async function init() {
 
   let globalInfo = await getGlobalInfo();
   objGrafic = new Grafic(globalInfo);
+  objGrafic.initChartConfig();
 }
 
 init();
