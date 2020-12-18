@@ -6,7 +6,7 @@ import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
 
-export let country = 'global';
+export const country = 'global';
 export let objMap;
 
 async function init() {
@@ -23,7 +23,7 @@ async function init() {
     const obj = el;
     if (obj.countryInfo.iso2 !== null) return obj;
   });
-  listOfCounriesHandler(сountrysInfo, DATA_TIPE.cases);
+  listOfCounriesHandler(сountrysInfo);
 
   objMap = new Map(сountrysInfo);
   objMap.createMap();
