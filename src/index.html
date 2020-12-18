@@ -9,48 +9,57 @@
 </head>
 
 <body>
+  <div>
+    <select id="select">
+      <option value="cases">cases</option>
+      <option value="deaths">deaths</option>
+      <option value="recovered">recovered</option>
+    </select>
+    <input type="checkbox" id="checkboxTime" />
+    <label for="checkboxTime"></label>
+    <input type="checkbox" id="checkboxPopul" />
+    <label class="population" for="checkboxPopul"></label>
+  </div>
+  
   <div class="grafic__section">
     <div>
       <input type="checkbox" name="line" value="line" id="line">Line<Br> 
-      <select id="list-of-countries">
+      <select id="list-of-countries_graf">
         <option value="All" selected>All</option>
         <option value="BY">BY</option>
         <option value="RU">RU</option>
       </select>
     
       <select id="list-of-days">
-        <option value="7">Week</option>
+        <!-- <option value="7">Week</option>
         <option value="30"selected>Month</option>
-        <option value="366">Year</option>
+        <option value="90">Year</option> -->
+
+        <option value="1">1</option>
+        <option value="7"selected>7</option>
+        <option value="30">30</option>
+
+        <option value="90">90</option>
+        <option value="120"selected>120</option>
+        <option value="240">240</option>
+        <option value="360">360</option>
       </select>
       <hr>
-      <div class="grafic__line-panel hidden">
-      <label for="cases-line"></label>
-      <input type="checkbox" name="gender" id="cases-line" value="cases-line"><br>
-
-      <label for="deaths-line"></label>
-      <input type="checkbox" name="gender" id="deaths-line" value="deaths-line"><br>
-
-      <label for="recovered-line"></label>
-      <input type="checkbox" name="gender" id="recovered-line" value="recovered-line"><br>
-
-      </div>
-      <hr>
-    </div>
-    <div>
-      <hr>
-      <button id="cases">cases</button>
-      <button id="deaths">deaths</button>
-      <button id="recovered">recovered</button>
-      <button id="todayCases">todayCases</button>
-      <button id="todayDeaths">todayDeaths</button>
-      <button id="todayRecovered">todayRecovered</button>
-
     </div>
     <div class="grafic__template">
+      <canvas width="200" height="100" id="charts-field"></canvas>
     </div>
   </div>
 
+  <div class="list-of-counries">
+    <div class = "list-title"></div>
+    <input type="text" id="search" placeholder="Search for a Country">
+    <div id="results"></div>
+    <div>
+      Кнопки
+    </div>
+  </div>
+  <div id="map"></div>
 </body>
 
 </html>
