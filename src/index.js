@@ -1,5 +1,6 @@
 import './scss/index.scss';
 import './app/components/tracking';
+import './app/components/vkeyboard';
 import Map from './app/components/map';
 import { getCountrysInfo, getGlobalInfo } from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';

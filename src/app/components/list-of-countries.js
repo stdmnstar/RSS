@@ -8,7 +8,6 @@ let data = [];
 let dataTipe = '';
 
 export function showlistOfCountries(dataTipe) {
-   
   listTitle.innerHTML = `${DATA_TIPE_FOR_PRINT[dataTipe]} by country`;
   data.sort((a, b) => b.[dataTipe] - a.[dataTipe]);
 
