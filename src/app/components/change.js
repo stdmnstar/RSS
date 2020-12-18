@@ -1,7 +1,7 @@
 import { DATA_TIPE } from './const';
 import { countryObj, objMap } from '../../index';
 
-export function change() {
+export default function change() {
   const time = document.getElementById('checkboxTime').checked;
   const popul = document.getElementById('checkboxPopul').checked;
   const list = document.getElementById('select').value.toString();
@@ -25,9 +25,11 @@ export function change() {
       if (time && !popul) rezult = DATA_TIPE.todayRecovered;
       if (!time && !popul) rezult = DATA_TIPE.recovered;
       break;
+    default:
+      break;
   }
-  console.log(rezult);
-  console.log(countryObj.iso);
+  // console.log(rezult);
+  // console.log(countryObj.iso);
   objMap.createMarker(rezult);
   objMap.zoomMap(countryObj.iso2);
   // create(rezult, country)
