@@ -1,8 +1,8 @@
 import { DATA_TIPE_FOR_PRINT } from './const';
 import { numberWithCommas } from './util';
 
-export function listOfCounriesHandler(data, dataTipe) {
-  console.log(data);
+export default function listOfCounriesHandler(data, dataTipe) {
+  // console.log(data);
 
   const searchInput = document.getElementById('search');
   const listTitle = document.querySelector('.list-title');
