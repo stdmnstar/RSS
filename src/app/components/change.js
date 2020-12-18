@@ -1,4 +1,5 @@
 import { DATA_TIPE } from './const';
+import { showlistOfCountries } from './list-of-countries';
 import { countryObj, objMap } from '../../index';
 
 export default function change() {
@@ -31,6 +32,8 @@ export default function change() {
   // console.log(rezult);
   // console.log(countryObj.iso);
   objMap.createMarker(rezult);
+  showlistOfCountries(rezult);
+  // objMap.zoom(country);
   objMap.zoomMap(countryObj.iso2);
   // create(rezult, country)
 }

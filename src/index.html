@@ -10,11 +10,20 @@
 
 <body>
   <div class="list-of-counries">
-    <div class = "list-title"></div>
-    <input type="text" id="search" placeholder="Search for a Country">
+    <div class="list-title"></div>
+    <input type="search" id="search" placeholder="Search for a Country">
+    <button class="vkeyboard-button">VK</button>
     <div id="results"></div>
     <div>
-      Кнопки
+      <select id="select">
+        <option>cases</option>
+        <option>deaths</option>
+        <option>recovered</option>
+      </select>
+      <input type="checkbox" id="checkboxTime" />
+      <label for="checkboxTime"></label>
+      <input type="checkbox" id="checkboxPopul" />
+      <label class="population" for="checkboxPopul"></label>
     </div>
   </div>
   <div>
