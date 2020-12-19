@@ -1,0 +1,20 @@
+.footer{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 10vh;
+  background-color: #222;
+  color: #fff;
+  font-family: 'Roboto';
+  font-size: 1.5em;
+  &__link{
+    text-decoration: none;
+    color: #fff;
+  }
+  &__logo{
+    //background-image: url("../assets/image/rs_school_js.svg");
+    width: 100px;
+    height: 50px;
+    background-color: aqua;
+  }
+}
