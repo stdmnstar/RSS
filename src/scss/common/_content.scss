@@ -1,0 +1,134 @@
+.body{
+  display: flex;
+  flex-direction: column;
+}
+.content{
+  height: 90vh;
+  display: grid;
+  grid-template-columns: 20% 1fr 30%;
+  grid-template-rows: 50% 50%;
+  background-color: #000000;
+  &__table{
+    grid-area: 1/3/2/4;
+    background-color: #222222;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    h2{
+      font-family: 'HelveticaNeueCyr-Light';
+      color: #ffffff;
+    }
+    .table__country{
+      color: #ffffff;
+      font-family: 'Avenir Next';
+    }
+    .control__box{
+      display: flex;
+      justify-content: space-between;
+      width: 70%;
+    }
+    }
+  &__list{
+    grid-area: 1/1/3/2;
+    background-color: #222222;
+    margin: 5px;
+    .list__control{
+      height: 10%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .control__box{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+  &__map{
+    grid-area: 1/2/3/3;
+    background-color: #222222;
+    margin: 5px;
+    .map__control{
+      display: flex;
+      height: 10%;
+      align-items: center;
+      .control__box{
+        display: flex;
+        p{
+          margin-right: 5px;
+        }
+      }
+      .control__box:nth-child(1n){
+        margin-right: 20px;
+      }
+    }
+  }
+  &__chart{
+    grid-area: 2/3/3/4;
+    background-color: #222222;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    .chart__content{
+      height: 80%;
+    }
+    .chart__control{
+      width: 95%;
+      height: 20%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .control__box{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+.control__box{
+  p{
+    font-family: 'Gilroy';
+    font-size: 1.2em;
+  }
+}
+.table__cases span{
+  color: #e60000;
+}
+.table__deaths span{
+  color: #1D74C5;
+}
+.table__recovered span{
+  color: #70a800;
+}
+#select{
+  font-family: 'Roboto';
+  background: #303030;; 
+  appearance: none;
+  border-radius: 3px;
+  color:#FFF;
+  font-size: 0.9em;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.list__search{
+  display: flex;
+  align-items: center;
+
+}
+.vkeyboard-button{
+  height: 25px;
+  width: 25px;
+  border: 0;
+  border-radius: 3px;
+  background-color: #c8c8c8;
+  color: #000;
+  font-size: 1em;
+  margin-left: 10px;
+  cursor: pointer;
+}

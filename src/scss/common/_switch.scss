@@ -1,0 +1,66 @@
+
+label {
+  display: block;
+  left: 0px;
+  top: 0;
+  position: relative;
+  width: 100px;
+  height: 20px;
+  z-index: 10;
+  //@at-root: 40px;
+  font-weight: bold;
+  background: #303030;
+  transition: all 0.4s;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto';
+  cursor: pointer;
+}
+
+label:after {
+  content: "All";
+  width: 50px;
+  height: 20px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: block;
+  background: #517E3C; 
+  transition: all 0.4s; 
+  cursor: pointer;
+}
+
+#checkboxTime, #checkboxPopul {
+  display: none;
+}
+
+
+
+
+label.checkedTime, label.checkedPopul{
+  left: 0px;
+}
+label.checkedTime:after{
+  left: 50px;
+  background: #9D1C1C;
+  content: "NOW";
+}
+
+
+label.checkedPopul:after{
+  left: 50px;
+  background: #9D1C1C;
+  content: "100 th";
+}
+
+.control__box{
+  p{
+    color: #ffffff;
+  }
+}
+
+#select{
+  text-align: center;
+  width: 100px;
+  margin:  0 auto;
+}

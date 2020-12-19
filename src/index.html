@@ -8,47 +8,99 @@
   <title>COVID-19 Dashboard</title>
 </head>
 
-<body>
-  <div class="list-of-counries">
-    <div class="list-title"></div>
-    <input type="search" id="search" placeholder="Search for a Country">
-    <button class="vkeyboard-button">VK</button>
-    <div id="results"></div>
-    <div>
-      <select id="select">
-        <option>cases</option>
-        <option>deaths</option>
-        <option>recovered</option>
-      </select>
-      <input type="checkbox" id="checkboxTime" />
-      <label for="checkboxTime"></label>
-      <input type="checkbox" id="checkboxPopul" />
-      <label class="population" for="checkboxPopul"></label>
+<body class="body">
+  <div class="content">
+    <div class="content__table table">
+      <h1 class="table__country"> Global</h1>
+      <h2 class="table__cases">Cases: <span> </span></h2>
+      <h2 class="table__deaths">Deaths: <span> </span></h2>
+      <h2 class="table__recovered">Recovered: <span> </span></h2>
+      <div class="control__box">
+        <p>Time:</p>
+        <input type="checkbox" id="checkboxTime" />
+        <label for="checkboxTime"></label>
+      </div>
+      <div class="control__box">
+        <p>Populations:</p>
+        <input type="checkbox" id="checkboxPopul" />
+        <label class="population" for="checkboxPopul"></label>
+      </div>
+    </div>
+    <div class="content__list list">
+      <div class="list-of-counries">
+        <div class = "list-title"></div>
+        <div class="list__search">
+          <input type="text" id="search" placeholder="Search for a Country">
+          <button class="vkeyboard-button">VK</button>
+        </div>
+        <div id="results"></div>
+      </div>
+      <div class="list__control">
+        <select id="select">
+          <option value="cases">Cases</option>
+          <option value="deaths">Deaths</option>
+          <option value="recovered">Recovered</option>
+        </select>
+        <div class="control__box">
+          <p>Time:</p>
+          <input type="checkbox" id="checkboxTime" />
+          <label for="checkboxTime"></label>
+        </div>
+        <div class="control__box">
+          <p>Populations:</p>
+          <input type="checkbox" id="checkboxPopul" />
+          <label class="population" for="checkboxPopul"></label>
+        </div>
+      </div>
+    </div>
+    <div class="content__map map">
+      <div id="map"></div>
+      <div class="map__control">
+        <select id="select">
+          <option value="cases">Cases</option>
+          <option value="deaths">Deaths</option>
+          <option value="recovered">Recovered</option>
+        </select>
+        <div class="control__box">
+          <p>Time:</p>
+          <input type="checkbox" id="checkboxTime" />
+          <label for="checkboxTime"></label>
+        </div>
+        <div class="control__box">
+          <p>Populations:</p>
+          <input type="checkbox" id="checkboxPopul" />
+          <label class="population" for="checkboxPopul"></label>
+        </div>
+      </div>
+    </div>
+    <div class="content__chart chart">
+      <div class="chart__content"></div>
+      <div class="chart__control">
+        <select id="select">
+          <option value="cases">Cases</option>
+          <option value="deaths">Deaths</option>
+          <option value="recovered">Recovered</option>
+        </select>
+        <div class="control__box">
+          <p>Time:</p>
+          <input type="checkbox" id="checkboxTime" />
+          <label for="checkboxTime"></label>
+        </div>
+        <div class="control__box">
+          <p>Populations:</p>
+          <input type="checkbox" id="checkboxPopul" />
+          <label class="population" for="checkboxPopul"></label>
+        </div>
+      </div>
     </div>
   </div>
-  <div>
-    <select id="select">
-      <option>cases</option>
-      <option>deaths</option>
-      <option>recovered</option>
-    </select>
-    <input type="checkbox" id="checkboxTime" />
-    <label for="checkboxTime"></label>
-    <input type="checkbox" id="checkboxPopul" />
-    <label class="population" for="checkboxPopul"></label>
-  </div>
-  <div>
-    <select id="select">
-      <option value="cases">cases</option>
-      <option value="deaths">deaths</option>
-      <option value="recovered">recovered</option>
-    </select>
-    <input type="checkbox" id="checkboxTime" />
-    <label for="checkboxTime"></label>
-    <input type="checkbox" id="checkboxPopul" />
-    <label class="population" for="checkboxPopul"></label>
-  </div>
-  <div id="map"></div>
+  <footer class="footer">
+    <a class="footer__link" href="https://github.com/KirylZuyeu" target = "blank">Kirylzuyeu</a>
+    <a class="footer__link" href="https://github.com/Projmix" target = "blank">Projmix</a>
+    <a class="footer__link" href="https://github.com/stdmnstar" target = "blank">Stdmnstar</a>
+    <a class="footer__logo" href="https://rs.school/js/" target = "blank"></a>
+    <span class="fotter__year">2020 Year</span>
+  </footer>  
 </body>
 
 </html>
