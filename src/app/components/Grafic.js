@@ -1,7 +1,6 @@
 import Chart from 'chart.js';
 import './char.plugin'
-
-import { MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_ID, DATA_TIPE_CLASSES } from './const';
+import { MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_COLORS_RGB, DATA_TIPE_ID, DATA_TIPE_CLASSES } from './const';
 import { getCountPer100th } from './util';
 
 const graficTemplate = document.querySelector('.grafic__template');
@@ -42,6 +41,14 @@ export default class Grafic {
     this.dataSetIn = [];
     this.dataSetOut = [];
     this.datasets = [];
+
+    // timeline
+    this.timeline = [];
+
+    this.timelineLabels = [];
+    this.timelineDatatets = [];
+
+    this.lineColor = '';
 
     // options
     this.type = 'doughnut';
@@ -107,14 +114,7 @@ export default class Grafic {
     this.createDataSetOut();
     this.createChartDatasets();
     this.createChartConfig();
-
-    this.createChartTemplate();
-    graficTemplate.innerHTML = '&nbsp;';
-    graficTemplate.append(this.chartField);
-
-    var ctx = document.querySelector('#charts-field').getContext("2d");
-    this.chart = new Chart(ctx, this.chartConfig);
-    this.chart;
+    this.addChart();
   }
 
   createChartLabels() {
@@ -131,7 +131,6 @@ export default class Grafic {
       this.labelsValues = keysValue.map((el) => this.config[el]);
     }
     this.listOfData = this.labelsValues;
-
   }
 
   initChartDatasets() {
@@ -171,7 +170,7 @@ export default class Grafic {
 
   createChartConfig() {
     this.chartConfig = {
-      type: 'doughnut',
+      type: this.type,
       data: {
       labels: this.labels,
       datasets: [
@@ -207,208 +206,156 @@ export default class Grafic {
     chartWrapper.setAttribute('height', '100');
     this.chartField = chartWrapper;
   }
+
+  setPeriodData(data) {
+    if (data.country) {
+      this.timeline = data.timeline
+    } else {
+      this.timeline = data
+    }
+    this.changeTypeOfChart();
+    this.createTimelineLabels();
+    this.getLineColor();
+    this.createTimelineDatasets();
+    this.createLineConfig();
+  }
+
+  changeTypeOfChart() {
+    if (this.type === 'doughnut') {
+      this.type = 'line';
+    } else {
+      this.type = 'doughnut';
+    }
+  }
+
+  createTimelineLabels() {
+    this.timelineLabels = Object.keys(this.timeline[this.mood]);
+  }
+
+  getLineColor() {
+    this.lineColor = DATA_TIPE_COLORS_RGB[this.mood];
+  }
+
+  createTimelineDatasets() {
+    const magnitudes = Object.values(this.timeline[this.mood]);
+    const newData = {
+        label: DATA_TIPE_FOR_PRINT[this.mood],
+        data: magnitudes,
+        pointColor: `rgba(${this.lineColor}, 1)`,
+        pointStrokeColor: '#202b33',
+        pointHighlightStroke: 'rgba(225,225,225,0.9)',
+        backgroundColor: `rgba(${this.lineColor}, 0.2)`,
+        borderColor: `rgba(${this.lineColor}, 0.7)`,
+        borderWidth: 1,
+        pointRadius: 2,
+        pointStyle: 'circle',
+      };
+    this.timelineDatatets = [];
+    this.timelineDatatets.push(newData);
+  }
+
+  createLineConfig() {
+    this.chartConfig = {
+      type: this.type,
+      data: {
+        labels: this.timelineLabels,
+        datasets: this.timelineDatatets,
+      },
+      options: {
+        title: {
+          display: true,
+          text: this.iso,
+          fontColor,
+          fontSize,
+        },
+        legend: {
+          labels: {
+            fontColor,
+            fontSize,
+          },
+        },
+        tooltips: {
+          mode: 'nearest',
+        },
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Number of people',
+              padding: 5,
+              fontColor,
+              fontSize,
+            },
+            ticks: {
+              beginAtZero: false,
+              ...commonOptions,
+            },
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Dates',
+              padding: 5,
+              fontColor,
+              fontSize,
+            },
+            ticks: {
+              ...commonOptions,
+              callback(value) {
+                let date;
+                const monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '');
+                const month = MONTHS[monthIndex - 1];
+                const day = value.replace(/[0-9]*\//, '').replace(/\/[0-9]*/, '');
+                switch (listOfDays.value) {
+                  case '366':
+                    if (day === '1') {
+                      date = month;
+                    } else {
+                      date = '';
+                    }
+                    break;
+                  case '30':
+                    if (day === '1') {
+                      date = month;
+                    } else {
+                      date = day;
+                    }
+                    break;
+                  default:
+                    date = `${month} ${day}`;
+                    break;
+                }
+                return date;
+              },
+            },
+          }],
+        },
+        animation: {
+          easing: 'easeInOutElastic',
+          duration: 1200,
+        },
+        layout: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          },
+        },
+        showLines: true,
+      },
+    };
+  }
+
+  addChart() {
+    this.createChartTemplate();
+    graficTemplate.innerHTML = '&nbsp;';
+    graficTemplate.append(this.chartField);
+    var ctx = document.querySelector('#charts-field').getContext("2d");
+    this.chart = new Chart(ctx, this.chartConfig);
+  }
 }
 
 
 
-// export default class GraficOld {
-//   constructor(config, mood) {
-//     this.config = config;
-//     this.mood = mood;
-//     this.labels = null;
-//     this.datasets = null;
 
-//     this.name = null;
-//     this.color = null;
-//     this.type = 'bar';
-
-//     this.el = this.createChartTemplate();
-//   }
-
-//   init() {
-//     if (changeTypeBox.checked) {
-//       this.type = 'line';
-//     } else {
-//       this.type = 'bar';
-//     }
-
-//     this.addDataToChart(this.config);
-
-//     const fontFamily = 'Montserrat, sans-serif';
-//     const fontSize = 14;
-//     const fontWeight = 400;
-//     const fontColor = 'black';
-
-//     const commonOptions = {
-//       fontFamily,
-//       fontSize: fontSize - 2,
-//       fontWeight,
-//       fontColor,
-//     };
-
-//     this.chartConfig = {
-//       type: this.type,
-//       data: {
-//         labels: this.labels,
-//         datasets: this.datasets,
-//       },
-//       options: {
-//         title: {
-//           display: true,
-//           text: this.name,
-//           fontColor,
-//           fontSize,
-//         },
-//         legend: {
-//           labels: {
-//             fontColor,
-//             fontSize,
-//           },
-//         },
-//         tooltips: {
-//           mode: 'nearest',
-//         },
-//         scales: {
-//           yAxes: [{
-//             scaleLabel: {
-//               display: true,
-//               labelString: 'Number of people',
-//               padding: 5,
-//               fontColor,
-//               fontSize,
-//             },
-//             ticks: {
-//               beginAtZero: false,
-//               ...commonOptions,
-//             },
-//           }],
-//           xAxes: [{
-//             scaleLabel: {
-//               display: true,
-//               labelString: 'Dates',
-//               padding: 5,
-//               fontColor,
-//               fontSize,
-//             },
-//             ticks: {
-//               ...commonOptions,
-//               callback(value) {
-//                 let date;
-//                 const monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '');
-//                 const month = MONTHS[monthIndex - 1];
-//                 const day = value.replace(/[0-9]*\//, '').replace(/\/[0-9]*/, '');
-//                 switch (listOfDays.value) {
-//                   case '366':
-//                     if (day === '1') {
-//                       date = month;
-//                     } else {
-//                       date = '';
-//                     }
-//                     break;
-//                   case '30':
-//                     if (day === '1') {
-//                       date = month;
-//                     } else {
-//                       date = day;
-//                     }
-//                     break;
-//                   default:
-//                     date = `${month} ${day}`;
-//                     break;
-//                 }
-//                 return date;
-//               },
-//             },
-//           }],
-//         },
-//         animation: {
-//           easing: 'easeInOutElastic',
-//           duration: 1200,
-//         },
-//         layout: {
-//           padding: {
-//             left: 0,
-//             right: 0,
-//             top: 0,
-//             bottom: 0,
-//           },
-//         },
-//         showLines: true,
-//       },
-//     };
-
-//     this.el = this.el.getContext('2d');
-//     this.chart = new Chart(this.el, this.chartConfig);
-
-//     changeTypeBox.onclick = () => {
-//       this.changeTypeBox();
-//       this.chart.update();
-//     };
-
-//     graficLinePanel.onclick = (e) => {
-//       if (e.target.closest('#cases-line')) {
-//         console.log('cases-line');
-//       } else if (e.target.closest('#deaths-line')) {
-//         console.log('deaths-line');
-//       } else {
-//         console.log('recovered-line');
-//       }
-//     };
-//   }
-
-//   createChartTemplate() {
-//     const chartWrapper = document.createElement('canvas');
-//     chartWrapper.setAttribute('id', 'chart');
-//     chartWrapper.setAttribute('width', '200');
-//     chartWrapper.setAttribute('height', '100');
-//     return chartWrapper;
-//   }
-
-//   addDataToChart(config) {
-//     this.getName();
-//     this.getColor(this.mood);
-//     let obj;
-//     if (config[this.mood]) {
-//       obj = this.config[this.mood];
-//     } else {
-//       obj = this.config.timeline[this.mood];
-//     }
-//     this.labels = Object.keys(obj);
-//     const magnitudes = Object.values(obj);
-//     const newData = {
-//       label: DATA_TIPE_FOR_PRINT[this.mood],
-//       data: magnitudes,
-//       pointColor: `rgba(${this.color}, 1)`,
-//       pointStrokeColor: '#202b33',
-//       pointHighlightStroke: 'rgba(225,225,225,0.9)',
-//       backgroundColor: `rgba(${this.color}, 0.2)`,
-//       borderColor: `rgba(${this.color}, 0.7)`,
-//       borderWidth: 1,
-//       pointRadius: 2,
-//       pointStyle: 'circle',
-//     };
-//     this.datasets = [];
-//     this.datasets.push(newData);
-//   }
-
-//   getName() {
-//     if (this.config.country) {
-//       this.name = this.config.country;
-//     } else {
-//       this.name = 'All World';
-//     }
-//   }
-
-//   getColor(mood) {
-//     this.color = DATA_TIPE_COLORS[mood];
-//   }
-
-//   changeTypeBox() {
-//     if (this.type === 'line') {
-//       this.type = 'bar';
-//     } else {
-//       this.type = 'line';
-//     }
-//     this.chartConfig.type = this.type;
-//   }
-// }
