@@ -12,9 +12,10 @@
     color: #fff;
   }
   &__logo{
-    //background-image: url("../assets/image/rs_school_js.svg");
+    background: center no-repeat  url("/assets/image/rs_school_js.svg");
     width: 100px;
     height: 50px;
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
+    padding: 3px;
   }
 }
