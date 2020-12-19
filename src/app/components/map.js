@@ -5,6 +5,7 @@ import '../framework/library/leaflet/leaflet.rrose.css';
 import { countryObj } from '../../index';
 import statesData from './countries.geojson.json';
 import { style, onEachFeature } from './geojson';
+import { DATA_TIPE_FOR_PRINT } from './const';
 
 export default class Map {
   constructor(сountrysInfo) {
@@ -138,7 +139,7 @@ export default class Map {
       const grades = segment;
 
       for (let i = 0; i < grades.length; i += 1) {
-        div.innerHTML += `<p><i style="background:${objSettings.color}; opacity:${0.4 + (i / 10)}; border-radius:50%"></i><span class="${objSettings.class}"> < ${grades[i]}</span></p>`;
+        div.innerHTML += `<p><i style="background:${objSettings.color}; opacity:${0.4 + (i / 10)}; border-radius:50%"></i><span class="${objSettings.class}"> < ${grades[i].toLocaleString('ru-RU')}</span></p>`;
       }
       return div;
     };
@@ -156,50 +157,50 @@ export default class Map {
       case 'cases':
         rad = rad > 4 ? rad : 4;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Cases';
+        objSettings.text = DATA_TIPE_FOR_PRINT.cases;
         break;
       case 'recovered':
         rad = rad > 4 ? rad : 4;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Recovered';
+        objSettings.text = DATA_TIPE_FOR_PRINT.recovered;
         break;
       case 'deaths':
         rad = rad > 2 ? rad : 2;
         rad += 2;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Deaths';
+        objSettings.text = DATA_TIPE_FOR_PRINT.deaths;
         break;
       case 'todayCases':
         rad = rad > 2 ? rad : 2;
         rad += 2;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = "Today's cases";
+        objSettings.text = DATA_TIPE_FOR_PRINT.todayCases;
         break;
       case 'todayRecovered':
         rad = rad > 1 ? rad : 1;
         rad += 3;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = "Today's recovered";
+        objSettings.text = DATA_TIPE_FOR_PRINT.todayRecovered;
         break;
       case 'todayDeaths':
         rad = rad > 1 ? rad : 1;
         rad += 3;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = "Today's deaths";
+        objSettings.text = DATA_TIPE_FOR_PRINT.todayDeaths;
         break;
       case 'casesPer100th':
         rad = Math.round(element[indicator]).toString().length;
         rad = rad > 2 ? rad * 2 : 2 * 2;
         if (element[indicator].toString()[0] < 5) rad -= 1;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Cases per 100 th';
+        objSettings.text = DATA_TIPE_FOR_PRINT.casesPer100th;
         break;
       case 'recoveredPer100th':
         rad = Math.round(element[indicator]).toString().length;
         rad = rad > 2 ? rad * 2 : 2 * 2;
         if (element[indicator].toString()[0] < 5) rad -= 1;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Recovered per 100 th';
+        objSettings.text = DATA_TIPE_FOR_PRINT.recoveredPer100th;
         break;
       case 'deathsPer100th':
         if (element[indicator] > 150) rad = 8;
@@ -208,7 +209,7 @@ export default class Map {
         else if (element[indicator] > 10) rad = 5;
         else rad = 4;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Deaths per 100 th';
+        objSettings.text = DATA_TIPE_FOR_PRINT.deathsPer100th;
         break;
       case 'todayCasesPer100th':
         if (element[indicator] > 150) rad = 8;
@@ -217,7 +218,7 @@ export default class Map {
         else if (element[indicator] > 10) rad = 5;
         else rad = 4;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Cases today per 100 th';
+        objSettings.text = DATA_TIPE_FOR_PRINT.todayCasesPer100th;
         break;
       case 'todayRecoveredPer100th':
         if (element[indicator] > 150) rad = 8;
@@ -226,7 +227,7 @@ export default class Map {
         else if (element[indicator] > 10) rad = 5;
         else rad = 4;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Recovered today per 100 th';
+        objSettings.text = DATA_TIPE_FOR_PRINT.todayRecoveredPer100th;
         break;
       case 'todayDeathsPer100th':
         if (element[indicator] > 2) rad = 8;
@@ -235,7 +236,7 @@ export default class Map {
         else if (element[indicator] > 0.5) rad = 5;
         else rad = 4;
         opacity = rad / 10 >= 0.4 ? rad / 10 : 0.4;
-        objSettings.text = 'Deaths today per 100 th';
+        objSettings.text = DATA_TIPE_FOR_PRINT.todayDeathsPer100th;
         break;
       default:
         break;
