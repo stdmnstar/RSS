@@ -1,9 +1,10 @@
 import './scss/index.scss';
 import './app/components/tracking';
+import './app/components/vkeyboard';
 import Map from './app/components/map';
 import change from './app/components/change';
 import { getCountrysInfo, getGlobalInfo} from './app/components/api';
-import listOfCounriesHandler from './app/components/list-of-countries';
+import {listOfCounriesHandler} from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
 
@@ -44,7 +45,7 @@ async function init() {
       element.population);
   });
   сountrysInfo = сountrysInfo.filter((el) => el.countryInfo.iso2 !== null);
-  listOfCounriesHandler(сountrysInfo, DATA_TIPE.cases);
+  listOfCounriesHandler(сountrysInfo);
 
   objMap = new Map(сountrysInfo);
   objMap.createMap();

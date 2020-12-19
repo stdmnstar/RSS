@@ -1,5 +1,6 @@
 import { DATA_TIPE } from './const';
 import { countryObj, objMap, table } from '../../index';
+import { showlistOfCountries } from './list-of-countries';
 
 export default function change() {
   const time = document.getElementById('checkboxTime').checked;
@@ -29,6 +30,7 @@ export default function change() {
       break;
   }
   objMap.createMarker(rezult);
+  showlistOfCountries(rezult);
   objMap.zoomMap(countryObj.iso2);
   table(countryObj.iso2);
 }
