@@ -112,7 +112,7 @@ export default class Grafic {
     this.initChartDatasets();
     this.createDataSetIn();
     this.createDataSetOut();
-    this.createChartDatasets();
+    this.datasets = this.listOfData;
     this.createChartConfig();
     this.addChart();
   }
@@ -160,14 +160,6 @@ export default class Grafic {
     }
   }
 
-  createChartDatasets() {
-    if (this.type === 'doughnut') {
-      this.datasets = this.listOfData;
-    } else {
-      console.log('anouther type')
-    }
-  }
-
   createChartConfig() {
     this.chartConfig = {
       type: this.type,
@@ -208,12 +200,13 @@ export default class Grafic {
   }
 
   setPeriodData(data) {
+    this.data = data;
     if (data.country) {
       this.timeline = data.timeline
     } else {
       this.timeline = data
     }
-    this.changeTypeOfChart();
+    this.type = 'line';
     this.createTimelineLabels();
     this.getLineColor();
     this.createTimelineDatasets();
@@ -229,7 +222,11 @@ export default class Grafic {
   }
 
   createTimelineLabels() {
-    this.timelineLabels = Object.keys(this.timeline[this.mood]);
+    if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
+      this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
+    } else {
+      this.timelineLabels = Object.keys(this.timeline[this.mood]);
+    }
   }
 
   getLineColor() {
@@ -237,7 +234,13 @@ export default class Grafic {
   }
 
   createTimelineDatasets() {
-    const magnitudes = Object.values(this.timeline[this.mood]);
+    let magnitudes;
+    if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
+      magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '')]).map((el) => getCountPer100th(el, this.config.population));
+    } else {
+      magnitudes = Object.values(this.timeline[this.mood]);
+    }
+
     const newData = {
         label: DATA_TIPE_FOR_PRINT[this.mood],
         data: magnitudes,
@@ -353,6 +356,18 @@ export default class Grafic {
     graficTemplate.append(this.chartField);
     var ctx = document.querySelector('#charts-field').getContext("2d");
     this.chart = new Chart(ctx, this.chartConfig);
+  }
+
+  changeMood(mood) {
+    this.mood = mood;
+  }
+
+  resetLineChart() {
+    this.createTimelineLabels();
+    this.getLineColor();
+    this.createTimelineDatasets();
+    this.createLineConfig();
+    this.addChart();
   }
 }
 

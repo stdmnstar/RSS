@@ -2,11 +2,12 @@ import './scss/index.scss';
 import './app/components/tracking';
 import Map from './app/components/map';
 import Grafic from './app/components/Grafic';
-import { change } from './app/components/change';
+import { change, rejime } from './app/components/change';
 import { getCountrysInfo, getGlobalInfo, getCountryPeriod, getCountryInfo } from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
+
 
 export let countryObj = {
     iso2: 'BY',
@@ -38,56 +39,65 @@ async function init() {
 
   objMap = new Map(сountrysInfo);
   objMap.createMap();
+
+  if (countryObj.iso2 === 'global') {
+    let globalInfo = await getGlobalInfo();
+    objGrafic = new Grafic(globalInfo);
+    objGrafic.initChartConfig();
+  } else {
+    let countryInfo = await getCountryInfo(countryObj.iso2);
+    objGrafic = new Grafic(countryInfo);
+    objGrafic.initChartConfig();
+  }
 }
 
 init();
 
+const lineRezime = document.getElementById('line');
+const listOfDays = document.getElementById('list-of-days');
+
 const state = {
   days: 7,
+  mood: 'cases'
 };
 
-const lineRezime = document.getElementById('line');
-const listOfCountries = document.getElementById('list-of-countries_graf');
-state.target = listOfCountries.value;
-
-const listOfDays = document.getElementById('list-of-days');
-state.days = listOfDays.value;
-
 async function getData() {
-  const {days} = state;
+  const {days, mood} = state;
   if (countryObj.iso2 === 'global') {
-    let globalInfo = await getGlobalInfo();
-    objGrafic = new Grafic(globalInfo);
     if (lineRezime.checked) {
       let globalPeriodInfo = await getCountryPeriod('ALL', days);
+      objGrafic.changeMood(mood);
       objGrafic.setPeriodData(globalPeriodInfo)
       objGrafic.addChart();
-    } else {
-      objGrafic.initChartConfig();
     }
   } else {
-    let countryInfo = await getCountryInfo(countryObj.iso2);
-    objGrafic = new Grafic(countryInfo);
     if (lineRezime.checked) {
       let countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
+      objGrafic.changeMood(mood);
       objGrafic.setPeriodData(countryPeriodInfo)
       objGrafic.addChart();
-    } else {
-      objGrafic.initChartConfig();
     }
   }
 }
 
-getData();
-
-// listOfCountries.addEventListener('change', () => {
-//   getData();
-// });
 lineRezime.addEventListener('click', () => {
-  getData();
+  if (lineRezime.checked) {
+    if (rejime) {
+      state.mood = rejime;
+    }
+    getData();
+  } else {
+    objGrafic.changeTypeOfChart()
+    objGrafic.initChartConfig(state.mood);
+  }
 })
 
 listOfDays.addEventListener('change', () => {
+  if (rejime) {
+    state.mood = rejime;
+  }
   state.days = listOfDays.value;
   getData();
 });
+
+

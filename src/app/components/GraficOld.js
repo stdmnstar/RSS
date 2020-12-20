@@ -111,11 +111,8 @@ export default class Grafic {
     this.createChartConfig();
 
     this.createChartTemplate();
-    graficTemplate.innerHTML = '&nbsp;';
-    graficTemplate.append(this.chartField);
 
-    var ctx = document.querySelector('#charts-field').getContext("2d");
-    this.chart = new Chart(ctx, this.chartConfig);
+    this.chart = new Chart(this.chartField, this.chartConfig);
     this.chart;
   }
 

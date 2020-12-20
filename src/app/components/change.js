@@ -1,6 +1,10 @@
 import { DATA_TIPE } from './const';
 import { countryObj, objMap, objGrafic} from '../../index';
 
+const lineRezime = document.getElementById('line');
+
+export let rejime;
+
 export function change() {
   const time = document.getElementById('checkboxTime').checked;
   const popul = document.getElementById('checkboxPopul').checked;
@@ -26,15 +30,19 @@ export function change() {
       if (!time && !popul) rezult = DATA_TIPE.recovered;
       break;
   }
+
+  rejime = rezult;
+  // state.mood = rezult
   // console.log(objGrafic);
   // console.log(countryObj.iso);
-  if (objGrafic.chart) {
-    objGrafic.chart.destroy();
+  if (lineRezime.checked) {
+    objGrafic.changeMood(rezult);
+    objGrafic.resetLineChart();
+  } else {
+    objGrafic.initChartConfig(rezult);
   }
+
   objMap.createMarker(rezult);
-  objGrafic.initChartConfig(rezult);
-  // objGrafic.initChartConfig(rezult);
-  // objGrafic.createMarker(rezult);
-  //objMap.zoomMap(countryObj.iso2);
-  // create(rezult, country)
+
 }
+
