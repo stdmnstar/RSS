@@ -291,6 +291,7 @@ export default class Grafic {
             },
             ticks: {
               beginAtZero: false,
+              maxTicksLimit: listOfDays.value === '360' ? 12 : listOfDays.value === '180' ? 12 : listOfDays.value === '90' ? 8 : 7,
               ...commonOptions,
             },
           }],
@@ -304,24 +305,18 @@ export default class Grafic {
             },
             ticks: {
               ...commonOptions,
+              maxTicksLimit: listOfDays.value === '360' ? 11 : listOfDays.value === '180' ? 11 : listOfDays.value === '90' ? 22 : 22,
               callback(value) {
                 let date;
                 const monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '');
                 const month = MONTHS[monthIndex - 1];
                 const day = value.replace(/[0-9]*\//, '').replace(/\/[0-9]*/, '');
                 switch (listOfDays.value) {
-                  case '366':
+                  case '360':
                     if (day === '1') {
                       date = month;
                     } else {
-                      date = '';
-                    }
-                    break;
-                  case '30':
-                    if (day === '1') {
                       date = month;
-                    } else {
-                      date = day;
                     }
                     break;
                   default:

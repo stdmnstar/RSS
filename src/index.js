@@ -10,7 +10,7 @@ import { getCountPer100th, getCountPer100thFromMillion } from './app/components/
 
 
 export let countryObj = {
-    iso2: 'BY',
+    iso2: 'global',
     get iso() { return this.iso2 },
     set iso(value) {
        this.iso2 = value;
@@ -39,16 +39,6 @@ async function init() {
 
   objMap = new Map(сountrysInfo);
   objMap.createMap();
-
-  if (countryObj.iso2 === 'global') {
-    let globalInfo = await getGlobalInfo();
-    objGrafic = new Grafic(globalInfo);
-    objGrafic.initChartConfig();
-  } else {
-    let countryInfo = await getCountryInfo(countryObj.iso2);
-    objGrafic = new Grafic(countryInfo);
-    objGrafic.initChartConfig();
-  }
 }
 
 init();
@@ -57,31 +47,41 @@ const lineRezime = document.getElementById('line');
 const listOfDays = document.getElementById('list-of-days');
 
 const state = {
-  days: 7,
+  days: 360,
   mood: 'cases'
 };
 
 async function getData() {
   const {days, mood} = state;
   if (countryObj.iso2 === 'global') {
-    if (lineRezime.checked) {
+    let globalInfo = await getGlobalInfo();
+    objGrafic = new Grafic(globalInfo);
+    if (!lineRezime.checked) {
       let globalPeriodInfo = await getCountryPeriod('ALL', days);
       objGrafic.changeMood(mood);
       objGrafic.setPeriodData(globalPeriodInfo)
       objGrafic.addChart();
+    } else {
+      objGrafic.initChartConfig();
     }
   } else {
-    if (lineRezime.checked) {
+    let countryInfo = await getCountryInfo(countryObj.iso2);
+    objGrafic = new Grafic(countryInfo);
+    if (!lineRezime.checked) {
       let countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
       objGrafic.changeMood(mood);
       objGrafic.setPeriodData(countryPeriodInfo)
       objGrafic.addChart();
+    } else {
+      objGrafic.initChartConfig();
     }
   }
 }
 
+getData()
+
 lineRezime.addEventListener('click', () => {
-  if (lineRezime.checked) {
+  if (!lineRezime.checked) {
     if (rejime) {
       state.mood = rejime;
     }
@@ -90,6 +90,7 @@ lineRezime.addEventListener('click', () => {
     objGrafic.changeTypeOfChart()
     objGrafic.initChartConfig(state.mood);
   }
+  listOfDays.classList.toggle('hidden');
 })
 
 listOfDays.addEventListener('change', () => {

@@ -30,12 +30,9 @@ export function change() {
       if (!time && !popul) rezult = DATA_TIPE.recovered;
       break;
   }
-
   rejime = rezult;
-  // state.mood = rezult
-  // console.log(objGrafic);
-  // console.log(countryObj.iso);
-  if (lineRezime.checked) {
+
+  if (!lineRezime.checked) {
     objGrafic.changeMood(rezult);
     objGrafic.resetLineChart();
   } else {
