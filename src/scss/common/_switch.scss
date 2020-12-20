@@ -18,7 +18,7 @@ label {
 }
 
 label:after {
-  content: "All";
+  content: "Total";
   width: 50px;
   height: 20px;
   position: absolute;
@@ -43,7 +43,7 @@ label.checkedTime, label.checkedPopul{
 label.checkedTime:after{
   left: 50px;
   background: #9D1C1C;
-  content: "NOW";
+  content: "Today";
 }
 
 

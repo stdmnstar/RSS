@@ -478,13 +478,15 @@ function altResolve(keyevent) {
 
 function inputArrowLeftToTextarea() {
   if (textarea.selectionStart > 0) {
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
+    textarea.selectionEnd = textarea.selectionStart - 1;
+    textarea.selectionStart = textarea.selectionEnd;
   }
 }
 
 function inputArrowRightToTextarea() {
   if (textarea.selectionEnd < textarea.value.length) {
-    textarea.selectionStart = textarea.selectionEnd += 1;
+    textarea.selectionEnd += 1;
+    textarea.selectionStart = textarea.selectionEnd;
   }
 }
 
