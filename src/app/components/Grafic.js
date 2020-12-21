@@ -224,6 +224,8 @@ export default class Grafic {
   createTimelineLabels() {
     if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
       this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
+    } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
+      this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
     } else {
       this.timelineLabels = Object.keys(this.timeline[this.mood]);
     }
@@ -237,9 +239,23 @@ export default class Grafic {
     let magnitudes;
     if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
       magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '')]).map((el) => getCountPer100th(el, this.config.population));
+    } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
+      let result = [];
+      magnitudes = Object.values(this.timeline[this.mood.toLowerCase().replace('today', '')]);
+      for (let i = 0; i < magnitudes.length; i++) {
+        if (i === 0) {
+          result.push(magnitudes[i])
+        } else {
+          result.push(magnitudes[i] - magnitudes[i - 1])
+        }
+      }
+      magnitudes = result;
     } else {
       magnitudes = Object.values(this.timeline[this.mood]);
     }
+
+    this.timelineLabels = this.timelineLabels.slice(1);
+    magnitudes = magnitudes.slice(1)
 
     const newData = {
         label: DATA_TIPE_FOR_PRINT[this.mood],
@@ -291,7 +307,7 @@ export default class Grafic {
             },
             ticks: {
               beginAtZero: false,
-              maxTicksLimit: listOfDays.value === '360' ? 12 : listOfDays.value === '180' ? 12 : listOfDays.value === '90' ? 8 : 7,
+              maxTicksLimit: listOfDays.value === '361' ? 12 : listOfDays.value === '181' ? 12 : listOfDays.value === '91' ? 8 : 7,
               ...commonOptions,
             },
           }],
@@ -305,19 +321,15 @@ export default class Grafic {
             },
             ticks: {
               ...commonOptions,
-              maxTicksLimit: listOfDays.value === '360' ? 11 : listOfDays.value === '180' ? 11 : listOfDays.value === '90' ? 22 : 22,
+              maxTicksLimit: listOfDays.value === '361' ? 11 : listOfDays.value === '181' ? 11 : listOfDays.value === '91' ? 22 : 22,
               callback(value) {
                 let date;
                 const monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '');
                 const month = MONTHS[monthIndex - 1];
                 const day = value.replace(/[0-9]*\//, '').replace(/\/[0-9]*/, '');
                 switch (listOfDays.value) {
-                  case '360':
-                    if (day === '1') {
-                      date = month;
-                    } else {
-                      date = month;
-                    }
+                  case '361':
+                    date = month;
                     break;
                   default:
                     date = `${month} ${day}`;
