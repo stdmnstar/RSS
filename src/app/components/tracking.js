@@ -1,4 +1,4 @@
-import change from './change';
+import { change } from './change';
 // TIME
 const btnTime = document.querySelectorAll('#checkboxTime');
 btnTime.forEach((el) => {

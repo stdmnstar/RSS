@@ -1,8 +1,11 @@
 import { DATA_TIPE } from './const';
-import { countryObj, objMap, table } from '../../index';
+import { countryObj, objMap, table, objGrafic } from '../../index';
 import { showlistOfCountries } from './list-of-countries';
 
-export default function change() {
+const lineRezime = document.getElementById('line');
+export let rejime;
+
+export function change() {
   const time = document.getElementById('checkboxTime').checked;
   const popul = document.getElementById('checkboxPopul').checked;
   const list = document.getElementById('select').value.toString();
@@ -29,8 +32,21 @@ export default function change() {
     default:
       break;
   }
+
   objMap.createMarker(rezult);
   showlistOfCountries(rezult);
   objMap.zoomMap(countryObj.iso2);
   table(countryObj.iso2);
+
+  rejime = rezult;
+
+  if (!lineRezime.checked) {
+    objGrafic.changeMood(rezult);
+    objGrafic.resetLineChart();
+  } else {
+    objGrafic.initChartConfig(rezult);
+  }
+  objGrafic.addChart();
 }
+
+
