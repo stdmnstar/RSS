@@ -227,7 +227,7 @@ export default class Grafic {
     } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
       this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
     } else {
-      this.timelineLabels = Object.keys(this.timeline[this.mood]);
+      this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
     }
   }
 
@@ -251,7 +251,16 @@ export default class Grafic {
       }
       magnitudes = result;
     } else {
-      magnitudes = Object.values(this.timeline[this.mood]);
+      let result = [];
+      magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
+      for (let i = 0; i < magnitudes.length; i++) {
+        if (i === 0) {
+          result.push(magnitudes[i])
+        } else {
+          result.push(magnitudes[i] - magnitudes[i - 1])
+        }
+      }
+      magnitudes = result.map((el) => getCountPer100th(el, this.config.population));
     }
 
     this.timelineLabels = this.timelineLabels.slice(1);
