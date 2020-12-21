@@ -1,5 +1,6 @@
 import './scss/index.scss';
 import './app/components/tracking';
+import './app/components/hover';
 import './app/components/vkeyboard';
 import Map from './app/components/map';
 import Grafic from './app/components/Grafic';
