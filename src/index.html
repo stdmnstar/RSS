@@ -7,7 +7,6 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>COVID-19 Dashboard</title>
 </head>
-
 <body class="body">
   <div class="content">
     <div class="content__table table">
@@ -74,7 +73,28 @@
       </div>
     </div>
     <div class="content__chart chart">
-      <div class="chart__content"></div>
+      <div class="chart__content">
+        <div class="grafic__section">
+          <div class="grafic__interactive">
+            <div class="grafic__interactive_checkbox">
+              <label id="line-container">
+                <input type="checkbox" name="line" value="line" id="line">
+                <span class="checkmark"></span>
+              </label>
+              <span class="grafic__interactive_description">Ration of basic values</span>
+            </div>
+            <select id="list-of-days">
+              <option value="8">Last Week</option>
+              <option value="31">Last 30 Days</option>
+              <option value="91">Last 90 Days</option>
+              <option value="181">Half of Year</option>
+              <option value="361"selected>Last Year</option>
+            </select>
+          </div>
+          <div class="grafic__template">
+          </div>
+        </div>
+      </div>
       <div class="chart__control">
         <select id="select">
           <option value="cases">Cases</option>

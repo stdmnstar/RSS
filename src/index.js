@@ -2,23 +2,65 @@ import './scss/index.scss';
 import './app/components/tracking';
 import './app/components/vkeyboard';
 import Map from './app/components/map';
-import change from './app/components/change';
-import { getCountrysInfo, getGlobalInfo } from './app/components/api';
+import Grafic from './app/components/Grafic';
+import { rejime, change } from './app/components/change';
+import { getCountrysInfo, getGlobalInfo, getCountryPeriod, getCountryInfo } from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
+
+const state = {
+  days: 361,
+  mood: 'cases'
+};
 
 export const countryObj = {
   iso2: 'global',
   get iso() { return this.iso2; },
   set iso(value) {
+    if (rejime) {
+      state.mood = rejime;
+    }
     this.iso2 = value;
+    getData();
     change();
   },
 };
+
 export let objMap;
-let сountrysInfo; let
-  allIfo;
+export let objGrafic;
+let сountrysInfo; let allIfo;
+
+async function getData() {
+  const {days, mood} = state;
+  if (countryObj.iso2 === 'global') {
+    let globalInfo = await getGlobalInfo();
+    objGrafic = new Grafic(globalInfo);
+    if (!lineRezime.checked ) {
+      let globalPeriodInfo = await getCountryPeriod('ALL', days);
+      objGrafic.changeMood(mood);
+      objGrafic.setPeriodData(globalPeriodInfo)
+      objGrafic.addChart();
+    } else {
+      objGrafic.initChartConfig();
+      objGrafic.addChart();
+    }
+  } else {
+    let countryInfo = await getCountryInfo(countryObj.iso2);
+    objGrafic = new Grafic(countryInfo);
+    if (!lineRezime.checked) {
+      let countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
+      objGrafic.changeMood(mood);
+      objGrafic.setPeriodData(countryPeriodInfo)
+      objGrafic.addChart();
+    } else {
+      objGrafic.initChartConfig();
+      objGrafic.addChart();
+    }
+  }
+}
+
+getData();
 
 async function init() {
   allIfo = await getGlobalInfo();
@@ -50,8 +92,6 @@ async function init() {
 
   objMap = new Map(сountrysInfo);
   objMap.createMap();
-// const globalInfo = await getGlobalInfo();
-// console.log(globalInfo);
 }
 
 init();
@@ -102,3 +142,29 @@ export function table(iso2) {
   deathsDom.textContent = deaths.toLocaleString('ru-RU');
   recoveredDom.textContent = recovered.toLocaleString('ru-RU');
 }
+
+const lineRezime = document.getElementById('line');
+const listOfDays = document.getElementById('list-of-days');
+
+lineRezime.addEventListener('click', () => {
+  if (!lineRezime.checked) {
+    if (rejime) {
+      state.mood = rejime;
+    }
+    getData();
+  } else {
+    objGrafic.changeTypeOfChart()
+    objGrafic.initChartConfig(state.mood);
+    objGrafic.addChart();
+  }
+  listOfDays.classList.toggle('hidden');
+})
+
+listOfDays.addEventListener('change', () => {
+  if (rejime) {
+    state.mood = rejime;
+  }
+  state.days = listOfDays.value;
+  getData();
+});
+
