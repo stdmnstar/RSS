@@ -12,6 +12,7 @@ const PATHS = {
   config: 'config/',
   image: 'image/',
   audio: 'audio/',
+  fonts: 'fonts/'
 };
 
 module.exports = {
@@ -127,6 +128,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/${PATHS.assets}${PATHS.image}`, to: `${PATHS.assets}${PATHS.image}` },
+      { from: `${PATHS.src}/${PATHS.assets}${PATHS.fonts}`, to: `${PATHS.assets}${PATHS.fonts}` },
       { from: `${PATHS.src}/${PATHS.assets}${PATHS.audio}`, to: `${PATHS.assets}${PATHS.audio}` },
       { from: `${PATHS.src}/${PATHS.static}`, to: '' },
     ]),

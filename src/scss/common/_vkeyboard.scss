@@ -1,0 +1,99 @@
+
+.keyboard {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  padding: 5px 0px;
+  background: #1b1700;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  transition: bottom 0.8s;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 1000;
+}
+
+.keyboard--hidden {
+  bottom: -100%;
+}
+
+.keyboard__keys {
+  text-align: center;
+}
+
+.keyboard__key {
+  height: 45px;
+  width: 5%;
+  max-width: 60px;
+  margin: 3px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(255, 255, 255);
+  font-size: 25px;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  vertical-align: top;
+  padding: 0px;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  transition: 0.2s;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.keyboard__key:hover {
+  box-shadow: inset 0px 0px 1px 7px rgba(255, 255, 255, 0.5);
+}
+
+.keyboard__key_pressed {
+  border-radius: 25px;
+  box-shadow: inset 0px 0px 10px 7px rgba(255, 255, 255, 0.9);
+  top: 3px;
+}
+
+.keyboard__key_w {
+  width: 9%;
+  max-width: 75px;
+}
+
+.keyboard__key_wide {
+  width: 12%;
+  max-width: 100px;
+}
+
+.keyboard__key_wider {
+  width: 12%;
+  max-width: 100px;
+}
+
+.keyboard__key_the-widest {
+  width: 12%;
+  max-width: 100px;
+}
+
+.keyboard__key_extra-wide {
+  width: 35%;
+  max-width: 420px;
+}
+
+.keyboard__key-ON {
+  background: #08ff00;
+  text-shadow: 1px 1px 2px black, 0 0 1em #08ff00;
+  box-shadow: inset 0px 0px 10px 7px rgba(8, 255, 0, 0.9);
+}
+
+@media (max-width: 900px) {
+  .keyboard__key {
+      height: 35px;
+  }
+}
+
+@media (max-width: 700px) {
+  .keyboard__key {
+      height: 25px;
+      font-size: 20px;
+  }
+}

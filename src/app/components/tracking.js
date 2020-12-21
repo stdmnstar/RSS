@@ -2,12 +2,14 @@ import { change } from './change';
 // TIME
 const btnTime = document.querySelectorAll('#checkboxTime');
 btnTime.forEach((el) => {
-  el.checked = false;
-  el.addEventListener(('change'), () => {
-    const check = !!el.checked;
-    btnTime.forEach((el) => {
-      el.checked = check;
-      el.nextElementSibling.classList.toggle('checkedTime');
+  const element = el;
+  element.checked = false;
+  element.addEventListener(('change'), () => {
+    const check = !!element.checked;
+    btnTime.forEach((btn) => {
+      const elem = btn;
+      elem.checked = check;
+      elem.nextElementSibling.classList.toggle('checkedTime');
     });
     change();
   });
@@ -15,12 +17,14 @@ btnTime.forEach((el) => {
 // Population
 const btnPopul = document.querySelectorAll('#checkboxPopul');
 btnPopul.forEach((el) => {
-  el.checked = false;
-  el.addEventListener(('change'), () => {
-    const check = !!el.checked;
-    btnPopul.forEach((el) => {
-      el.checked = check;
-      el.nextElementSibling.classList.toggle('checkedPopul');
+  const element = el;
+  element.checked = false;
+  element.addEventListener(('change'), () => {
+    const check = !!element.checked;
+    btnPopul.forEach((btn) => {
+      const elem = btn;
+      elem.checked = check;
+      elem.nextElementSibling.classList.toggle('checkedPopul');
     });
     change();
   });
@@ -28,10 +32,12 @@ btnPopul.forEach((el) => {
 // Cases / Deaths / Recovered
 const lists = document.querySelectorAll('#select');
 lists.forEach((el) => {
-  el.selectedIndex = 0;
-  el.addEventListener('change', (event) => {
-    lists.forEach((el) => {
-      el.selectedIndex = event.target.selectedIndex;
+  const element = el;
+  element.selectedIndex = 0;
+  element.addEventListener('change', (event) => {
+    lists.forEach((option) => {
+      const elem = option;
+      elem.selectedIndex = event.target.selectedIndex;
     });
     change();
   });

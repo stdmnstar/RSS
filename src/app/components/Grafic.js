@@ -11,10 +11,10 @@ const graficLinePanel = document.querySelector('.grafic__line-panel');
 const listOfDays = document.getElementById('list-of-days');
 const changeTypeBox = document.querySelector('#line');
 
-const fontFamily = 'Montserrat, sans-serif';
-const fontSize = 14;
-const fontWeight = 400;
-const fontColor = 'black';
+const fontFamily = "Roboto', sans-serif";
+const fontSize = 12;
+const fontWeight = 200;
+const fontColor = '#DDDDDD';
 
 const commonOptions = {
   fontFamily,
@@ -114,7 +114,6 @@ export default class Grafic {
     this.createDataSetOut();
     this.datasets = this.listOfData;
     this.createChartConfig();
-    this.addChart();
   }
 
   createChartLabels() {
@@ -168,23 +167,42 @@ export default class Grafic {
       datasets: [
         this.dataSetOut, 
       { 
-        weight: 0.1
+        weight: 0,
       },
       this.dataSetIn
-      ]
+      ],
       },
       options: {
+        title: {
+          display: true,
+          text: `Ratio of basic values in ${this.iso}`,
+          fontColor,
+        },
+        legend: {
+          labels: {
+            fontColor,
+            fontSize: 12,
+          },
+        },
+        layout: {
+          padding: {
+            left: 0,
+            right: 10,
+            top: 10,
+            bottom: 10,
+          },
+        },
         responsive: true, 
         maintainAspectRatio: true,
-        cutoutPercentage: 60,
+        cutoutPercentage: 80,
         elements: {
           center: {
             text: `Common ${this.activeLabel} in ${this.iso} equals ${this.activeNumber}`,
-            color: '#000', 
+            color: fontColor, 
             fontStyle: 'Arial', 
             sidePadding: 20, 
-            minFontSize: 25, 
-            lineHeight: 25, 
+            minFontSize: 12, 
+            lineHeight: 12, 
           }
         }
       },
@@ -195,7 +213,7 @@ export default class Grafic {
     const chartWrapper = document.createElement('canvas');
     chartWrapper.setAttribute('id', 'charts-field');
     chartWrapper.setAttribute('width', '200');
-    chartWrapper.setAttribute('height', '100');
+    chartWrapper.setAttribute('height', '95');
     this.chartField = chartWrapper;
   }
 
@@ -226,8 +244,10 @@ export default class Grafic {
       this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
     } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
       this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
-    } else {
+    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th'){
       this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
+    } else {
+      this.timelineLabels = Object.keys(this.timeline[this.mood])
     }
   }
 
@@ -250,7 +270,7 @@ export default class Grafic {
         }
       }
       magnitudes = result;
-    } else {
+    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th'){
       let result = [];
       magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
       for (let i = 0; i < magnitudes.length; i++) {
@@ -261,6 +281,8 @@ export default class Grafic {
         }
       }
       magnitudes = result.map((el) => getCountPer100th(el, this.config.population));
+    } else {
+      magnitudes = Object.values(this.timeline[this.mood]);
     }
 
     this.timelineLabels = this.timelineLabels.slice(1);
@@ -274,8 +296,8 @@ export default class Grafic {
         pointHighlightStroke: 'rgba(225,225,225,0.9)',
         backgroundColor: `rgba(${this.lineColor}, 0.2)`,
         borderColor: `rgba(${this.lineColor}, 0.7)`,
-        borderWidth: 1,
-        pointRadius: 2,
+        borderWidth: 0,
+        pointRadius: listOfDays.value === '361' ? 0.5 : listOfDays.value === '181' ? 1 : listOfDays.value === '91' ? 1.5 : listOfDays.value === '31' ? 2 : 3,
         pointStyle: 'circle',
       };
     this.timelineDatatets = [];
@@ -299,7 +321,7 @@ export default class Grafic {
         legend: {
           labels: {
             fontColor,
-            fontSize,
+            fontSize: 12,
           },
         },
         tooltips: {
@@ -310,9 +332,9 @@ export default class Grafic {
             scaleLabel: {
               display: true,
               labelString: 'Number of people',
-              padding: 5,
+              padding: 10,
               fontColor,
-              fontSize,
+              fontSize: fontSize + 4,
             },
             ticks: {
               beginAtZero: false,
@@ -326,7 +348,7 @@ export default class Grafic {
               labelString: 'Dates',
               padding: 5,
               fontColor,
-              fontSize,
+              fontSize: fontSize + 4,
             },
             ticks: {
               ...commonOptions,
@@ -356,7 +378,7 @@ export default class Grafic {
         layout: {
           padding: {
             left: 0,
-            right: 0,
+            right: 10,
             top: 0,
             bottom: 0,
           },
@@ -383,7 +405,6 @@ export default class Grafic {
     this.getLineColor();
     this.createTimelineDatasets();
     this.createLineConfig();
-    this.addChart();
   }
 }
 

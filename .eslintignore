@@ -1,6 +1,7 @@
 /build/**
 /dist/**
 /public/**
+/src/app/framework/library/leaflet/**
 
 /node_modules/**
 

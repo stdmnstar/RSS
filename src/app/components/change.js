@@ -1,8 +1,8 @@
 import { DATA_TIPE } from './const';
-import { countryObj, objMap, objGrafic} from '../../index';
+import { countryObj, objMap, table, objGrafic } from '../../index';
+import { showlistOfCountries } from './list-of-countries';
 
 const lineRezime = document.getElementById('line');
-
 export let rejime;
 
 export function change() {
@@ -29,7 +29,15 @@ export function change() {
       if (time && !popul) rezult = DATA_TIPE.todayRecovered;
       if (!time && !popul) rezult = DATA_TIPE.recovered;
       break;
+    default:
+      break;
   }
+
+  objMap.createMarker(rezult);
+  showlistOfCountries(rezult);
+  objMap.zoomMap(countryObj.iso2);
+  table(countryObj.iso2);
+
   rejime = rezult;
 
   if (!lineRezime.checked) {
@@ -38,8 +46,7 @@ export function change() {
   } else {
     objGrafic.initChartConfig(rezult);
   }
-
-  objMap.createMarker(rezult);
-
+  objGrafic.addChart();
 }
+
 

@@ -29,41 +29,41 @@ export const DATA_TIPE_FOR_PRINT = {
 };
 
 export const DATA_TIPE_COLORS_HEX = {
-  cases: '#FFF500',
-  deaths: '#FB000D',
+  cases: '#FB000D',
+  deaths: '#351BA9',
   recovered: '#14D100',
 
-  todayCases: '#FFF840',
-  todayDeaths: '#FD3F49',
+  todayCases: '#FD3F49',
+  todayDeaths: '#664ED4',
   todayRecovered: '#4AE83A',
 
-  casesPer100th: '#BFBA30',
-  deathsPer100th: '#BC2F36',
+  casesPer100th: '#BC2F36',
+  deathsPer100th: '#1B096E',
   recoveredPer100th: '#329D27',
 
-  todayCasesPer100th: '#FFFA73',
-  todayDeathsPer100th: '#FD7279',
+  todayCasesPer100th: '#FD7279',
+  todayDeathsPer100th: '#8472D4',
   todayRecoveredPer100th: '	#74E868',
 
-  deafult: '#FFF',
+  deafult: '#222',
 };
 
 export const DATA_TIPE_COLORS_RGB = {
-  cases: '255, 245, 0',
-  deaths: '251, 0, 13',
+  cases: '251, 0, 13',
+  deaths: '53, 27, 169',
   recovered: '20, 209, 0',
 
-  todayCases: '255, 248, 64',
-  todayDeaths: '253, 63, 73',
+  todayCases: '253, 63, 73',
+  todayDeaths: '102, 78, 212',
   todayRecovered: '74, 232, 58',
 
-  casesPer100th: '191, 186, 48',
-  deathsPer100th: '188, 47, 54',
+  casesPer100th: '188, 47, 54',
+  deathsPer100th: '27, 9, 110',
   recoveredPer100th: '50, 157, 39',
 
-  todayCasesPer100th: '255, 250, 115',
-  todayDeathsPer100th: '253, 114, 121',
-  todayRecoveredPer100th: '116, 232, 104)',
+  todayCasesPer100th: '253, 114, 121',
+  todayDeathsPer100th: '132, 114, 212',
+  todayRecoveredPer100th: '116, 232, 104',
 };
 
 export const DATA_TIPE_ID = {
