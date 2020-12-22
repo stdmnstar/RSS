@@ -1,5 +1,4 @@
 import './scss/index.scss';
-import './app/components/tracking';
 import './app/components/hover';
 import './app/components/vkeyboard';
 import Map from './app/components/map';
@@ -37,72 +36,7 @@ export let objMap;
 export let objGrafic;
 let сountrysInfo; let allIfo;
 
-async function getData() {
-  const { days, mood } = state;
-  if (countryObj.iso2 === 'global') {
-    const globalInfo = await getGlobalInfo();
-    objGrafic = new Grafic(globalInfo);
-    if (!lineRezime.checked) {
-      const globalPeriodInfo = await getCountryPeriod('ALL', days);
-      objGrafic.changeMood(mood);
-      objGrafic.setPeriodData(globalPeriodInfo);
-      objGrafic.addChart();
-    } else {
-      objGrafic.initChartConfig();
-      objGrafic.addChart();
-    }
-  } else {
-    const countryInfo = await getCountryInfo(countryObj.iso2);
-    objGrafic = new Grafic(countryInfo);
-    if (!lineRezime.checked) {
-      const countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
-      objGrafic.changeMood(mood);
-      objGrafic.setPeriodData(countryPeriodInfo);
-      objGrafic.addChart();
-    } else {
-      objGrafic.initChartConfig();
-      objGrafic.addChart();
-    }
-  }
-}
-
-getData();
-
-async function init() {
-  allIfo = await getGlobalInfo();
-  allIfo[DATA_TIPE.casesPer100th] = getCountPer100thFromMillion(allIfo.casesPerOneMillion);
-  allIfo[DATA_TIPE.deathsPer100th] = getCountPer100thFromMillion(allIfo.deathsPerOneMillion);
-  allIfo[DATA_TIPE.recoveredPer100th] = getCountPer100thFromMillion(allIfo.recoveredPerOneMillion);
-  allIfo[DATA_TIPE.todayCasesPer100th] = getCountPer100th(allIfo.todayCases, allIfo.population);
-  allIfo[DATA_TIPE.todayDeathsPer100th] = getCountPer100th(allIfo.todayDeaths, allIfo.population);
-  allIfo[DATA_TIPE.todayRecoveredPer100th] = getCountPer100th(allIfo.todayRecovered, allIfo.population);
-  const { iso2 } = countryObj;
-  table(iso2);
-
-  сountrysInfo = await getCountrysInfo();
-  сountrysInfo.forEach((el) => {
-    const element = el;
-    element[DATA_TIPE.casesPer100th] = getCountPer100thFromMillion(element.casesPerOneMillion);
-    element[DATA_TIPE.deathsPer100th] = getCountPer100thFromMillion(element.deathsPerOneMillion);
-    element[DATA_TIPE.recoveredPer100th] = getCountPer100thFromMillion(element
-      .recoveredPerOneMillion);
-    element[DATA_TIPE.todayCasesPer100th] = getCountPer100th(element.todayCases,
-      element.population);
-    element[DATA_TIPE.todayDeathsPer100th] = getCountPer100th(element.todayDeaths,
-      element.population);
-    element[DATA_TIPE.todayRecoveredPer100th] = getCountPer100th(element.todayRecovered,
-      element.population);
-  });
-  сountrysInfo = сountrysInfo.filter((el) => el.countryInfo.iso2 !== null);
-  listOfCounriesHandler(сountrysInfo);
-
-  objMap = new Map(сountrysInfo);
-  objMap.createMap();
-}
-
-init();
-
-export function table(iso2) {
+export default function table(iso2) {
   const name = document.querySelector('.table__country');
   const casesDom = document.querySelector('.table__cases').childNodes[1];
   const deathsDom = document.querySelector('.table__deaths').childNodes[1];
@@ -149,6 +83,69 @@ export function table(iso2) {
   recoveredDom.textContent = recovered.toLocaleString('ru-RU');
 }
 
+async function getData() {
+  const { days, mood } = state;
+  if (countryObj.iso2 === 'global') {
+    const globalInfo = await getGlobalInfo();
+    objGrafic = new Grafic(globalInfo);
+    if (!lineRezime.checked) {
+      const globalPeriodInfo = await getCountryPeriod('ALL', days);
+      objGrafic.changeMood(mood);
+      objGrafic.setPeriodData(globalPeriodInfo);
+    } else {
+      objGrafic.initChartConfig();
+    }
+  } else {
+    const countryInfo = await getCountryInfo(countryObj.iso2);
+    objGrafic = new Grafic(countryInfo);
+    if (!lineRezime.checked) {
+      const countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
+      objGrafic.changeMood(mood);
+      objGrafic.setPeriodData(countryPeriodInfo);
+    } else {
+      objGrafic.initChartConfig();
+    }
+  }
+  setTimeout(objGrafic.addChart(), 100);
+}
+
+getData();
+
+async function init() {
+  allIfo = await getGlobalInfo();
+  allIfo[DATA_TIPE.casesPer100th] = getCountPer100thFromMillion(allIfo.casesPerOneMillion);
+  allIfo[DATA_TIPE.deathsPer100th] = getCountPer100thFromMillion(allIfo.deathsPerOneMillion);
+  allIfo[DATA_TIPE.recoveredPer100th] = getCountPer100thFromMillion(allIfo.recoveredPerOneMillion);
+  allIfo[DATA_TIPE.todayCasesPer100th] = getCountPer100th(allIfo.todayCases, allIfo.population);
+  allIfo[DATA_TIPE.todayDeathsPer100th] = getCountPer100th(allIfo.todayDeaths, allIfo.population);
+  allIfo[DATA_TIPE.todayRecoveredPer100th] = getCountPer100th(allIfo.todayRecovered,
+    allIfo.population);
+  const { iso2 } = countryObj;
+  table(iso2);
+
+  сountrysInfo = await getCountrysInfo();
+  сountrysInfo.forEach((el) => {
+    const element = el;
+    element[DATA_TIPE.casesPer100th] = getCountPer100thFromMillion(element.casesPerOneMillion);
+    element[DATA_TIPE.deathsPer100th] = getCountPer100thFromMillion(element.deathsPerOneMillion);
+    element[DATA_TIPE.recoveredPer100th] = getCountPer100thFromMillion(element
+      .recoveredPerOneMillion);
+    element[DATA_TIPE.todayCasesPer100th] = getCountPer100th(element.todayCases,
+      element.population);
+    element[DATA_TIPE.todayDeathsPer100th] = getCountPer100th(element.todayDeaths,
+      element.population);
+    element[DATA_TIPE.todayRecoveredPer100th] = getCountPer100th(element.todayRecovered,
+      element.population);
+  });
+  сountrysInfo = сountrysInfo.filter((el) => el.countryInfo.iso2 !== null);
+  listOfCounriesHandler(сountrysInfo);
+
+  objMap = new Map(сountrysInfo);
+  objMap.createMap();
+}
+
+init();
+
 lineRezime.addEventListener('click', () => {
   if (!lineRezime.checked) {
     if (rejime) {
@@ -169,4 +166,48 @@ listOfDays.addEventListener('change', () => {
   }
   state.days = listOfDays.value;
   getData();
+});
+
+// TIME
+const btnTime = document.querySelectorAll('#checkboxTime');
+btnTime.forEach((el) => {
+  const element = el;
+  element.checked = false;
+  element.addEventListener(('change'), () => {
+    const check = !!element.checked;
+    btnTime.forEach((btn) => {
+      const elem = btn;
+      elem.checked = check;
+      elem.nextElementSibling.classList.toggle('checkedTime');
+    });
+    change();
+  });
+});
+// Population
+const btnPopul = document.querySelectorAll('#checkboxPopul');
+btnPopul.forEach((el) => {
+  const element = el;
+  element.checked = false;
+  element.addEventListener(('change'), () => {
+    const check = !!element.checked;
+    btnPopul.forEach((btn) => {
+      const elem = btn;
+      elem.checked = check;
+      elem.nextElementSibling.classList.toggle('checkedPopul');
+    });
+    change();
+  });
+});
+// Cases / Deaths / Recovered
+const lists = document.querySelectorAll('#select');
+lists.forEach((el) => {
+  const element = el;
+  element.selectedIndex = 0;
+  element.addEventListener('change', (event) => {
+    lists.forEach((option) => {
+      const elem = option;
+      elem.selectedIndex = event.target.selectedIndex;
+    });
+    change();
+  });
 });
