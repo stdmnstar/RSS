@@ -17,7 +17,6 @@ Chart.pluginService.register({
       // Start with a base font of 30px
       ctx.font = `30px ${fontStyle}`;
 
-      // Get the width of the string and also the width of the element minus 10 to give it 5px side padding
       const stringWidth = ctx.measureText(txt).width;
       const elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
 
@@ -59,7 +58,7 @@ Chart.pluginService.register({
       const lines = [];
 
       // Break words up into multiple lines if necessary
-      for (var n = 0; n < words.length; n++) {
+      for (let n = 0; n < words.length; n += 1) {
         const testLine = `${line + words[n]} `;
         const metrics = ctx.measureText(testLine);
         const testWidth = metrics.width;
@@ -74,7 +73,7 @@ Chart.pluginService.register({
       // Move the center up depending on line height and number of lines
       centerY -= (lines.length / 2) * lineHeight;
 
-      for (var n = 0; n < lines.length; n++) {
+      for (let n = 0; n < lines.length; n += 1) {
         ctx.fillText(lines[n], centerX, centerY);
         centerY += lineHeight;
       }

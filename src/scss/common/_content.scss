@@ -71,12 +71,10 @@
     margin: 5px;
     display: flex;
     flex-direction: column;
-    .chart__content{
-      height: 80%;
-    }
+    justify-content: space-between;
+
     .chart__control{
       width: 95%;
-      height: 20%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;

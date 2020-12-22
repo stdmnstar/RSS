@@ -1,17 +1,13 @@
 import Chart from 'chart.js';
 import './char.plugin';
 import {
-  MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_COLORS_RGB, DATA_TIPE_ID, DATA_TIPE_CLASSES,
+  MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_COLORS_RGB, DATA_TIPE_CLASSES,
 } from './const';
 import { getCountPer100th } from './util';
 
 const graficTemplate = document.querySelector('.grafic__template');
 
-const chartsField = document.querySelector('#charts-field');
-
-const graficLinePanel = document.querySelector('.grafic__line-panel');
 const listOfDays = document.getElementById('list-of-days');
-const changeTypeBox = document.querySelector('#line');
 
 const fontFamily = "Roboto', sans-serif";
 const fontSize = 12;
@@ -154,10 +150,10 @@ export default class Grafic {
   createDataSetOut() {
     const background = this.labelsKeys.map((el) => DATA_TIPE_COLORS_HEX[el]);
     const activeColor = background[this.labelsKeys.indexOf(this.mood)];
-    const backgroundOut = background.map((el) => (el !== activeColor ? DATA_TIPE_COLORS_HEX.deafult : el));
+    const bgOut = background.map((el) => (el !== activeColor ? DATA_TIPE_COLORS_HEX.deafult : el));
     this.dataSetOut = {
       data: this.data,
-      backgroundColor: backgroundOut,
+      backgroundColor: bgOut,
     };
   }
 
@@ -229,6 +225,9 @@ export default class Grafic {
     this.type = 'line';
     this.createTimelineLabels();
     this.getLineColor();
+    this.getPointRadious();
+    this.getMaxTikcsLimitY();
+    this.getMaxTikcsLimitX();
     this.createTimelineDatasets();
     this.createLineConfig();
   }
@@ -257,6 +256,59 @@ export default class Grafic {
     this.lineColor = DATA_TIPE_COLORS_RGB[this.mood];
   }
 
+  getPointRadious() {
+    let radious;
+    switch (listOfDays.value) {
+      case '361':
+        radious = 0.5;
+        break;
+      case '181':
+        radious = 1;
+        break;
+      case '91':
+        radious = 1.5;
+        break;
+      case '31':
+        radious = 2;
+        break;
+      default:
+        radious = 3;
+        break;
+    }
+    this.pointRadious = radious;
+  }
+
+  getMaxTikcsLimitY() {
+    let tikcsLimitY;
+    switch (listOfDays.value) {
+      case '361':
+      case '181':
+        tikcsLimitY = 12;
+        break;
+      case '91':
+        tikcsLimitY = 8;
+        break;
+      default:
+        tikcsLimitY = 7;
+        break;
+    }
+    this.maxTikcsLimitY = tikcsLimitY;
+  }
+
+  getMaxTikcsLimitX() {
+    let tikcsLimitX;
+    switch (listOfDays.value) {
+      case '361':
+      case '181':
+        tikcsLimitX = 11;
+        break;
+      default:
+        tikcsLimitX = 22;
+        break;
+    }
+    this.maxTikcsLimitX = tikcsLimitX;
+  }
+
   createTimelineDatasets() {
     let magnitudes;
     if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
@@ -264,7 +316,7 @@ export default class Grafic {
     } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
       const result = [];
       magnitudes = Object.values(this.timeline[this.mood.toLowerCase().replace('today', '')]);
-      for (let i = 0; i < magnitudes.length; i++) {
+      for (let i = 0; i < magnitudes.length; i += 1) {
         if (i === 0) {
           result.push(magnitudes[i]);
         } else {
@@ -275,7 +327,7 @@ export default class Grafic {
     } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
       const result = [];
       magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
-      for (let i = 0; i < magnitudes.length; i++) {
+      for (let i = 0; i < magnitudes.length; i += 1) {
         if (i === 0) {
           result.push(magnitudes[i]);
         } else {
@@ -299,7 +351,7 @@ export default class Grafic {
       backgroundColor: `rgba(${this.lineColor}, 0.2)`,
       borderColor: `rgba(${this.lineColor}, 0.7)`,
       borderWidth: 0,
-      pointRadius: listOfDays.value === '361' ? 0.5 : listOfDays.value === '181' ? 1 : listOfDays.value === '91' ? 1.5 : listOfDays.value === '31' ? 2 : 3,
+      pointRadius: this.pointRadious,
       pointStyle: 'circle',
     };
     this.timelineDatatets = [];
@@ -340,7 +392,7 @@ export default class Grafic {
             },
             ticks: {
               beginAtZero: false,
-              maxTicksLimit: listOfDays.value === '361' ? 12 : listOfDays.value === '181' ? 12 : listOfDays.value === '91' ? 8 : 7,
+              maxTicksLimit: this.maxTikcsLimitY,
               ...commonOptions,
             },
           }],
@@ -354,7 +406,7 @@ export default class Grafic {
             },
             ticks: {
               ...commonOptions,
-              maxTicksLimit: listOfDays.value === '361' ? 11 : listOfDays.value === '181' ? 11 : listOfDays.value === '91' ? 22 : 22,
+              maxTicksLimit: this.maxTikcsLimitX,
               callback(value) {
                 let date;
                 const monthIndex = value.replace(/\/[0-9]*\/[0-9]*/, '');
@@ -405,6 +457,9 @@ export default class Grafic {
   resetLineChart() {
     this.createTimelineLabels();
     this.getLineColor();
+    this.getPointRadious();
+    this.getMaxTikcsLimitY();
+    this.getMaxTikcsLimitX();
     this.createTimelineDatasets();
     this.createLineConfig();
   }

@@ -2,11 +2,16 @@
   display: none;
 }
 
+.grafic__template {
+  display: flex;
+  justify-content: center;
+}
+
 .grafic__interactive {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  width: 100%;
+  width: 95%;
 
   &_checkbox {
     display: flex;
@@ -94,4 +99,8 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+canvas {
+  max-width: 1400px;
 }

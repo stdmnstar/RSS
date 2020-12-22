@@ -17,6 +17,9 @@ const state = {
   mood: 'cases',
 };
 
+const lineRezime = document.getElementById('line');
+const listOfDays = document.getElementById('list-of-days');
+
 export const countryObj = {
   iso2: 'global',
   get iso() { return this.iso2; },
@@ -145,9 +148,6 @@ export function table(iso2) {
   deathsDom.textContent = deaths.toLocaleString('ru-RU');
   recoveredDom.textContent = recovered.toLocaleString('ru-RU');
 }
-
-const lineRezime = document.getElementById('line');
-const listOfDays = document.getElementById('list-of-days');
 
 lineRezime.addEventListener('click', () => {
   if (!lineRezime.checked) {
