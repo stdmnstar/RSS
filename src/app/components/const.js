@@ -43,7 +43,7 @@ export const DATA_TIPE_COLORS_HEX = {
 
   todayCasesPer100th: '#FD7279',
   todayDeathsPer100th: '#8472D4',
-  todayRecoveredPer100th: '	#74E868',
+  todayRecoveredPer100th: '#74E868',
 
   deafult: '#222',
 };
@@ -84,6 +84,6 @@ export const DATA_TIPE_ID = {
   todayRecoveredPer100th: 11,
 };
 
-export const DATA_TIPE_CLASSES = [['cases', 'deaths', 'recovered'], ['todayCases', 'todayDeaths', 'todayRecovered'], ['casesPer100th', 'deathsPer100th', 'recoveredPer100th'], ['todayCasesPer100th', 'todayDeathsPer100th', 'todayRecoveredPer100th']]
+export const DATA_TIPE_CLASSES = [['cases', 'deaths', 'recovered'], ['todayCases', 'todayDeaths', 'todayRecovered'], ['casesPer100th', 'deathsPer100th', 'recoveredPer100th'], ['todayCasesPer100th', 'todayDeathsPer100th', 'todayRecoveredPer100th']];
 
 export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
