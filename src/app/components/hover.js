@@ -8,6 +8,31 @@ let div; let
 const after = document.createElement('div');
 after.classList.add('after');
 
+function opensize(e) {
+  div = e.target.parentElement;
+  if (allTF) {
+    div.classList.add('all');
+    allTF = false;
+    document.querySelector('.after').style.backgroundImage = "url('/assets/image/wrap.svg')";
+    arr.forEach((el) => {
+      const element = el;
+      if (element.classList[0] !== div.classList[0]) {
+        element.style.display = 'none';
+      }
+    });
+  } else {
+    div.classList.remove('all');
+    allTF = true;
+    document.querySelector('.after').style.backgroundImage = "url('/assets/image/deploy.svg')";
+    arr.forEach((el) => {
+      const element = el;
+      if (element.classList[0] !== div.classList[0]) {
+        element.style.display = '';
+      }
+    });
+  }
+}
+
 arr.forEach((el) => {
   el.addEventListener('mouseenter', (element) => {
     element.target.appendChild(after);
@@ -18,27 +43,3 @@ arr.forEach((el) => {
     after.removeEventListener('click', opensize);
   });
 });
-
-// document.removeChild
-function opensize(e) {
-  div = e.target.parentElement;
-  if (allTF) {
-    div.classList.add('all');
-    allTF = false;
-    document.querySelector('.after').style.backgroundImage = "url('/assets/image/wrap.svg')";
-    arr.forEach((el) => {
-      if (el.classList[0] !== div.classList[0]) {
-        el.style.display = 'none';
-      }
-    });
-  } else {
-    div.classList.remove('all');
-    allTF = true;
-    document.querySelector('.after').style.backgroundImage = "url('/assets/image/deploy.svg')";
-    arr.forEach((el) => {
-      if (el.classList[0] !== div.classList[0]) {
-        el.style.display = '';
-      }
-    });
-  }
-}
