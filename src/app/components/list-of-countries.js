@@ -19,7 +19,7 @@ function clickListOfCountries(e) {
 }
 
 export function showlistOfCountries(dataTipeFrom) {
-  listTitle.innerHTML = `${DATA_TIPE_FOR_PRINT[dataTipe]} by country`;
+  listTitle.innerHTML = `${DATA_TIPE_FOR_PRINT[dataTipeFrom]} by country`;
   data.sort((a, b) => b.[dataTipeFrom] - a.[dataTipeFrom]);
 
   const results = document.getElementById('results');
