@@ -31,7 +31,6 @@ export function showlistOfCountries(dataTipeFrom) {
   if (countryObj.iso !== 'global') {
     tempData = data.filter((country) => country.countryInfo.iso2 === countryObj.iso);
     searchTerm = tempData[0].country;
-    // searchInput.value = searchTerm;
   } else if (!search) {
     searchTerm = '';
     searchInput.value = searchTerm;
