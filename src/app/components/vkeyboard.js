@@ -333,7 +333,8 @@ function changeKeyCaps() {
     keyCapsIndex += 2;
   }
   Keyboard.elements.keys.forEach((key, index) => {
-    key.textContent = Keyboard.keyArrayLayout[index][keyCapsIndex];
+    const keyEl = key;
+    keyEl.textContent = Keyboard.keyArrayLayout[index][keyCapsIndex];
   });
 }
 
@@ -344,7 +345,8 @@ function shiftResolve(keyevent) {
     } else {
       mouseShift = false;
     }
-  } else if (keyevent.key === 'mouseup') {} else if (keyevent.type === 'keyup') {
+    // else if (keyevent.key === 'mouseup') { }
+  } else if (keyevent.type === 'keyup') {
     keyboardShift = false;
     mouseShift = false;
   } else {
@@ -398,7 +400,7 @@ function controlResolve(keyevent) {
     } else {
       mouseControl = false;
     }
-  } else if (keyevent.key === 'mouseup') {
+    //  else if (keyevent.key === 'mouseup') {}
   } else if (keyevent.type === 'keyup') {
     keyboardControl = false;
     mouseControl = false;
@@ -425,7 +427,8 @@ function altResolve(keyevent) {
     } else {
       mouseAlt = false;
     }
-  } else if (keyevent.key === 'mouseup') {} else if (keyevent.type === 'keyup') {
+    // else if (keyevent.key === 'mouseup') {}
+  } else if (keyevent.type === 'keyup') {
     keyboardAlt = false;
     mouseAlt = false;
   } else {
@@ -446,13 +449,15 @@ function altResolve(keyevent) {
 
 function inputArrowLeftToTextarea() {
   if (textarea.selectionStart > 0) {
-    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
+    textarea.selectionStart -= 1;
+    textarea.selectionEnd = textarea.selectionStart - 1;
   }
 }
 
 function inputArrowRightToTextarea() {
   if (textarea.selectionEnd < textarea.value.length) {
-    textarea.selectionStart = textarea.selectionEnd += 1;
+    textarea.selectionStart += 1;
+    textarea.selectionEnd += 1;
   }
 }
 
@@ -549,8 +554,9 @@ function keyDown(keyevent) {
         key: 'mouseup',
         code: 'ShiftLeft',
       });
-      keyevent.code = 'ShiftLeft';
-      keyevent.key = 'mouseup';
+      const keyeventEl = keyevent;
+      keyeventEl.code = 'ShiftLeft';
+      keyeventEl.key = 'mouseup';
 
       if (shiftResolve(newevent)) {
         Keyboard.elements.keys[Keyboard.controlKeys.ShiftLeft].classList.remove('keyboard__key_pressed');
