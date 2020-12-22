@@ -31,7 +31,7 @@ export function showlistOfCountries(dataTipeFrom) {
   if (countryObj.iso !== 'global') {
     tempData = data.filter((country) => country.countryInfo.iso2 === countryObj.iso);
     searchTerm = tempData[0].country;
-    searchInput.value = searchTerm;
+    // searchInput.value = searchTerm;
   } else if (!search) {
     searchTerm = '';
     searchInput.value = searchTerm;
@@ -72,7 +72,13 @@ export function listOfCounriesHandler(сountrysInfo) {
     searchTerm = e.target.value;
     const tempData = data.filter((country) => country.country.toLowerCase()
       .startsWith(searchTerm.toLowerCase()));
-    countryObj.iso = tempData.length === 1 ? tempData[0].countryInfo.iso2 : 'global';
+    const isoOld = countryObj.iso;
+    const isoNew = tempData.length === 1 ? tempData[0].countryInfo.iso2 : 'global';
+    if (isoOld !== isoNew) {
+      countryObj.iso = isoNew;
+    } else {
+      showlistOfCountries(dataTipe);
+    }
   });
   showlistOfCountries(dataTipe);
 }
