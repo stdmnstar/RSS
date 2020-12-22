@@ -1,6 +1,8 @@
 import Chart from 'chart.js';
-import './char.plugin'
-import { MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_COLORS_RGB, DATA_TIPE_ID, DATA_TIPE_CLASSES } from './const';
+import './char.plugin';
+import {
+  MONTHS, DATA_TIPE_FOR_PRINT, DATA_TIPE_COLORS_HEX, DATA_TIPE_COLORS_RGB, DATA_TIPE_ID, DATA_TIPE_CLASSES,
+} from './const';
 import { getCountPer100th } from './util';
 
 const graficTemplate = document.querySelector('.grafic__template');
@@ -36,7 +38,7 @@ export default class Grafic {
 
     // params
     this.iso = null; // Name of Country
-    this.labels = []; 
+    this.labels = [];
     this.data = [];
     this.dataSetIn = [];
     this.dataSetOut = [];
@@ -68,44 +70,44 @@ export default class Grafic {
   }
 
   initChartConfig(mood = 'cases') {
-    switch(mood) {
+    switch (mood) {
       case 'cases':
         this.labelsID = 0;
         break;
       case 'deaths':
-        this.labelsID = 0; 
+        this.labelsID = 0;
         break;
       case 'recovered':
-        this.labelsID = 0; 
+        this.labelsID = 0;
         break;
       case 'todayCases':
-        this.labelsID = 1; 
+        this.labelsID = 1;
         break;
       case 'todayDeaths':
-        this.labelsID = 1; 
+        this.labelsID = 1;
         break;
       case 'todayRecovered':
-        this.labelsID = 1; 
+        this.labelsID = 1;
         break;
       case 'casesPer100th':
-        this.labelsID = 2; 
+        this.labelsID = 2;
         break;
       case 'deathsPer100th':
-        this.labelsID = 2; 
+        this.labelsID = 2;
         break;
       case 'recoveredPer100th':
-        this.labelsID = 2; 
+        this.labelsID = 2;
         break;
       case 'todayCasesPer100th':
-        this.labelsID = 3; 
+        this.labelsID = 3;
         break;
       case 'todayDeathsPer100th':
-        this.labelsID = 3; 
+        this.labelsID = 3;
         break;
       default:
-        this.labelsID = 3; 
+        this.labelsID = 3;
         break;
-    };
+    }
     this.mood = mood;
     this.createChartLabels();
     this.initDatasets();
@@ -126,7 +128,7 @@ export default class Grafic {
     if (this.labelsID === 0 || this.labelsID === 1) {
       this.labelsValues = this.labelsKeys.map((el) => this.config[el]);
     } else {
-      let keysValue = this.labelsKeys.map((el) => el.replace('Per100th', ''))
+      const keysValue = this.labelsKeys.map((el) => el.replace('Per100th', ''));
       this.labelsValues = keysValue.map((el) => this.config[el]);
     }
     this.listOfData = this.labelsValues;
@@ -136,41 +138,41 @@ export default class Grafic {
     if (this.labelsID === 0 || this.labelsID === 1) {
       this.data = this.listOfData;
     } else {
-      this.data = this.listOfData.map((el) => getCountPer100th(el, this.config.population))
+      this.data = this.listOfData.map((el) => getCountPer100th(el, this.config.population));
     }
-    this.activeNumber = this.data[this.labelsKeys.indexOf(this.mood)]
+    this.activeNumber = this.data[this.labelsKeys.indexOf(this.mood)];
   }
 
   createDataSetIn() {
-    let backgroundIn = this.labelsKeys.map((el) => DATA_TIPE_COLORS_HEX[el])
+    const backgroundIn = this.labelsKeys.map((el) => DATA_TIPE_COLORS_HEX[el]);
     this.dataSetIn = {
       data: this.data,
       backgroundColor: backgroundIn,
-    }
+    };
   }
 
   createDataSetOut() {
-    let background = this.labelsKeys.map((el) => DATA_TIPE_COLORS_HEX[el]);
-    let activeColor = background[this.labelsKeys.indexOf(this.mood)]
-    let backgroundOut = background.map((el) => el !== activeColor ? DATA_TIPE_COLORS_HEX.deafult : el);
+    const background = this.labelsKeys.map((el) => DATA_TIPE_COLORS_HEX[el]);
+    const activeColor = background[this.labelsKeys.indexOf(this.mood)];
+    const backgroundOut = background.map((el) => (el !== activeColor ? DATA_TIPE_COLORS_HEX.deafult : el));
     this.dataSetOut = {
       data: this.data,
       backgroundColor: backgroundOut,
-    }
+    };
   }
 
   createChartConfig() {
     this.chartConfig = {
       type: this.type,
       data: {
-      labels: this.labels,
-      datasets: [
-        this.dataSetOut, 
-      { 
-        weight: 0,
-      },
-      this.dataSetIn
-      ],
+        labels: this.labels,
+        datasets: [
+          this.dataSetOut,
+          {
+            weight: 0,
+          },
+          this.dataSetIn,
+        ],
       },
       options: {
         title: {
@@ -192,21 +194,21 @@ export default class Grafic {
             bottom: 10,
           },
         },
-        responsive: true, 
+        responsive: true,
         maintainAspectRatio: true,
         cutoutPercentage: 80,
         elements: {
           center: {
             text: `Common ${this.activeLabel} in ${this.iso} equals ${this.activeNumber}`,
-            color: fontColor, 
-            fontStyle: 'Arial', 
-            sidePadding: 20, 
-            minFontSize: 12, 
-            lineHeight: 12, 
-          }
-        }
+            color: fontColor,
+            fontStyle: 'Arial',
+            sidePadding: 20,
+            minFontSize: 12,
+            lineHeight: 12,
+          },
+        },
       },
-    }
+    };
   }
 
   createChartTemplate() {
@@ -220,9 +222,9 @@ export default class Grafic {
   setPeriodData(data) {
     this.data = data;
     if (data.country) {
-      this.timeline = data.timeline
+      this.timeline = data.timeline;
     } else {
-      this.timeline = data
+      this.timeline = data;
     }
     this.type = 'line';
     this.createTimelineLabels();
@@ -244,10 +246,10 @@ export default class Grafic {
       this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
     } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
       this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
-    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th'){
+    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
       this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
     } else {
-      this.timelineLabels = Object.keys(this.timeline[this.mood])
+      this.timelineLabels = Object.keys(this.timeline[this.mood]);
     }
   }
 
@@ -260,24 +262,24 @@ export default class Grafic {
     if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
       magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '')]).map((el) => getCountPer100th(el, this.config.population));
     } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
-      let result = [];
+      const result = [];
       magnitudes = Object.values(this.timeline[this.mood.toLowerCase().replace('today', '')]);
       for (let i = 0; i < magnitudes.length; i++) {
         if (i === 0) {
-          result.push(magnitudes[i])
+          result.push(magnitudes[i]);
         } else {
-          result.push(magnitudes[i] - magnitudes[i - 1])
+          result.push(magnitudes[i] - magnitudes[i - 1]);
         }
       }
       magnitudes = result;
-    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th'){
-      let result = [];
+    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
+      const result = [];
       magnitudes = Object.values(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
       for (let i = 0; i < magnitudes.length; i++) {
         if (i === 0) {
-          result.push(magnitudes[i])
+          result.push(magnitudes[i]);
         } else {
-          result.push(magnitudes[i] - magnitudes[i - 1])
+          result.push(magnitudes[i] - magnitudes[i - 1]);
         }
       }
       magnitudes = result.map((el) => getCountPer100th(el, this.config.population));
@@ -286,20 +288,20 @@ export default class Grafic {
     }
 
     this.timelineLabels = this.timelineLabels.slice(1);
-    magnitudes = magnitudes.slice(1)
+    magnitudes = magnitudes.slice(1);
 
     const newData = {
-        label: DATA_TIPE_FOR_PRINT[this.mood],
-        data: magnitudes,
-        pointColor: `rgba(${this.lineColor}, 1)`,
-        pointStrokeColor: '#202b33',
-        pointHighlightStroke: 'rgba(225,225,225,0.9)',
-        backgroundColor: `rgba(${this.lineColor}, 0.2)`,
-        borderColor: `rgba(${this.lineColor}, 0.7)`,
-        borderWidth: 0,
-        pointRadius: listOfDays.value === '361' ? 0.5 : listOfDays.value === '181' ? 1 : listOfDays.value === '91' ? 1.5 : listOfDays.value === '31' ? 2 : 3,
-        pointStyle: 'circle',
-      };
+      label: DATA_TIPE_FOR_PRINT[this.mood],
+      data: magnitudes,
+      pointColor: `rgba(${this.lineColor}, 1)`,
+      pointStrokeColor: '#202b33',
+      pointHighlightStroke: 'rgba(225,225,225,0.9)',
+      backgroundColor: `rgba(${this.lineColor}, 0.2)`,
+      borderColor: `rgba(${this.lineColor}, 0.7)`,
+      borderWidth: 0,
+      pointRadius: listOfDays.value === '361' ? 0.5 : listOfDays.value === '181' ? 1 : listOfDays.value === '91' ? 1.5 : listOfDays.value === '31' ? 2 : 3,
+      pointStyle: 'circle',
+    };
     this.timelineDatatets = [];
     this.timelineDatatets.push(newData);
   }
@@ -392,7 +394,7 @@ export default class Grafic {
     this.createChartTemplate();
     graficTemplate.innerHTML = '&nbsp;';
     graficTemplate.append(this.chartField);
-    var ctx = document.querySelector('#charts-field').getContext("2d");
+    const ctx = document.querySelector('#charts-field').getContext('2d');
     this.chart = new Chart(ctx, this.chartConfig);
   }
 
@@ -407,7 +409,3 @@ export default class Grafic {
     this.createLineConfig();
   }
 }
-
-
-
-

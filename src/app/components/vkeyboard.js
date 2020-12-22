@@ -5,7 +5,7 @@ const spaceSimbol = '';
 const arrowRightSimbol = String.fromCharCode(8594);
 const arrowLeftSimbol = String.fromCharCode(8592);
 const arrowUpSimbol = '🎤';
-const arrowDownSimbol = '🔇';
+const arrowDownSimbol = '🔻';
 const ContextMenuSimbol = '©';
 
 const inputEvent = new InputEvent('input', {
@@ -242,7 +242,6 @@ const Keyboard = {
           break;
         case 'SoundArrowDown':
           keyElement.classList.add('keyboard__key_control');
-          keyElement.classList.add('keyboard__key-ON');
           break;
         case 'ArrowRight':
           keyElement.classList.add('keyboard__key_control');
@@ -288,43 +287,12 @@ let globalShift = false;
 let globalCtrl = false;
 let globalAlt = false;
 let globalSpeechON = false;
-let globalSoundON = true;
 let mouseControl = false;
 let mouseShift = false;
 let mouseAlt = false;
 let keyboardShift = false;
 let keyboardAlt = false;
 let keyboardControl = false;
-
-function playSound(event) {
-  if (globalSoundON) {
-    return;
-  }
-  const audio = new Audio();
-  switch (event) {
-    case 'Enter':
-      audio.src = '../../assets/audio/enter.wav';
-      break;
-    case 'ShiftLeft':
-      audio.src = '../../assets/audio/shift.wav';
-      break;
-    case 'CapsLock':
-      audio.src = '../../assets/audio/caplock.wav';
-      break;
-    case 'Backspace':
-      audio.src = '../../assets/audio/backspace.wav';
-      break;
-
-    default:
-      audio.src = '../../assets/audio/en.wav';
-      break;
-  }
-  if (!audio) {
-    return;
-  }
-  audio.currentTime = 0;
-  audio.play();
-}
 
 function inputBackspaceToTextarea() {
   const start = textarea.selectionStart;
@@ -478,15 +446,13 @@ function altResolve(keyevent) {
 
 function inputArrowLeftToTextarea() {
   if (textarea.selectionStart > 0) {
-    textarea.selectionEnd = textarea.selectionStart - 1;
-    textarea.selectionStart = textarea.selectionEnd;
+    textarea.selectionStart = textarea.selectionEnd = textarea.selectionStart - 1;
   }
 }
 
 function inputArrowRightToTextarea() {
   if (textarea.selectionEnd < textarea.value.length) {
-    textarea.selectionEnd += 1;
-    textarea.selectionStart = textarea.selectionEnd;
+    textarea.selectionStart = textarea.selectionEnd += 1;
   }
 }
 
@@ -536,8 +502,7 @@ function controlKeyProcessing(keyevent) {
       inputArrowLeftToTextarea();
       break;
     case 'SoundArrowDown':
-      Keyboard.elements.keys[Keyboard.controlKeys.SoundArrowDown].classList.toggle('keyboard__key-ON');
-      globalSoundON = !globalSoundON;
+      document.querySelector('.keyboard').classList.add('keyboard--hidden');
       break;
     case 'ArrowRight':
       inputArrowRightToTextarea();
@@ -550,7 +515,6 @@ function controlKeyProcessing(keyevent) {
 function keyDown(keyevent) {
   keyevent.preventDefault();
   if (keyevent.code in Keyboard.keyArrayDecode) {
-    playSound(keyevent.code);
     const keyNum = Keyboard.keyArrayDecode[keyevent.code];
     Keyboard.elements.keys[keyNum].classList.add('keyboard__key_pressed');
     textarea.focus();

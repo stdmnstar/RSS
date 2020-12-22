@@ -1,5 +1,7 @@
 import { DATA_TIPE } from './const';
-import { countryObj, objMap, table, objGrafic } from '../../index';
+import {
+  countryObj, objMap, table, objGrafic,
+} from '../../index';
 import { showlistOfCountries } from './list-of-countries';
 
 const lineRezime = document.getElementById('line');
@@ -48,5 +50,3 @@ export function change() {
   }
   objGrafic.addChart();
 }
-
-

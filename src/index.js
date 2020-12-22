@@ -5,14 +5,16 @@ import './app/components/vkeyboard';
 import Map from './app/components/map';
 import Grafic from './app/components/Grafic';
 import { rejime, change } from './app/components/change';
-import { getCountrysInfo, getGlobalInfo, getCountryPeriod, getCountryInfo } from './app/components/api';
+import {
+  getCountrysInfo, getGlobalInfo, getCountryPeriod, getCountryInfo,
+} from './app/components/api';
 import { listOfCounriesHandler } from './app/components/list-of-countries';
 import { DATA_TIPE } from './app/components/const';
 import { getCountPer100th, getCountPer100thFromMillion } from './app/components/util';
 
 const state = {
   days: 361,
-  mood: 'cases'
+  mood: 'cases',
 };
 
 export const countryObj = {
@@ -33,26 +35,26 @@ export let objGrafic;
 let сountrysInfo; let allIfo;
 
 async function getData() {
-  const {days, mood} = state;
+  const { days, mood } = state;
   if (countryObj.iso2 === 'global') {
-    let globalInfo = await getGlobalInfo();
+    const globalInfo = await getGlobalInfo();
     objGrafic = new Grafic(globalInfo);
-    if (!lineRezime.checked ) {
-      let globalPeriodInfo = await getCountryPeriod('ALL', days);
+    if (!lineRezime.checked) {
+      const globalPeriodInfo = await getCountryPeriod('ALL', days);
       objGrafic.changeMood(mood);
-      objGrafic.setPeriodData(globalPeriodInfo)
+      objGrafic.setPeriodData(globalPeriodInfo);
       objGrafic.addChart();
     } else {
       objGrafic.initChartConfig();
       objGrafic.addChart();
     }
   } else {
-    let countryInfo = await getCountryInfo(countryObj.iso2);
+    const countryInfo = await getCountryInfo(countryObj.iso2);
     objGrafic = new Grafic(countryInfo);
     if (!lineRezime.checked) {
-      let countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
+      const countryPeriodInfo = await getCountryPeriod(countryObj.iso2, days);
       objGrafic.changeMood(mood);
-      objGrafic.setPeriodData(countryPeriodInfo)
+      objGrafic.setPeriodData(countryPeriodInfo);
       objGrafic.addChart();
     } else {
       objGrafic.initChartConfig();
@@ -154,12 +156,12 @@ lineRezime.addEventListener('click', () => {
     }
     getData();
   } else {
-    objGrafic.changeTypeOfChart()
+    objGrafic.changeTypeOfChart();
     objGrafic.initChartConfig(state.mood);
     objGrafic.addChart();
   }
   listOfDays.classList.toggle('hidden');
-})
+});
 
 listOfDays.addEventListener('change', () => {
   if (rejime) {
@@ -168,4 +170,3 @@ listOfDays.addEventListener('change', () => {
   state.days = listOfDays.value;
   getData();
 });
-
