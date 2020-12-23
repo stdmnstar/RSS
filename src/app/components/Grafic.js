@@ -10,7 +10,7 @@ const graficTemplate = document.querySelector('.grafic__template');
 const listOfDays = document.getElementById('list-of-days');
 
 const fontFamily = "Roboto', sans-serif";
-const fontSize = 12;
+let fontSize = 12;
 const fontWeight = 200;
 const fontColor = '#DDDDDD';
 
@@ -54,6 +54,8 @@ export default class Grafic {
     this.listOfData = [];
     this.activeLabel = '';
     this.labelsID = 0;
+    this.lastTikcsLimitY = 8;
+    this.maxTikcsLimitY = 4;
 
     // elements
     this.el = null;
@@ -62,6 +64,29 @@ export default class Grafic {
       this.iso = config.country;
     } else {
       this.iso = 'All World';
+    }
+
+    window.onresize = () => {
+      this.getWindowParams();
+      if (this.lastTikcsLimitY !== this.maxTikcsLimitY) {
+        if (this.type === 'line') {
+          this.createLineConfig();
+        } else {
+          this.createChartConfig();
+        }
+        this.addChart();
+        this.lastTikcsLimitY = this.maxTikcsLimitY;
+      }
+    }
+  }
+
+  getWindowParams() {
+    if (window.innerWidth < 1260 && window.innerWidth >= 1023) {
+      this.maxTikcsLimitY = 4;
+      fontSize = 10;
+    } else {
+      this.maxTikcsLimitY = 8;
+      fontSize = 12;
     }
   }
 
@@ -111,6 +136,7 @@ export default class Grafic {
     this.createDataSetIn();
     this.createDataSetOut();
     this.datasets = this.listOfData;
+    this.getWindowParams();
     this.createChartConfig();
   }
 
@@ -179,15 +205,15 @@ export default class Grafic {
         legend: {
           labels: {
             fontColor,
-            fontSize: 12,
+            fontSize: fontSize,
           },
         },
         layout: {
           padding: {
             left: 0,
             right: 10,
-            top: 10,
-            bottom: 10,
+            top: 0,
+            bottom: 0,
           },
         },
         responsive: true,
@@ -195,12 +221,12 @@ export default class Grafic {
         cutoutPercentage: 80,
         elements: {
           center: {
-            text: `Common ${this.activeLabel} in ${this.iso} equals ${this.activeNumber}`,
+            text: `Common ${this.activeLabel} in ${this.iso} ${this.activeNumber}`,
             color: fontColor,
             fontStyle: 'Arial',
-            sidePadding: 20,
-            minFontSize: 12,
-            lineHeight: 12,
+            sidePadding: 10,
+            minFontSize: fontSize - 2,
+            lineHeight: fontSize,
           },
         },
       },
@@ -211,7 +237,7 @@ export default class Grafic {
     const chartWrapper = document.createElement('canvas');
     chartWrapper.setAttribute('id', 'charts-field');
     chartWrapper.setAttribute('width', '200');
-    chartWrapper.setAttribute('height', '95');
+    // chartWrapper.setAttribute('height', '95');
     this.chartField = chartWrapper;
   }
 
@@ -226,9 +252,9 @@ export default class Grafic {
     this.createTimelineLabels();
     this.getLineColor();
     this.getPointRadious();
-    this.getMaxTikcsLimitY();
     this.getMaxTikcsLimitX();
     this.createTimelineDatasets();
+    this.getWindowParams();
     this.createLineConfig();
   }
 
@@ -241,14 +267,18 @@ export default class Grafic {
   }
 
   createTimelineLabels() {
-    if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
-      this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
-    } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
-      this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
-    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
-      this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
+    if (!this.mood) {
+      setTimeout(this.createTimelineLabels, 2000)
     } else {
-      this.timelineLabels = Object.keys(this.timeline[this.mood]);
+      if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
+        this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
+      } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
+        this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
+      } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
+        this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
+      } else {
+        this.timelineLabels = Object.keys(this.timeline[this.mood]);
+      }
     }
   }
 
@@ -278,23 +308,6 @@ export default class Grafic {
     this.pointRadious = radious;
   }
 
-  getMaxTikcsLimitY() {
-    let tikcsLimitY;
-    switch (listOfDays.value) {
-      case '361':
-      case '181':
-        tikcsLimitY = 12;
-        break;
-      case '91':
-        tikcsLimitY = 8;
-        break;
-      default:
-        tikcsLimitY = 7;
-        break;
-    }
-    this.maxTikcsLimitY = tikcsLimitY;
-  }
-
   getMaxTikcsLimitX() {
     let tikcsLimitX;
     switch (listOfDays.value) {
@@ -303,7 +316,7 @@ export default class Grafic {
         tikcsLimitX = 11;
         break;
       default:
-        tikcsLimitX = 22;
+        tikcsLimitX = 11;
         break;
     }
     this.maxTikcsLimitX = tikcsLimitX;
@@ -371,11 +384,12 @@ export default class Grafic {
           text: this.iso,
           fontColor,
           fontSize,
+          padding: 0,
         },
         legend: {
           labels: {
             fontColor,
-            fontSize: 12,
+            fontSize: fontSize + 2,
           },
         },
         tooltips: {
@@ -394,15 +408,26 @@ export default class Grafic {
               beginAtZero: false,
               maxTicksLimit: this.maxTikcsLimitY,
               ...commonOptions,
+              callback(value) {
+                let number = String(value);
+                if (number.length > 6) {
+                  number = `${number.slice(0, -6)}M`;
+                } else if (number.length > 3) {
+                  number = `${number.slice(0, -3)}K`;
+                } else {
+                  number = number;
+                }
+                return number;
+              },
             },
           }],
           xAxes: [{
             scaleLabel: {
               display: true,
               labelString: 'Dates',
-              padding: 5,
+              padding: 0,
               fontColor,
-              fontSize: fontSize + 4,
+              fontSize: fontSize + 2,
             },
             ticks: {
               ...commonOptions,
@@ -458,9 +483,10 @@ export default class Grafic {
     this.createTimelineLabels();
     this.getLineColor();
     this.getPointRadious();
-    this.getMaxTikcsLimitY();
     this.getMaxTikcsLimitX();
     this.createTimelineDatasets();
+    this.getWindowParams();
     this.createLineConfig();
   }
 }
+
