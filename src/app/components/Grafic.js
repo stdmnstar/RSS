@@ -77,7 +77,7 @@ export default class Grafic {
         this.addChart();
         this.lastTikcsLimitY = this.maxTikcsLimitY;
       }
-    }
+    };
   }
 
   getWindowParams() {
@@ -205,7 +205,7 @@ export default class Grafic {
         legend: {
           labels: {
             fontColor,
-            fontSize: fontSize,
+            fontSize,
           },
         },
         layout: {
@@ -268,17 +268,15 @@ export default class Grafic {
 
   createTimelineLabels() {
     if (!this.mood) {
-      setTimeout(this.createTimelineLabels, 2000)
+      setTimeout(this.createTimelineLabels, 2000);
+    } else if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
+      this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
+    } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
+      this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
+    } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
+      this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
     } else {
-      if (this.mood === 'casesPer100th' || this.mood === 'deathsPer100th' || this.mood === 'recoveredPer100th') {
-        this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '')]);
-      } else if (this.mood === 'todayCases' || this.mood === 'todayDeaths' || this.mood === 'todayRecovered') {
-        this.timelineLabels = Object.keys(this.timeline[this.mood.toLowerCase().replace('today', '')]);
-      } else if (this.mood === 'todayCasesPer100th' || this.mood === 'todayDeathsPer100th' || this.mood === 'todayRecoveredPer100th') {
-        this.timelineLabels = Object.keys(this.timeline[this.mood.replace('Per100th', '').toLowerCase().replace('today', '')]);
-      } else {
-        this.timelineLabels = Object.keys(this.timeline[this.mood]);
-      }
+      this.timelineLabels = Object.keys(this.timeline[this.mood]);
     }
   }
 
@@ -415,7 +413,7 @@ export default class Grafic {
                 } else if (number.length > 3) {
                   number = `${number.slice(0, -3)}K`;
                 } else {
-                  number = number;
+                  number = String(value);
                 }
                 return number;
               },
@@ -489,4 +487,3 @@ export default class Grafic {
     this.createLineConfig();
   }
 }
-
