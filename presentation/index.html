@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>TypeScript</h1>
+			</section>
+			<section>
+				<section id="fragments">
+					<h2>What is TypeScript?</h2>
+					<ul>
+						<li class="fragment">TypeScript is JavaScript for application-scale development</li>
+						<li class="fragment">TypeScript is JavaScript plus some additional features</li>
+					</ul>
+					<img class="fragment" src="./img/typescript.jpg" alt="typescript">
+				</section>
+			</section>
+			<section>
+				<section id="fragments">
+					<h2>Features of TypeScript</h2>
+					<ul>
+						<li class="fragment">TypeScript is just JavaScript</li>
+						<li class="fragment">TypeScript supports other JS libraries</li>
+						<li class="fragment">JavaScript is TypeScript</li>
+						<li class="fragment">TypeScript is portable</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<h2>TypeScript and ECMAScript</h2>
+				<img src="./img/typescript-ecma.jpg" alt="typescript">
+			</section>
+			<section>
+				<section id="fragments">
+					<h2>Why Use TypeScript?</h2>
+					<ul>
+						<li class="fragment">Compilation</li>
+						<li class="fragment">Strong Static Typing</li>
+						<li class="fragment">Supports type definitions</li>
+						<li class="fragment">Supports Object Oriented Programming</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<h2>Components of TypeScript</h2>
+				<img src="./img/components.jpg" alt="components">
+				<ul>
+					<li>Language</li>
+					<li>The TypeScript Compiler</li>
+					<li>The TypeScript Language Service</li>
+				</ul>
+				
+			</section>
+			<section>
+				<h2>How to use TypeScript</h2>
+			</section>
+			<section>
+				<section>
+					<h2>Commonly used types</h2>
+					<h3>Boolean</h3>
+					<p>A simple true/false value</p>
+					<img src="./img/boolean.png" alt="boolean">
+				</section>
+				<section>
+					<h3>Number</h3>
+					<p>A number is a floating-point value. Hexadecimal, decimals, binary and octal literals are also
+						supported</p>
+					<img src="./img/number.png" alt="number">
+				</section>
+				<section>
+					<h3>String</h3>
+					<p>A simple textual type</p>
+					<img src="./img/string.png" alt="string">
+				</section>
+				<section>
+					<h3>Array</h3>
+					<p>A simple array can be written a few different ways</p>
+					<img src="./img/array.png" alt="array">
+				</section>
+				<section>
+					<h3>Tuple</h3>
+					<p>An array with a fixed number of elements where you know the types of the values, but an element
+						in the array doesn’t have to be the same type</p>
+					<img src="./img/tuple.png" alt="tuple">
+				</section>
+				<section>
+					<h3>Object </h3>
+					<p>Object, as the name says, is the type for objects or technically speaking Non-Primitive data
+						types. There are two ways of typing objects:</p>
+					<img src="./img/object.png" alt="object">
+				</section>
+				<section>
+					<h3>Any</h3>
+					<p>The types that will allow everything</p>
+					<img src="./img/any.png" alt="any">
+				</section>
+				<section>
+					<h3>Undefined and Null</h3>
+					<img src="./img/null.png" alt="null">
+				</section>
+				<section>
+					<h3>Never</h3>
+					<p>The never type is the type of value that never occurs</p>
+					<img src="./img/never.png" alt="never">
+				</section>
+				<section>
+					<h3>Void</h3>
+					<p>A Void type means that there is no type</p>
+					<img src="./img/void.png" alt="void">
+				</section>
+			</section>
+			<section>
+				<section id="fragments">
+					<h2>Typing variables</h2>
+					<img src="./img/var1.png" alt="null">
+					<img class="fragment" src="./img/var2.png" alt="null">
+				</section>
+			</section>
+			<section>
+				<h3>Typing functions / return types for functions</h3>
+				<img src="./img/function.png" alt="function">
+			</section>
+			<section>
+				<section>
+					<h2>Interfaces</h2>
+					<img src="./img/interface1.png" alt="interface">
+				</section>
+				<section>
+					<h3>extending interfaces </h3>
+					<img src="./img/interface2.png" alt="interface">
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Types </h2>
+					<p>Types are similar to interfaces and can be used to type more complex data structures</p>
+					<img src="./img/type1.png" alt="type">
+				</section>
+				<section>
+					<h3>extending type</h3>
+					<img src="./img/type2.png" alt="type1">
+				</section>
+			</section>
+			<section>
+				<h2>Interfaces vs types </h2>
+				<p>Type interfaces are similar but there are some differences:</p>
+				<ul>
+					<li>If you declare an interface with the same name twice Typescript will merge them into one</li>
+					<li>Interfaces can only be used for object types but a type can be used for primitive data objects like strings, booleans, numbers, etc.</li>
+					<li>Type aliases can use computed properties</li>
+				</ul>
+			</section>
+			<section>
+				<section>
+					<h2>Generics</h2>
+					<img src="./img/generic1.png" alt="generic">
+				</section>
+				<section>
+					<h3>extending interfaces </h3>
+					<img src="./img/generic2.png" alt="generic">
+				</section>
+			</section>	
+			<section>
+				<h2>End</h2>
+			</section>		
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
